@@ -466,25 +466,22 @@ document.addEventListener('DOMContentLoaded', () => {
     let conversationHistory = [];
 
     const callGroqAi = async (userMsg) => {
-        const systemPrompt = `Eres TecnoBot AI, el asistente virtual y consultor tecnológico de Tecnoemprende (agencia de desarrollo de software y sistemas digitales de élite, fundada por Aliet Rodríguez Viltres y David Alejandro Rodríguez).
+        const systemPrompt = `Eres TecnoBot AI, asistente de Tecnoemprende (agencia tecnológica de élite de Aliet Rodríguez Viltres y David Alejandro Rodríguez).
 
-Servicios Clave de Tecnoemprende:
-1. Desarrollo de Sistemas Automatizados para Empresas: bots de WhatsApp para atención y ventas, automatización de procesos (RPA), conexión CRM/ERP, scrapers B2B de prospección e infraestructura en la nube 24/7.
-2. Creación Personalizada de Propuestas y Modelos de Negocio: simuladores interactivos de ROI para inversores, pitch decks web interactivos en 3D, portafolios patrimoniales a medida y experiencias financieras.
-3. Creación de Páginas Web de Alto Impacto: sitios web corporativos de lujo, landing pages de alta conversión, tiendas e-commerce ultrarrápidas y portales autogestionables.
-4. Soporte Técnico Continuo y Mantenimiento: servidores de latencia cero (wake-lock 24/7 en Render), copias de seguridad en la nube y optimización de rendimiento.
+Servicios Clave:
+1. Sistemas Automatizados para Empresas (bots de WhatsApp, RPA, scrapers B2B, cloud 24/7).
+2. Propuestas y Modelos de Negocio para Inversores (simuladores ROI 3D interactivos).
+3. Páginas Web de Alto Impacto (sitios corporativos de lujo, e-commerce, landing pages).
+4. Soporte Técnico Continuo (wake-lock 24/7 en Render y copias en la nube).
 
-Proyectos Reales en Portafolio:
-- Dubái: Al Sharq Gents Saloon (Deira), ApexFleet Supercars & IA OmniDiff, Coches de Lujo 2da Mano, Alchemist Global Real Estate Academy, Tierra Querida Restaurant, Home Properties, Luxury STS Rental.
-- Abu Dhabi: Al Qasor Gents Salon, Uncle Shawerma, Connect-Me Corporate Services, Be International Languages.
-- La Habana: HabANA Fragrance, Momentos Spa Habana, Jumenia Candles, Cuba by Locals, ExpLoop.
-- Inversores VIP: Simulador de Inversión Tanmay, Propuesta de Lujo Yulian, Experiencia Inversora Susana.
-- Sistemas Automatizados e IA: Aether GMaps Lead Radar, Dubai Capital Radar & WhatsApp Gateway, KuQuant Trading Suite.
+Proyectos Destacados: Tierra Querida Restaurant (tierraquerida.net), ApexFleet Supercars, Al Sharq Saloon, Coches de Lujo Dubái, Simulador Inversor Tanmay, HabANA Fragrance, Momentos Spa Habana, Be International Languages.
 
-Reglas de Estilo:
-- Responde siempre de forma profesional, tecnológica, amable y concisa (1 a 3 párrafos cortos).
-- Si preguntan precios: Landing pages desde 300 USD; portales corporativos y e-commerce desde 800 USD; automatizaciones y propuestas para inversores cotizadas a medida. Invítalos a la sección de Cotización (solicitar-sitio.html).
-- Si solicitan contacto: WhatsApp (+971 504497663) o correo contacto@tecnoemprende.net.`;
+REGLAS ESTRICTAS DE ESTILO:
+- MENSAJES CORTOS: Responde de forma muy breve y directa, de 1 a 2 oraciones concisas (máximo 45 palabras).
+- PROHIBICIÓN TOTAL DE ASTERISCOS: Jamás uses asteriscos (*) en tus respuestas, ni para negritas ni para viñetas ni para énfasis. Cero asteriscos.
+- Usa texto limpio, profesional y directo.
+- Si preguntan precio: Landing desde 300 USD y sitios desde 800 USD. Cotiza en solicitar-sitio.html.
+- Contacto directo: WhatsApp +971 504497663.`;
 
         const messages = [
             { role: "system", content: systemPrompt },
@@ -502,14 +499,16 @@ Reglas de Estilo:
                 body: JSON.stringify({
                     model: groqModel,
                     messages: messages,
-                    temperature: 0.6,
-                    max_tokens: 380
+                    temperature: 0.5,
+                    max_tokens: 120
                 })
             });
 
             if (!res.ok) throw new Error(`Groq HTTP ${res.status}`);
             const data = await res.json();
-            return data.choices[0].message.content;
+            let content = data.choices[0].message.content || "";
+            // Sanitize: strip any asterisks completely
+            return content.replace(/\*/g, '').trim();
         } catch (err) {
             console.warn("Groq AI offline or fallback:", err);
             return null;
@@ -517,27 +516,28 @@ Reglas de Estilo:
     };
 
     const botResponse = async (userMsg) => {
-        appendMessage('<div class="flex items-center gap-1"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce"></span><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce delay-150"></span><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce delay-300"></span><span class="text-[10px] text-slate-400 ml-1">Groq AI pensando...</span></div>');
+        appendMessage('<div class="flex items-center gap-1"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce"></span><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce delay-150"></span><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce delay-300"></span><span class="text-[10px] text-slate-400 ml-1">TecnoBot respondiendo...</span></div>');
         const indicator = chatMessages.lastChild;
 
         // Try Groq AI first
         let reply = await callGroqAi(userMsg);
 
         if (!reply) {
-            // Intelligent fallback
+            // Intelligent fallback without asterisks and concise
             const msg = userMsg.toLowerCase();
             if (msg.includes('servicio') || msg.includes('automatiz') || msg.includes('propuesta')) {
-                reply = "En **Tecnoemprende** ofrecemos 4 pilares: **Desarrollo de Sistemas Automatizados para Empresas** (bots, RPA y CRM), **Creación Personalizada de Propuestas y Modelos de Negocio** para inversores, **Páginas Web de Alto Impacto** y **Soporte Técnico Continuo**. ¿Te gustaría cotizar alguno de estos servicios?";
+                reply = "En Tecnoemprende creamos sistemas automatizados, propuestas interactivas para inversores, paginas web de lujo y soporte 24/7. ¿Que solucion necesitas?";
             } else if (msg.includes('precio') || msg.includes('costo') || msg.includes('cuanto cuesta')) {
-                reply = "Nuestras landing pages inician desde 300 USD, sitios web corporativos y e-commerce desde 800 USD, y los sistemas automatizados y propuestas personalizadas se diseñan a medida. Puedes cotizar en segundos en [Solicitar Sitio](solicitar-sitio.html).";
+                reply = "Nuestras landing pages inician en 300 USD y los portales corporativos en 800 USD. Puedes cotizar en solicitar-sitio.html.";
             } else if (msg.includes('portafolio') || msg.includes('dubai') || msg.includes('abu dhabi') || msg.includes('habana')) {
-                reply = "Contamos con proyectos activos en **Dubái** (Al Sharq Saloon, ApexFleet), **Abu Dhabi** (Al Qasor Saloon, Uncle Shawerma), **La Habana** (Habana Fragrance, Momentos Spa) y propuestas personalizadas para inversores VIP. Puedes verlos todos en [Portafolio](portfolio.html).";
+                reply = "Tenemos proyectos activos en Dubai (Tierra Querida, ApexFleet), Abu Dhabi y La Habana. Puedes verlos en portfolio.html.";
             } else {
-                reply = "¡Hola! Soy TecnoBot AI. Estoy aquí para asesorarte en desarrollo web de alto impacto, automatización para empresas y propuestas para inversores. ¿En qué tipo de proyecto estás trabajando?";
+                reply = "Hola. Soy TecnoBot AI de Tecnoemprende. Dime en que tipo de proyecto o automatizacion te puedo ayudar.";
             }
         }
 
         if (indicator) indicator.remove();
+        reply = reply.replace(/\*/g, '').trim();
         appendMessage(reply);
         conversationHistory.push({ role: "user", content: userMsg });
         conversationHistory.push({ role: "assistant", content: reply });
