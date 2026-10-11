@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Admin Dashboard | Tecnoemprende - Panel de Control</title>
+    <meta name="description" content="Panel de control del administrador de Tecnoemprende. Monitorea estadísticas de clientes y gestiona el portafolio dinámico."/>
+    <meta name="keywords" content="dashboard admin, estadisticas clientes"/>
+    <meta name="robots" content="index, follow"/>
+    <meta property="og:title" content="Admin Dashboard | Tecnoemprende - Panel de Control"/>
+    <meta property="og:description" content="Panel de control del administrador de Tecnoemprende. Monitorea estadísticas de clientes y gestiona el portafolio dinámico."/>
+    <meta property="og:image" content="assets/logo_web.png"/>
+    <meta property="og:type" content="website"/>
+    
+    <!-- Fonts -->
+    <link href="index.css" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#006877",
+                        secondary: "#24638e",
+                        tertiary: "#00a9bd",
+                        background: "#f9f9ff",
+                        "on-background": "#141b2b",
+                        surface: "#ffffff",
+                        "on-surface": "#141b2b",
+                        "on-surface-variant": "#3d494c",
+                        "outline-variant": "#bcc9cc",
+                        "primary-fixed": "#a5eeff",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "secondary-fixed-dim": "#94ccfd"
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                    maxWidth: {
+                        'container-max': '1280px',
+                    },
+                    spacing: {
+                        'margin-desktop': '64px',
+                        'margin-mobile': '20px',
+                        'gutter': '24px',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .dashboard-tab-active {
+            background-color: rgba(0, 104, 119, 0.1);
+            color: #006877;
+            font-weight: 700;
+        }
+        .dark .dashboard-tab-active {
+            background-color: rgba(88, 215, 240, 0.1);
+            color: #58d7f0;
+        }
+    </style>
+</head>
+<body class="bg-background dark:bg-slate-950 text-on-surface dark:text-slate-100 transition-colors duration-300 min-h-screen flex flex-col">
+
+    <!-- Security Check Script (Runs before rendering to prevent flash of content) -->
+    <script>
+        if (localStorage.getItem('tecno_admin_logged_in') !== 'true') {
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <!-- Sticky Header -->
+    <nav class="fixed top-0 w-full z-50 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl border-b border-black/5 dark:border-white/5 h-20 transition-all duration-300">
+        <div class="flex justify-between items-center h-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <!-- Brand -->
+            <a href="index.html" class="flex items-center gap-3">
+                <img alt="Tecnoemprende Logo" class="h-10 w-auto rounded-lg" src="assets/logo_web.png"/>
+                <span class="font-display font-extrabold text-xl tracking-tighter text-primary dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-sky-400 dark:to-cyan-300">Tecnoemprende Admin</span>
+            </a>
+
+            <!-- User Status & Logout -->
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="p-2.5 rounded-xl hover:bg-primary/10 dark:hover:bg-white/10 text-primary dark:text-cyan-400 transition-all" aria-label="Toggle Theme">
+                    <span id="theme-icon" class="material-symbols-outlined">dark_mode</span>
+                </button>
+                <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-black/5 dark:border-white/5">
+                    <span class="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"></span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Admin Activo</span>
+                </div>
+                <button onclick="handleLogout()" class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2">
+                    Salir
+                    <span class="material-symbols-outlined text-[16px]">logout</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Workspace -->
+    <main class="pt-24 flex-grow px-margin-mobile md:px-margin-desktop max-w-container-max w-full mx-auto py-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Left Sidebar Navigation Menu -->
+            <aside class="lg:col-span-3 space-y-4">
+                <div class="glass-card rounded-3xl p-6 border border-black/5 dark:border-white/5 space-y-2">
+                    <h3 class="text-xs font-extrabold uppercase tracking-widest text-slate-400 px-3 mb-4">Navegación</h3>
+                    
+                    <button onclick="switchTab('resumen')" id="tab-btn-resumen" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-semibold flex items-center gap-3 transition-all hover:bg-slate-50 dark:hover:bg-slate-900 dashboard-tab-active">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        Resumen General
+                    </button>
+                    
+                    <button onclick="switchTab('solicitudes')" id="tab-btn-solicitudes" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-semibold flex items-center justify-between transition-all hover:bg-slate-50 dark:hover:bg-slate-900">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined">assignment</span>
+                            Solicitudes Web
+                        </div>
+                        <span id="requests-count-badge" class="bg-primary/20 dark:bg-cyan-500/20 text-primary dark:text-cyan-400 text-[10px] font-extrabold px-2 py-0.5 rounded-full">0</span>
+                    </button>
+                    
+                    <button onclick="switchTab('portafolio')" id="tab-btn-portafolio" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-semibold flex items-center gap-3 transition-all hover:bg-slate-50 dark:hover:bg-slate-900">
+                        <span class="material-symbols-outlined">photo_library</span>
+                        Gestor Portafolio
+                    </button>
+
+                    <hr class="border-black/5 dark:border-white/5 my-4">
+
+                    <a href="portfolio.html" class="w-full text-left px-4 py-3 rounded-2xl text-sm font-semibold text-slate-500 hover:text-primary dark:hover:text-cyan-400 flex items-center gap-3 transition-all">
+                        <span class="material-symbols-outlined">visibility</span>
+                        Ver Sitio Web
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Right Main Panels -->
+            <section class="lg:col-span-9">
+                
+                <!-- TAB 1: RESUMEN GENERAL -->
+                <div id="panel-resumen" class="space-y-8">
+                    <!-- Dashboard Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Stat 1 -->
+                        <div class="glass-card rounded-3xl p-6 border border-black/5 dark:border-white/5 flex items-center gap-5">
+                            <div class="w-12 h-12 rounded-2xl bg-primary/10 dark:bg-cyan-500/10 text-primary dark:text-cyan-400 flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-2xl">assignment</span>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-400 uppercase">Solicitudes Recibidas</h4>
+                                <p id="stat-total-requests" class="text-3xl font-extrabold tracking-tight mt-1">0</p>
+                            </div>
+                        </div>
+
+                        <!-- Stat 2 -->
+                        <div class="glass-card rounded-3xl p-6 border border-black/5 dark:border-white/5 flex items-center gap-5">
+                            <div class="w-12 h-12 rounded-2xl bg-secondary/10 dark:bg-sky-500/10 text-secondary dark:text-sky-400 flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-2xl">photo_library</span>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-400 uppercase">Proyectos en Portafolio</h4>
+                                <p id="stat-total-projects" class="text-3xl font-extrabold tracking-tight mt-1">0</p>
+                            </div>
+                        </div>
+
+                        <!-- Stat 3 -->
+                        <div class="glass-card rounded-3xl p-6 border border-black/5 dark:border-white/5 flex items-center gap-5">
+                            <div class="w-12 h-12 rounded-2xl bg-green-500/10 dark:bg-green-400/10 text-green-500 dark:text-green-400 flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-2xl">pending_actions</span>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-slate-400 uppercase">Solicitudes Pendientes</h4>
+                                <p id="stat-pending-requests" class="text-3xl font-extrabold tracking-tight mt-1 text-yellow-500">0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual stats / Charts simulation -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="glass-card rounded-3xl p-8 border border-black/5 dark:border-white/5 space-y-4">
+                            <h3 class="font-display font-bold text-lg text-on-surface dark:text-white">Distribución de Estados</h3>
+                            <div class="space-y-4 pt-2">
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span>Pendientes</span>
+                                        <span id="chart-percent-pending">0%</span>
+                                    </div>
+                                    <div class="w-full h-2 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                                        <div id="chart-bar-pending" class="h-full bg-yellow-500 transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span>Contactados</span>
+                                        <span id="chart-percent-contacted">0%</span>
+                                    </div>
+                                    <div class="w-full h-2 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                                        <div id="chart-bar-contacted" class="h-full bg-blue-500 transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span>En Proceso</span>
+                                        <span id="chart-percent-process">0%</span>
+                                    </div>
+                                    <div class="w-full h-2 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                                        <div id="chart-bar-process" class="h-full bg-purple-500 transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold mb-1">
+                                        <span>Completados</span>
+                                        <span id="chart-percent-completed">0%</span>
+                                    </div>
+                                    <div class="w-full h-2 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                                        <div id="chart-bar-completed" class="h-full bg-green-500 transition-all duration-500" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card rounded-3xl p-8 border border-black/5 dark:border-white/5 flex flex-col justify-between">
+                            <div class="space-y-2">
+                                <h3 class="font-display font-bold text-lg text-on-surface dark:text-white">Exportación de Respaldos</h3>
+                                <p class="text-xs text-on-surface-variant dark:text-slate-400 leading-relaxed">
+                                    Respalda localmente los proyectos modificados del portafolio o las solicitudes de clientes recopiladas.
+                                </p>
+                            </div>
+                            <div class="pt-6 flex flex-wrap gap-3">
+                                <button onclick="exportData('portfolio')" class="flex-grow bg-primary hover:bg-primary/90 text-white px-5 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2">
+                                    <span class="material-symbols-outlined text-[16px]">download</span>
+                                    Exportar Portafolio JSON
+                                </button>
+                                <button onclick="exportData('requests')" class="flex-grow border border-slate-200 dark:border-slate-800 text-on-surface dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-900 px-5 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2">
+                                    <span class="material-symbols-outlined text-[16px]">download</span>
+                                    Exportar Solicitudes JSON
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: GESTOR DE SOLICITUDES DE CLIENTES -->
+                <div id="panel-solicitudes" class="space-y-6 hidden">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="font-display font-extrabold text-2xl">Solicitudes y Cuestionarios</h2>
+                            <p class="text-xs text-on-surface-variant dark:text-slate-400 mt-1">Lista de prospectos de clientes que han cotizado su sitio web.</p>
+                        </div>
+                    </div>
+
+                    <!-- Client Requests Feed -->
+                    <div id="requests-list-container" class="space-y-4">
+                        <!-- Rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- TAB 3: GESTOR DE PORTAFOLIO -->
+                <div id="panel-portafolio" class="space-y-6 hidden">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="font-display font-extrabold text-2xl">Gestión del Portafolio</h2>
+                            <p class="text-xs text-on-surface-variant dark:text-slate-400 mt-1">Agrega, edita o elimina proyectos visibles en la web normal.</p>
+                        </div>
+                        <button onclick="openProjectModal()" class="bg-gradient-to-r from-primary to-tertiary text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:shadow-lg active:scale-95 transition-all flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">add_circle</span>
+                            Nuevo Proyecto
+                        </button>
+                    </div>
+
+                    <!-- Portfolio Grid table -->
+                    <div class="glass-card rounded-3xl overflow-hidden border border-black/5 dark:border-white/5">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs font-semibold text-on-surface-variant dark:text-slate-300">
+                                <thead class="bg-slate-50 dark:bg-slate-900 border-b border-black/5 dark:border-white/5 uppercase tracking-wider text-slate-400 text-[10px]">
+                                    <tr>
+                                        <th class="p-4">Imagen</th>
+                                        <th class="p-4">Título</th>
+                                        <th class="p-4">Categorías</th>
+                                        <th class="p-4">Enlace</th>
+                                        <th class="p-4 text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="portfolio-table-body" class="divide-y divide-black/5 dark:divide-white/5">
+                                    <!-- Rendered dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+    </main>
+
+    <!-- PORTFOLIO CRUD MODAL -->
+    <div id="project-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="glass-card rounded-3xl w-full max-w-lg shadow-2xl border border-black/5 dark:border-white/5 overflow-hidden flex flex-col max-h-[90vh]">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-primary to-secondary p-5 text-white flex justify-between items-center shrink-0">
+                <h3 id="modal-title" class="font-display font-bold text-lg">Agregar Proyecto</h3>
+                <button onclick="closeProjectModal()" class="p-1 hover:bg-white/10 rounded-lg text-white">
+                    <span class="material-symbols-outlined text-xl">close</span>
+                </button>
+            </div>
+            <!-- Form -->
+            <form id="project-form" class="p-6 space-y-4 overflow-y-auto flex-grow text-sm" onsubmit="event.preventDefault(); saveProject();">
+                <input type="hidden" id="edit-project-id" value="">
+                
+                <div class="space-y-1">
+                    <label for="project-title" class="text-xs font-bold uppercase text-slate-400">Título del Proyecto *</label>
+                    <input type="text" id="project-title" required placeholder="Ej. Cuba by Locals" class="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-black/5 dark:border-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-on-surface dark:text-slate-200">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label for="project-tags" class="text-xs font-bold uppercase text-slate-400">Etiquetas / Tags *</label>
+                        <input type="text" id="project-tags" required placeholder="Ej. Web / Turismo" class="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-black/5 dark:border-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-on-surface dark:text-slate-200">
+                    </div>
+                    <div class="space-y-1">
+                        <label for="project-url" class="text-xs font-bold uppercase text-slate-400">Enlace Web (URL) *</label>
+                        <input type="url" id="project-url" required placeholder="https://..." class="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-black/5 dark:border-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-on-surface dark:text-slate-200">
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="text-xs font-bold uppercase text-slate-400">Categorías de Filtrado *</label>
+                    <div class="flex gap-4 mt-2">
+                        <label class="flex items-center gap-2 cursor-pointer text-xs font-semibold">
+                            <input type="checkbox" id="cat-crm" value="crm" class="rounded text-primary focus:ring-primary">
+                            Sistemas CRM
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer text-xs font-semibold">
+                            <input type="checkbox" id="cat-web" value="web" class="rounded text-primary focus:ring-primary">
+                            Portales Web
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer text-xs font-semibold">
+                            <input type="checkbox" id="cat-ecommerce" value="ecommerce" class="rounded text-primary focus:ring-primary">
+                            E-commerce
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer text-xs font-semibold">
+                            <input type="checkbox" id="cat-mobile" value="mobile" class="rounded text-primary focus:ring-primary">
+                            Aplicaciones
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Custom Image Uploader to Base64 -->
+                <div class="space-y-1">
+                    <label class="text-xs font-bold uppercase text-slate-400">Imagen de Portada *</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <span class="text-[10px] text-slate-400 font-semibold block">Opción A: Ruta de Asset</span>
+                            <input type="text" id="project-image-url" placeholder="assets/project_cubabylocals.jpg" class="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-black/5 dark:border-white/5 px-4 py-2 text-xs focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-on-surface dark:text-slate-200">
+                        </div>
+                        <div class="space-y-1">
+                            <span class="text-[10px] text-slate-400 font-semibold block">Opción B: Subir Archivo local</span>
+                            <input type="file" id="project-image-file" accept="image/*" onchange="convertImageToBase64()" class="w-full text-xs text-slate-400 file:mr-2 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-[10px] file:font-semibold file:bg-primary/15 file:text-primary dark:file:bg-cyan-500/15 dark:file:text-cyan-400 hover:file:bg-primary/20 cursor-pointer">
+                        </div>
+                    </div>
+                    <!-- Preview Box -->
+                    <div id="image-preview-container" class="mt-3 hidden shrink-0 text-center">
+                        <span class="text-[9px] uppercase font-bold text-slate-400 block mb-1">Vista Previa de Imagen</span>
+                        <img id="image-preview" src="" class="h-24 mx-auto rounded-lg border object-cover shadow-sm">
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label for="project-desc" class="text-xs font-bold uppercase text-slate-400">Descripción Corta *</label>
+                    <textarea id="project-desc" required placeholder="Breve descripción del proyecto para la tarjeta..." rows="3" class="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-black/5 dark:border-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-on-surface dark:text-slate-200"></textarea>
+                </div>
+
+                <div class="pt-4 flex gap-3 justify-end shrink-0 border-t border-black/5 dark:border-white/5">
+                    <button type="button" onclick="closeProjectModal()" class="px-5 py-2.5 border rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">Cancelar</button>
+                    <button type="submit" class="px-6 py-2.5 bg-primary dark:bg-cyan-500 text-white dark:text-slate-950 rounded-xl font-bold text-xs uppercase tracking-wider hover:shadow-lg active:scale-95 transition-all">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin dashboard logic -->
+    <script>
+        let portfolioData = JSON.parse(localStorage.getItem('tecnoemprende_portfolio') || '[]');
+        let requestsData = JSON.parse(localStorage.getItem('tecnoemprende_requests') || '[]');
+        let base64ImageString = ""; // Cache for uploaded file
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Stats load
+            loadStats();
+            renderRequests();
+            renderPortfolioTable();
+        });
+
+        function handleLogout() {
+            localStorage.removeItem('tecno_admin_logged_in');
+            window.location.href = 'login.html';
+        }
+
+        function switchTab(tabId) {
+            // Panels
+            document.getElementById('panel-resumen').classList.add('hidden');
+            document.getElementById('panel-solicitudes').classList.add('hidden');
+            document.getElementById('panel-portafolio').classList.add('hidden');
+            document.getElementById(`panel-${tabId}`).classList.remove('hidden');
+
+            // Buttons
+            document.getElementById('tab-btn-resumen').classList.remove('dashboard-tab-active');
+            document.getElementById('tab-btn-solicitudes').classList.remove('dashboard-tab-active');
+            document.getElementById('tab-btn-portafolio').classList.remove('dashboard-tab-active');
+            document.getElementById(`tab-btn-${tabId}`).classList.add('dashboard-tab-active');
+        }
+
+        function loadStats() {
+            portfolioData = JSON.parse(localStorage.getItem('tecnoemprende_portfolio') || '[]');
+            requestsData = JSON.parse(localStorage.getItem('tecnoemprende_requests') || '[]');
+
+            document.getElementById('stat-total-requests').textContent = requestsData.length;
+            document.getElementById('stat-total-projects').textContent = portfolioData.length;
+            document.getElementById('requests-count-badge').textContent = requestsData.length;
+
+            const pending = requestsData.filter(r => r.status === 'Pendiente').length;
+            document.getElementById('stat-pending-requests').textContent = pending;
+
+            // Update state distribution chart
+            const total = requestsData.length;
+            if (total > 0) {
+                const p = Math.round((pending / total) * 100);
+                const c = Math.round((requestsData.filter(r => r.status === 'Contactado').length / total) * 100);
+                const i = Math.round((requestsData.filter(r => r.status === 'En Proceso').length / total) * 100);
+                const d = Math.round((requestsData.filter(r => r.status === 'Completado').length / total) * 100);
+
+                document.getElementById('chart-percent-pending').textContent = `${p}%`;
+                document.getElementById('chart-bar-pending').style.width = `${p}%`;
+
+                document.getElementById('chart-percent-contacted').textContent = `${c}%`;
+                document.getElementById('chart-bar-contacted').style.width = `${c}%`;
+
+                document.getElementById('chart-percent-process').textContent = `${i}%`;
+                document.getElementById('chart-bar-process').style.width = `${i}%`;
+
+                document.getElementById('chart-percent-completed').textContent = `${d}%`;
+                document.getElementById('chart-bar-completed').style.width = `${d}%`;
+            } else {
+                document.getElementById('chart-percent-pending').textContent = '0%';
+                document.getElementById('chart-bar-pending').style.width = '0%';
+                document.getElementById('chart-percent-contacted').textContent = '0%';
+                document.getElementById('chart-bar-contacted').style.width = '0%';
+                document.getElementById('chart-percent-process').textContent = '0%';
+                document.getElementById('chart-bar-process').style.width = '0%';
+                document.getElementById('chart-percent-completed').textContent = '0%';
+                document.getElementById('chart-bar-completed').style.width = '0%';
+            }
+        }
+
+        // --- CLIENT REQUESTS MANAGEMENT ---
+        function renderRequests() {
+            const container = document.getElementById('requests-list-container');
+            container.innerHTML = '';
+
+            if (requestsData.length === 0) {
+                container.innerHTML = `
+                    <div class="glass-card rounded-3xl p-10 text-center text-slate-400 border border-black/5 dark:border-white/5 space-y-2">
+                        <span class="material-symbols-outlined text-4xl">folder_open</span>
+                        <p class="text-sm font-bold">No hay solicitudes registradas todavía.</p>
+                        <p class="text-xs">Usa el formulario en "Solicitar Sitio" para registrar algunas.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            requestsData.forEach(req => {
+                let statusColor = "bg-yellow-500/10 text-yellow-500 border border-yellow-500/20";
+                if (req.status === 'Contactado') statusColor = "bg-blue-500/10 text-blue-500 border border-blue-500/20";
+                if (req.status === 'En Proceso') statusColor = "bg-purple-500/10 text-purple-500 border border-purple-500/20";
+                if (req.status === 'Completado') statusColor = "bg-green-500/10 text-green-500 border border-green-500/20";
+
+                const card = document.createElement('div');
+                card.className = "glass-card rounded-3xl border border-black/5 dark:border-white/5 overflow-hidden shadow-md";
+                card.innerHTML = `
+                    <!-- Header summary -->
+                    <div class="p-6 flex flex-wrap justify-between items-center gap-4 bg-slate-50/50 dark:bg-slate-900/50">
+                        <div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">${req.date}</span>
+                            <h3 class="font-display font-bold text-lg text-on-surface dark:text-white mt-1">${req.name}</h3>
+                            <p class="text-xs text-slate-400 font-semibold uppercase mt-0.5">${req.company} (${req.phone})</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full ${statusColor}">${req.status}</span>
+                            <button onclick="toggleRequestDetail('${req.id}')" class="p-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl transition-colors flex items-center">
+                                <span class="material-symbols-outlined text-[18px]" id="req-icon-${req.id}">expand_more</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Detailed Questionnaire Dropdown -->
+                    <div id="req-detail-${req.id}" class="max-h-0 opacity-0 overflow-hidden transition-all duration-500 ease-in-out bg-white/70 dark:bg-slate-900/70 border-t border-black/5 dark:border-white/5">
+                        <div class="p-6 space-y-6 text-xs text-on-surface-variant dark:text-slate-300">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-1">
+                                    <span class="font-bold text-slate-400 uppercase block tracking-wider">Correo Electrónico:</span>
+                                    <a href="mailto:${req.email}" class="text-primary dark:text-cyan-400 font-bold hover:underline">${req.email}</a>
+                                </div>
+                                <div class="space-y-1">
+                                    <span class="font-bold text-slate-400 uppercase block tracking-wider">Teléfono / WhatsApp:</span>
+                                    <a href="https://wa.me/${req.phone.replace(/[^0-9+]/g, '')}" target="_blank" class="text-green-500 font-bold hover:underline">${req.phone}</a>
+                                </div>
+                            </div>
+                            
+                            <hr class="border-black/5 dark:border-white/5">
+                            
+                            <div class="space-y-3">
+                                <div>
+                                    <span class="font-bold text-slate-400 uppercase block tracking-wider mb-1">1. Objetivo Comercial del Sitio:</span>
+                                    <p class="text-sm font-semibold text-on-surface dark:text-slate-100">${req.goal}</p>
+                                </div>
+                                <div>
+                                    <span class="font-bold text-slate-400 uppercase block tracking-wider mb-1">2. Público Objetivo:</span>
+                                    <p class="leading-relaxed">${req.audience}</p>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <span class="font-bold text-slate-400 uppercase block tracking-wider mb-1">Presupuesto Estimado:</span>
+                                        <p class="text-sm font-bold text-primary dark:text-cyan-400">${req.budget}</p>
+                                    </div>
+                                    <div>
+                                        <span class="font-bold text-slate-400 uppercase block tracking-wider mb-1">Plazo de Entrega:</span>
+                                        <p class="text-sm font-bold text-primary dark:text-cyan-400">${req.deadline}</p>
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <span class="font-bold text-slate-400 uppercase block tracking-wider mb-1">Identidad de Marca:</span>
+                                        <p class="font-semibold">${req.brandAssets}</p>
+                                    </div>
+                                    <div>
+                                        <span class="font-bold text-slate-400 uppercase block tracking-wider mb-1">Secciones Solicitadas:</span>
+                                        <p class="font-semibold">${req.sections}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="font-bold text-slate-400 uppercase block tracking-wider mb-1">Sitios de Referencia:</span>
+                                    <p class="italic text-primary dark:text-cyan-400">${req.designRef}</p>
+                                </div>
+                            </div>
+
+                            <hr class="border-black/5 dark:border-white/5">
+                            
+                            <!-- Actions row -->
+                            <div class="flex flex-wrap gap-4 items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-slate-400 uppercase tracking-wider">Cambiar Estado:</span>
+                                    <select onchange="updateRequestStatus('${req.id}', this.value)" class="bg-slate-50 dark:bg-slate-800 rounded-xl border border-black/5 dark:border-white/5 px-3 py-1.5 text-xs text-on-surface dark:text-slate-200">
+                                        <option value="Pendiente" ${req.status === 'Pendiente' ? 'selected' : ''}>Pendiente</option>
+                                        <option value="Contactado" ${req.status === 'Contactado' ? 'selected' : ''}>Contactado</option>
+                                        <option value="En Proceso" ${req.status === 'En Proceso' ? 'selected' : ''}>En Proceso</option>
+                                        <option value="Completado" ${req.status === 'Completado' ? 'selected' : ''}>Completado</option>
+                                    </select>
+                                </div>
+                                <button onclick="deleteRequest('${req.id}')" class="bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white border border-red-500/20 hover:border-transparent px-4 py-2 rounded-xl transition-all font-bold tracking-wide uppercase">
+                                    Eliminar Solicitud
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function toggleRequestDetail(id) {
+            const detail = document.getElementById(`req-detail-${id}`);
+            const icon = document.getElementById(`req-icon-${id}`);
+            
+            if (detail.classList.contains('max-h-0')) {
+                detail.classList.remove('max-h-0', 'opacity-0');
+                detail.classList.add('max-h-[800px]', 'opacity-100');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                detail.classList.remove('max-h-[800px]', 'opacity-100');
+                detail.classList.add('max-h-0', 'opacity-0');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function updateRequestStatus(id, newStatus) {
+            requestsData = requestsData.map(r => {
+                if (r.id === id) r.status = newStatus;
+                return r;
+            });
+            localStorage.setItem('tecnoemprende_requests', JSON.stringify(requestsData));
+            loadStats();
+            renderRequests();
+        }
+
+        function deleteRequest(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar permanentemente esta solicitud de cliente?')) {
+                requestsData = requestsData.filter(r => r.id !== id);
+                localStorage.setItem('tecnoemprende_requests', JSON.stringify(requestsData));
+                loadStats();
+                renderRequests();
+            }
+        }
+
+        // --- PORTFOLIO CRUD MANAGEMENT ---
+        function renderPortfolioTable() {
+            const tbody = document.getElementById('portfolio-table-body');
+            tbody.innerHTML = '';
+
+            portfolioData.forEach(proj => {
+                const row = document.createElement('tr');
+                row.className = "hover:bg-slate-50/50 dark:hover:bg-slate-900/50 transition-colors";
+                row.innerHTML = `
+                    <td class="p-4 shrink-0">
+                        <img src="${proj.image}" alt="${proj.title}" class="w-12 h-9 object-cover rounded-lg border dark:border-slate-800 shadow-sm">
+                    </td>
+                    <td class="p-4 text-sm font-bold text-on-surface dark:text-slate-100">${proj.title}</td>
+                    <td class="p-4 font-mono text-[10px] text-slate-400 uppercase tracking-widest">${proj.category}</td>
+                    <td class="p-4 font-mono text-[10px] text-primary dark:text-cyan-400 truncate max-w-[150px]"><a href="${proj.url}" target="_blank" class="hover:underline">${proj.url}</a></td>
+                    <td class="p-4 text-center shrink-0">
+                        <div class="flex justify-center gap-2">
+                            <button onclick="openProjectModal('${proj.id}')" class="p-2 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-primary/10 hover:text-primary dark:hover:bg-cyan-500/10 dark:hover:text-cyan-400 transition-all flex items-center">
+                                <span class="material-symbols-outlined text-[16px]">edit</span>
+                            </button>
+                            <button onclick="deleteProject('${proj.id}')" class="p-2 border border-slate-200 dark:border-slate-800 rounded-xl hover:bg-red-500/10 hover:text-red-500 dark:hover:bg-red-400/10 dark:hover:text-red-400 transition-all flex items-center">
+                                <span class="material-symbols-outlined text-[16px]">delete</span>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function deleteProject(id) {
+            if (confirm('¿Estás seguro de que deseas eliminar este proyecto del portafolio?')) {
+                portfolioData = portfolioData.filter(p => p.id !== id);
+                localStorage.setItem('tecnoemprende_portfolio', JSON.stringify(portfolioData));
+                loadStats();
+                renderPortfolioTable();
+            }
+        }
+
+        function openProjectModal(id = '') {
+            const form = document.getElementById('project-form');
+            form.reset();
+            base64ImageString = ""; // Reset
+            
+            document.getElementById('image-preview-container').classList.add('hidden');
+            document.getElementById('image-preview').src = "";
+
+            if (id) {
+                // Edit Mode
+                document.getElementById('modal-title').textContent = "Editar Proyecto";
+                const proj = portfolioData.find(p => p.id === id);
+                if (proj) {
+                    document.getElementById('edit-project-id').value = proj.id;
+                    document.getElementById('project-title').value = proj.title;
+                    document.getElementById('project-tags').value = proj.tags;
+                    document.getElementById('project-url').value = proj.url;
+                    document.getElementById('project-image-url').value = proj.image.startsWith('data:') ? '' : proj.image;
+                    document.getElementById('project-desc').value = proj.description;
+
+                    // Set category checkboxes
+                    const cats = proj.category.split(' ');
+                    document.getElementById('cat-crm').checked = cats.includes('crm');
+                    document.getElementById('cat-web').checked = cats.includes('web');
+                    document.getElementById('cat-ecommerce').checked = cats.includes('ecommerce');
+                    document.getElementById('cat-mobile').checked = cats.includes('mobile');
+
+                    // Preview existing
+                    if (proj.image) {
+                        document.getElementById('image-preview-container').classList.remove('hidden');
+                        document.getElementById('image-preview').src = proj.image;
+                        if (proj.image.startsWith('data:')) {
+                            base64ImageString = proj.image;
+                        }
+                    }
+                }
+            } else {
+                // Add Mode
+                document.getElementById('modal-title').textContent = "Agregar Proyecto";
+                document.getElementById('edit-project-id').value = '';
+            }
+
+            document.getElementById('project-modal').classList.remove('hidden');
+            document.getElementById('project-modal').classList.add('flex');
+        }
+
+        function closeProjectModal() {
+            document.getElementById('project-modal').classList.add('hidden');
+            document.getElementById('project-modal').classList.remove('flex');
+        }
+
+        function convertImageToBase64() {
+            const fileInput = document.getElementById('project-image-file');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = function() {
+                    base64ImageString = reader.result;
+                    document.getElementById('image-preview-container').classList.remove('hidden');
+                    document.getElementById('image-preview').src = base64ImageString;
+                    document.getElementById('project-image-url').value = ""; // Clear text path option
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function saveProject() {
+            const id = document.getElementById('edit-project-id').value;
+            const title = document.getElementById('project-title').value.trim();
+            const tags = document.getElementById('project-tags').value.trim();
+            const url = document.getElementById('project-url').value.trim();
+            const desc = document.getElementById('project-desc').value.trim();
+
+            // Image resolve
+            let image = document.getElementById('project-image-url').value.trim();
+            if (base64ImageString) {
+                image = base64ImageString;
+            }
+
+            if (!image) {
+                alert('Por favor, ingresa una ruta de asset o sube una imagen local.');
+                return;
+            }
+
+            // Categories resolve
+            const cats = [];
+            if (document.getElementById('cat-crm').checked) cats.push('crm');
+            if (document.getElementById('cat-web').checked) cats.push('web');
+            if (document.getElementById('cat-ecommerce').checked) cats.push('ecommerce');
+            if (document.getElementById('cat-mobile').checked) cats.push('mobile');
+
+            if (cats.length === 0) {
+                alert('Selecciona al menos una categoría de filtrado.');
+                return;
+            }
+
+            const categoryString = cats.join(' ');
+
+            if (id) {
+                // Update
+                portfolioData = portfolioData.map(p => {
+                    if (p.id === id) {
+                        return { id, title, category: categoryString, image, url, tags, description: desc };
+                    }
+                    return p;
+                });
+            } else {
+                // Insert
+                const newProj = {
+                    id: 'proj_' + Date.now(),
+                    title,
+                    category: categoryString,
+                    image,
+                    url,
+                    tags,
+                    description: desc
+                };
+                portfolioData.push(newProj);
+            }
+
+            // Save & Close
+            localStorage.setItem('tecnoemprende_portfolio', JSON.stringify(portfolioData));
+            closeProjectModal();
+            loadStats();
+            renderPortfolioTable();
+        }
+
+        // Helper to export/download JSON backup of data
+        function exportData(type) {
+            let data = "";
+            let filename = "";
+            
+            if (type === 'portfolio') {
+                data = localStorage.getItem('tecnoemprende_portfolio') || '[]';
+                filename = "tecnoemprende_portfolio_backup.json";
+            } else {
+                data = localStorage.getItem('tecnoemprende_requests') || '[]';
+                filename = "tecnoemprende_client_requests.json";
+            }
+
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+
+    <!-- App Logic Script -->
+    <script src="main.js"></script>
+</body>
+</html>

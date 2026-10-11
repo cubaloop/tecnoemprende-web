@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Servicios | Tecnoemprende - Soluciones Digitales Corporativas</title>
+    <meta name="description" content="Ofrecemos servicios de CRM (Odoo, Salesforce), Desarrollo Web Premium, Marketing de leads y Facturación QR para cumplimiento tributario."/>
+    <meta name="keywords" content="servicios crm, desarrollo web, marketing digital, facturacion qr, transfermovil, soporte tecnico"/>
+    <meta name="robots" content="index, follow"/>
+    <meta property="og:title" content="Servicios | Tecnoemprende - Soluciones Digitales Corporativas"/>
+    <meta property="og:description" content="Ofrecemos servicios de CRM (Odoo, Salesforce), Desarrollo Web Premium, Marketing de leads y Facturación QR para cumplimiento tributario."/>
+    <meta property="og:image" content="assets/logo_web.png"/>
+    <meta property="og:type" content="website"/>
+    <!-- Fonts -->
+    <link href="index.css" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#006877",
+                        secondary: "#24638e",
+                        tertiary: "#00a9bd",
+                        background: "#f9f9ff",
+                        "on-background": "#141b2b",
+                        surface: "#ffffff",
+                        "on-surface": "#141b2b",
+                        "on-surface-variant": "#3d494c",
+                        "outline-variant": "#bcc9cc",
+                        "primary-fixed": "#a5eeff",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "secondary-fixed-dim": "#94ccfd"
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                    maxWidth: {
+                        'container-max': '1280px',
+                    },
+                    spacing: {
+                        'margin-desktop': '64px',
+                        'margin-mobile': '20px',
+                        'gutter': '24px',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background dark:bg-slate-950 text-on-surface dark:text-slate-100 transition-colors duration-300">
+
+    <!-- Sticky Navigation Header -->
+    <nav class="fixed top-0 w-full z-50 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl border-b border-black/5 dark:border-white/5 h-20 transition-all duration-300">
+        <div class="flex justify-between items-center h-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            
+            <!-- Logo Section -->
+            <a href="index.html" class="flex items-center gap-3">
+                <img alt="Tecnoemprende Logo" class="h-10 w-auto rounded-lg" src="assets/logo_web.png"/>
+                <span class="font-display font-extrabold text-2xl tracking-tighter text-primary dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-sky-400 dark:to-cyan-300">Tecnoemprende</span>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden lg:flex items-center gap-8">
+                <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm" href="index.html">Inicio</a>
+                
+                <!-- Dropdown Menu -->
+                <div class="relative group">
+                    <button id="dropdown-toggle" class="flex items-center gap-1 text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm py-2">
+                        Sitios Web
+                        <span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+                    </button>
+                    <div id="dropdown-menu" class="absolute left-0 mt-1 w-56 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-black/5 dark:border-white/5 shadow-2xl p-2 hidden group-hover:block transition-all duration-300">
+                        <a class="block px-4 py-2.5 rounded-xl hover:bg-primary/10 dark:hover:bg-cyan-500/10 text-sm font-medium text-on-surface-variant dark:text-slate-300 hover:text-primary dark:hover:text-cyan-400 transition-all" href="creacion-sitios.html">Creación de Sitios Web</a>
+                        <a class="block px-4 py-2.5 rounded-xl hover:bg-primary/10 dark:hover:bg-cyan-500/10 text-sm font-medium text-on-surface-variant dark:text-slate-300 hover:text-primary dark:hover:text-cyan-400 transition-all" href="por-que-sitio.html">Por qué un Sitio Web</a>
+                        <a class="block px-4 py-2.5 rounded-xl hover:bg-primary/10 dark:hover:bg-cyan-500/10 text-sm font-medium text-on-surface-variant dark:text-slate-300 hover:text-primary dark:hover:text-cyan-400 transition-all" href="informacion-necesaria.html">Información Necesaria</a>
+                    </div>
+                </div>
+
+                <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm" href="services.html">Servicios</a>
+                <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm" href="portfolio.html">Portafolio</a>
+                <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm" href="about.html">Sobre Nosotros</a>
+                <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm" href="contact.html">Contacto</a>
+            </div>
+
+            <!-- CTAs & Switcher -->
+            <div class="flex items-center gap-4">
+                <!-- Theme toggle button -->
+                <button id="theme-toggle" class="p-2.5 rounded-xl hover:bg-primary/10 dark:hover:bg-white/10 text-primary dark:text-cyan-400 transition-all" aria-label="Toggle Theme">
+                    <span id="theme-icon" class="material-symbols-outlined">dark_mode</span>
+                </button>
+                <a class="hidden sm:inline-flex bg-primary dark:bg-cyan-500 text-white dark:text-slate-950 px-6 py-2.5 rounded-xl font-semibold text-sm hover:shadow-lg hover:shadow-primary/20 dark:hover:shadow-cyan-400/20 active:scale-95 transition-all" href="solicitar-sitio.html">
+                    Empezar
+                </a>
+                <button id="mobile-menu-btn" class="lg:hidden p-2 text-on-surface dark:text-slate-100" aria-label="Open Mobile Menu">
+                    <span class="material-symbols-outlined text-2xl">menu</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobile-menu-collapse" class="fixed inset-0 z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl flex flex-col translate-x-full transition-transform duration-300 ease-out lg:hidden p-6">
+        <div class="flex justify-between items-center mb-10">
+            <a href="index.html" class="flex items-center gap-3">
+                <img alt="Tecnoemprende Logo" class="h-8 w-auto rounded-lg" src="assets/logo_web.png"/>
+                <span class="font-display font-extrabold text-xl text-primary dark:text-cyan-400">Tecnoemprende</span>
+            </a>
+            <button id="mobile-menu-close" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-on-surface dark:text-slate-100" aria-label="Close Mobile Menu">
+                <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-6 text-lg font-medium">
+            <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-2 border-b border-slate-100 dark:border-slate-800" href="index.html">Inicio</a>
+            <div class="flex flex-col gap-2 py-2 border-b border-slate-100 dark:border-slate-800">
+                <span class="text-xs font-semibold text-slate-400 uppercase tracking-widest">Sitios Web</span>
+                <a class="pl-4 text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-1" href="creacion-sitios.html">Creación de Sitios Web</a>
+                <a class="pl-4 text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-1" href="por-que-sitio.html">Por qué un Sitio Web</a>
+                <a class="pl-4 text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-1" href="informacion-necesaria.html">Información Necesaria</a>
+            </div>
+            <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-2 border-b border-slate-100 dark:border-slate-800" href="services.html">Servicios</a>
+            <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-2 border-b border-slate-100 dark:border-slate-800" href="portfolio.html">Portafolio</a>
+            <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-2 border-b border-slate-100 dark:border-slate-800" href="about.html">Sobre Nosotros</a>
+            <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-2 border-b border-slate-100 dark:border-slate-800" href="contact.html">Contacto</a>
+            <a class="bg-primary dark:bg-cyan-500 text-white dark:text-slate-950 text-center py-4 rounded-2xl font-bold mt-4" href="contact.html">Contáctanos Hoy</a>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="pt-20">
+
+        <!-- Hero Section -->
+        <section class="relative py-20 px-margin-mobile md:px-margin-desktop overflow-hidden bg-slate-50 dark:bg-slate-900 border-b border-black/5 dark:border-white/5">
+            <div class="hero-glow -top-24 -left-24"></div>
+            <div class="hero-glow bottom-0 -right-24"></div>
+            
+            <div class="max-w-container-max mx-auto text-center relative z-10 space-y-6">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-primary/10 dark:bg-cyan-500/10 text-primary dark:text-cyan-400 font-semibold text-xs tracking-widest uppercase">
+                    Catálogo de Soluciones 360°
+                </span>
+                <h1 class="font-display font-extrabold text-4xl md:text-5xl xl:text-6xl text-on-surface dark:text-slate-100">
+                    Ingeniería de Software & <span class="gradient-text">Estrategias Digitales</span>
+                </h1>
+                <p class="font-sans text-base md:text-lg text-on-surface-variant dark:text-slate-300 max-w-2xl mx-auto">
+                    Conectamos tus metas de negocio con tecnología de punta y embudos de venta robustos. Creamos interfaces hermosas y CRM eficientes.
+                </p>
+            </div>
+        </section>
+
+        <!-- Services Detailed Section -->
+        <section class="py-24 px-margin-mobile md:px-margin-desktop bg-white dark:bg-slate-950">
+            <div class="max-w-container-max mx-auto space-y-24">
+                
+                <!-- Service Block 1: Sistemas Automatizados para Empresas -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center scroll-animate">
+                    <div class="lg:col-span-6 space-y-6">
+                        <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 dark:bg-cyan-400/10 flex items-center justify-center text-primary dark:text-cyan-400">
+                            <span class="material-symbols-outlined text-3xl">smart_toy</span>
+                        </div>
+                        <h2 class="font-display font-bold text-3xl md:text-4xl">Desarrollo de Sistemas Automatizados para Empresas</h2>
+                        <p class="font-sans text-on-surface-variant dark:text-slate-300 text-base leading-relaxed">
+                            Automatizamos tareas operativas y de ventas para que tu negocio funcione a velocidad digital sin errores humanos. Integramos bots inteligentes de WhatsApp conectados a Groq AI, flujos RPA, scrapers B2B de Google Maps y sincronización en tiempo real con tu CRM o ERP.
+                        </p>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-semibold text-on-surface dark:text-slate-200">
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-cyan-500">check_circle</span>
+                                Bots de WhatsApp con Groq AI
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-cyan-500">check_circle</span>
+                                Automatización RPA y Webhooks
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-cyan-500">check_circle</span>
+                                Scrapers B2B de Google Maps
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-cyan-500">check_circle</span>
+                                Sincronización Odoo / CRM / Supabase
+                            </li>
+                        </ul>
+                        <a class="inline-flex bg-primary dark:bg-cyan-500 text-white dark:text-slate-950 px-6 py-3 rounded-xl font-bold hover:shadow-lg active:scale-95 transition-all text-sm" href="contact.html">
+                            Cotizar Sistema Automatizado
+                        </a>
+                    </div>
+                    <div class="lg:col-span-6 relative">
+                        <div class="absolute -inset-2 bg-gradient-to-r from-cyan-500/20 to-primary/20 rounded-2xl blur-xl opacity-60"></div>
+                        <div class="relative glass-card rounded-2xl p-4">
+                            <img alt="Sistemas Automatizados Tecnoemprende" class="rounded-xl w-full h-[320px] object-cover" src="assets/project_nexus.jpg"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Block 2: Propuestas & Modelos de Negocio -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center scroll-animate lg:flex-row-reverse flex-col-reverse">
+                    <div class="lg:col-span-6 space-y-6 lg:order-2">
+                        <div class="w-14 h-14 rounded-2xl bg-sky-500/10 dark:bg-sky-400/10 flex items-center justify-center text-secondary dark:text-sky-400">
+                            <span class="material-symbols-outlined text-3xl">query_stats</span>
+                        </div>
+                        <h2 class="font-display font-bold text-3xl md:text-4xl">Creación Personalizada de Propuestas y Modelos de Negocio</h2>
+                        <p class="font-sans text-on-surface-variant dark:text-slate-300 text-base leading-relaxed">
+                            Diseñamos herramientas interactivas de alto impacto para cerrar tratos con inversores privados y clientes corporativos. Creamos simuladores de retorno de inversión (ROI), pitch decks web en 3D y portafolios patrimoniales adaptados al mercado de Dubái, EAU y Latinoamérica.
+                        </p>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-semibold text-on-surface dark:text-slate-200">
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sky-400">check_circle</span>
+                                Simuladores Financieros de ROI
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sky-400">check_circle</span>
+                                Pitch Decks Web Interactivos en 3D
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sky-400">check_circle</span>
+                                Portafolios Off-Plan & Inversión
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sky-400">check_circle</span>
+                                Presentaciones Exclusivas para Inversores VIP
+                            </li>
+                        </ul>
+                        <a class="inline-flex bg-secondary dark:bg-sky-500 text-white dark:text-slate-950 px-6 py-3 rounded-xl font-bold hover:shadow-lg active:scale-95 transition-all text-sm" href="contact.html">
+                            Crear Propuesta Interactiva
+                        </a>
+                    </div>
+                    <div class="lg:col-span-6 relative lg:order-1">
+                        <div class="absolute -inset-2 bg-gradient-to-r from-sky-500/20 to-primary/20 rounded-2xl blur-xl opacity-60"></div>
+                        <div class="relative glass-card rounded-2xl p-4">
+                            <img alt="Modelos y Propuestas para Inversores" class="rounded-xl w-full h-[320px] object-cover" src="assets/project_tanmay.jpg"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Block 3: Creación de Páginas Web -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center scroll-animate">
+                    <div class="lg:col-span-6 space-y-6">
+                        <div class="w-14 h-14 rounded-2xl bg-teal-500/10 dark:bg-teal-400/10 flex items-center justify-center text-tertiary dark:text-teal-400">
+                            <span class="material-symbols-outlined text-3xl">web</span>
+                        </div>
+                        <h2 class="font-display font-bold text-3xl md:text-4xl">Creación de Páginas Web de Alto Impacto</h2>
+                        <p class="font-sans text-on-surface-variant dark:text-slate-300 text-base leading-relaxed">
+                            Diseño y arquitectura web de ultra-lujo. Desarrollamos landing pages de alta conversión, tiendas e-commerce autogestionables y portales corporativos con estética Glassmorphism, animaciones fluidas y optimización ergonómica Mobile-First.
+                        </p>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-semibold text-on-surface dark:text-slate-200">
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-teal-400">check_circle</span>
+                                Landing Pages de Alta Conversión
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-teal-400">check_circle</span>
+                                Tiendas Virtuales (E-commerce)
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-teal-400">check_circle</span>
+                                Panel Móvil de Administración
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-teal-400">check_circle</span>
+                                Soporte Bilingüe & Dirección RTL (Árabe)
+                            </li>
+                        </ul>
+                        <a class="inline-flex bg-tertiary dark:bg-teal-500 text-white dark:text-slate-950 px-6 py-3 rounded-xl font-bold hover:shadow-lg active:scale-95 transition-all text-sm" href="creacion-sitios.html">
+                            Explorar Opciones Web
+                        </a>
+                    </div>
+                    <div class="lg:col-span-6 relative">
+                        <div class="absolute -inset-2 bg-gradient-to-r from-teal-500/20 to-secondary/20 rounded-2xl blur-xl opacity-60"></div>
+                        <div class="relative glass-card rounded-2xl p-4">
+                            <img alt="Desarrollo Web Tecnoemprende" class="rounded-xl w-full h-[320px] object-cover" src="assets/project_alchemist.jpg"/>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Block 4: Soporte Técnico Continuo & Mantenimiento -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center scroll-animate lg:flex-row-reverse flex-col-reverse">
+                    <div class="lg:col-span-6 space-y-6 lg:order-2">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 dark:bg-emerald-400/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                            <span class="material-symbols-outlined text-3xl">support_agent</span>
+                        </div>
+                        <h2 class="font-display font-bold text-3xl md:text-4xl">Soporte Continuo & Mantenimiento Especializado</h2>
+                        <p class="font-sans text-on-surface-variant dark:text-slate-300 text-base leading-relaxed">
+                            Mantenemos tus plataformas activas sin caídas ni sorpresas. Configuramos demonios wake-lock 24/7 en Render para garantizar cero latencia de respuesta, copias de seguridad automáticas en la nube, optimización de velocidad continua y asistencia técnica prioritaria.
+                        </p>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-semibold text-on-surface dark:text-slate-200">
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-emerald-500">check_circle</span>
+                                Servidores 24/7 Cero Latencia (Wake-Lock)
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-emerald-500">check_circle</span>
+                                Copias de Seguridad y Restauración 1 Clic
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-emerald-500">check_circle</span>
+                                Monitoreo y Protección de Seguridad
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-emerald-500">check_circle</span>
+                                Actualizaciones de Catálogo y Precios
+                            </li>
+                        </ul>
+                        <a class="inline-flex bg-emerald-600 dark:bg-emerald-500 text-white dark:text-slate-950 px-6 py-3 rounded-xl font-bold hover:shadow-lg active:scale-95 transition-all text-sm" href="contact.html">
+                            Contratar Soporte y Hosting
+                        </a>
+                    </div>
+                    <div class="lg:col-span-6 relative lg:order-1">
+                        <div class="absolute -inset-2 bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 rounded-2xl blur-xl opacity-60"></div>
+                        <div class="relative glass-card rounded-2xl p-4">
+                            <img alt="Soporte y Mantenimiento Tecnoemprende" class="rounded-xl w-full h-[320px] object-cover" src="assets/project_fintech.jpg"/>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FAQs Accordion Section -->
+        <section class="py-24 bg-slate-50 dark:bg-slate-900 border-t border-black/5 dark:border-white/5 px-margin-mobile">
+            <div class="max-w-3xl mx-auto space-y-12">
+                <div class="text-center space-y-4">
+                    <span class="text-xs font-bold text-primary dark:text-cyan-400 uppercase tracking-widest">Preguntas Frecuentes</span>
+                    <h2 class="font-display font-extrabold text-3xl md:text-4xl text-on-surface dark:text-slate-100">Resolvemos tus dudas</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ 1 -->
+                    <details class="group bg-white dark:bg-slate-950 rounded-2xl border border-black/5 dark:border-white/5 [&_summary::-webkit-details-marker]:hidden transition-all duration-300">
+                        <summary class="flex justify-between items-center p-6 cursor-pointer select-none">
+                            <h3 class="font-display font-bold text-base md:text-lg pr-4">¿Cuánto tiempo toma crear un sitio web?</h3>
+                            <span class="material-symbols-outlined text-primary dark:text-cyan-400 transition-transform group-open:rotate-180">keyboard_arrow_down</span>
+                        </summary>
+                        <div class="px-6 pb-6 text-sm text-on-surface-variant dark:text-slate-300 leading-relaxed">
+                            Una landing page estándar o web presencial suele tardar entre 10 y 15 días hábiles a partir de la entrega de toda la información. Sitios web más complejos con e-commerce, integraciones de base de datos o desarrollo de Web Apps personalizadas tardan de 4 a 6 semanas.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 2 -->
+                    <details class="group bg-white dark:bg-slate-950 rounded-2xl border border-black/5 dark:border-white/5 [&_summary::-webkit-details-marker]:hidden transition-all duration-300">
+                        <summary class="flex justify-between items-center p-6 cursor-pointer select-none">
+                            <h3 class="font-display font-bold text-base md:text-lg pr-4">¿Qué es un CRM y por qué lo necesita mi empresa?</h3>
+                            <span class="material-symbols-outlined text-primary dark:text-cyan-400 transition-transform group-open:rotate-180">keyboard_arrow_down</span>
+                        </summary>
+                        <div class="px-6 pb-6 text-sm text-on-surface-variant dark:text-slate-300 leading-relaxed">
+                            Un CRM (Customer Relationship Management) es un software que centraliza toda la información de tus clientes: chats, llamadas, correos, cotizaciones e historial de compras. Te permite automatizar tareas, saber qué vendedor está rindiendo mejor y evitar que los prospectos de marketing se pierdan por falta de seguimiento.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 3 -->
+                    <details class="group bg-white dark:bg-slate-950 rounded-2xl border border-black/5 dark:border-white/5 [&_summary::-webkit-details-marker]:hidden transition-all duration-300">
+                        <summary class="flex justify-between items-center p-6 cursor-pointer select-none">
+                            <h3 class="font-display font-bold text-base md:text-lg pr-4">¿Qué información necesito entregar para iniciar mi sitio?</h3>
+                            <span class="material-symbols-outlined text-primary dark:text-cyan-400 transition-transform group-open:rotate-180">keyboard_arrow_down</span>
+                        </summary>
+                        <div class="px-6 pb-6 text-sm text-on-surface-variant dark:text-slate-300 leading-relaxed">
+                            Principalmente necesitamos tu logotipo en alta calidad, textos redactados sobre tu negocio y servicios (tenemos una guía para ayudarte a estructurarlos), imágenes de tus productos/trabajos y tus enlaces a redes sociales. Tienes toda la lista detallada en nuestra <a class="text-primary dark:text-cyan-400 underline font-semibold" href="informacion-necesaria.html">Guía de Información</a>.
+                        </div>
+                    </details>
+
+                    <!-- FAQ 4 -->
+                    <details class="group bg-white dark:bg-slate-950 rounded-2xl border border-black/5 dark:border-white/5 [&_summary::-webkit-details-marker]:hidden transition-all duration-300">
+                        <summary class="flex justify-between items-center p-6 cursor-pointer select-none">
+                            <h3 class="font-display font-bold text-base md:text-lg pr-4">¿Brindan soporte técnico posterior al lanzamiento?</h3>
+                            <span class="material-symbols-outlined text-primary dark:text-cyan-400 transition-transform group-open:rotate-180">keyboard_arrow_down</span>
+                        </summary>
+                        <div class="px-6 pb-6 text-sm text-on-surface-variant dark:text-slate-300 leading-relaxed">
+                            Sí, por supuesto. Todos nuestros sitios web incluyen 30 días de garantía de soporte técnico gratis para asegurar la estabilidad del sitio. Posteriormente, ofrecemos planes mensuales de acompañamiento y actualización web muy accesibles.
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-white dark:bg-slate-950 py-16 border-t border-black/5 dark:border-white/5">
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-12">
+            
+            <!-- Branding Widget -->
+            <div class="space-y-6 md:col-span-2">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img alt="Tecnoemprende Logo" class="h-8 w-auto rounded-lg" src="assets/logo_web.png"/>
+                    <span class="font-display font-extrabold text-xl text-primary dark:text-cyan-400">Tecnoemprende</span>
+                </a>
+                <p class="text-sm text-on-surface-variant dark:text-slate-400 max-w-sm leading-relaxed">
+                    Precisión digital para empresas y emprendedores. Elevamos tu marca y tus ventas a través de software, web e integraciones avanzadas de CRM.
+                </p>
+                <div class="flex gap-4">
+                    <a class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-primary dark:text-cyan-400 hover:bg-primary hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-950 transition-all duration-300" href="https://wa.me/971504497663" target="_blank" aria-label="WhatsApp">
+                        <span class="material-symbols-outlined text-[20px]">chat</span>
+                    </a>
+                    <a class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-primary dark:text-cyan-400 hover:bg-primary hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-950 transition-all duration-300" href="mailto:contacto@tecnoemprende.net" aria-label="Email">
+                        <span class="material-symbols-outlined text-[20px]">mail</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Solutions Navigation -->
+            <div class="space-y-6">
+                <h4 class="font-display font-bold text-base text-on-surface dark:text-slate-100 uppercase tracking-widest text-xs text-slate-400">Soluciones</h4>
+                <ul class="space-y-3 text-sm font-medium text-on-surface-variant dark:text-slate-400">
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="creacion-sitios.html">Desarrollo Web</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="services.html">Integración de CRM</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="services.html">Estrategias de Marketing</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="services.html">Códigos QR & Facturación</a></li>
+                </ul>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="space-y-6">
+                <h4 class="font-display font-bold text-base text-on-surface dark:text-slate-100 uppercase tracking-widest text-xs text-slate-400">Navegación</h4>
+                <ul class="space-y-3 text-sm font-medium text-on-surface-variant dark:text-slate-400">
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="portfolio.html">Portafolio</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="about.html">Sobre Nosotros</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="contact.html">Contacto / Asesoría</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="informacion-necesaria.html">Guía de Cliente</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-16 pt-8 border-t border-black/5 dark:border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-slate-400">
+            <p>© 2026 Tecnoemprende. Todos los derechos reservados. Rediseño Digital de Precisión.</p>
+            <div class="flex gap-6">
+                <a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="#">Política de Privacidad</a>
+                <a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="#">Términos del Servicio</a>
+                <a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="login.html">Acceso Admin</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- App Logic Script -->
+    <script src="main.js"></script>
+</body>
+</html>

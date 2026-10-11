@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Tecnoemprende | Agencia de Software, CRM y Marketing Digital de Precisión</title>
+    <meta name="description" content="Transformamos tu negocio con ingeniería de software de alta gama, diseño web premium e integraciones de CRM (HubSpot, Salesforce, Odoo). Cubrimos Cuba y UAE."/>
+    <meta name="keywords" content="diseño web, CRM, hubspot, salesforce, odoo, marketing digital, tecnoemprende, software a medida, cuba, dubai"/>
+    <meta name="robots" content="index, follow"/>
+    <meta property="og:title" content="Tecnoemprende | Agencia de Software, CRM y Marketing Digital de Precisión"/>
+    <meta property="og:description" content="Transformamos tu negocio con ingeniería de software de alta gama, diseño web premium e integraciones de CRM (HubSpot, Salesforce, Odoo). Cubrimos Cuba y UAE."/>
+    <meta property="og:image" content="assets/logo_web.png"/>
+    <meta property="og:type" content="website"/>
+    <!-- Fonts -->
+    <link href="index.css" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#006877",
+                        secondary: "#24638e",
+                        tertiary: "#00a9bd",
+                        background: "#f9f9ff",
+                        "on-background": "#141b2b",
+                        surface: "#ffffff",
+                        "on-surface": "#141b2b",
+                        "on-surface-variant": "#3d494c",
+                        "outline-variant": "#bcc9cc",
+                        "primary-fixed": "#a5eeff",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "secondary-fixed-dim": "#94ccfd"
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                    maxWidth: {
+                        'container-max': '1280px',
+                    },
+                    spacing: {
+                        'margin-desktop': '64px',
+                        'margin-mobile': '20px',
+                        'gutter': '24px',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background dark:bg-slate-950 text-on-surface dark:text-slate-100 transition-colors duration-300">
+
+    <!-- Sticky Navigation Header -->
+    <nav class="fixed top-0 w-full z-50 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl border-b border-black/5 dark:border-white/5 h-20 transition-all duration-300">
+        <div class="flex justify-between items-center h-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            
+            <!-- Logo Section -->
+            <a href="index.html" class="flex items-center gap-3">
+                <img alt="Tecnoemprende Logo" class="h-10 w-auto rounded-lg" src="assets/logo_web.png"/>
+                <span class="font-display font-extrabold text-2xl tracking-tighter text-primary dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-sky-400 dark:to-cyan-300">Tecnoemprende</span>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden lg:flex items-center gap-8">
+                <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm" href="index.html">Inicio</a>
+                
+                <!-- Dropdown Menu -->
+                <div class="relative group">
+                    <button id="dropdown-toggle" class="flex items-center gap-1 text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm py-2">
+                        Sitios Web
+                        <span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+                    </button>
+                    <div id="dropdown-menu" class="absolute left-0 mt-1 w-56 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-black/5 dark:border-white/5 shadow-2xl p-2 hidden group-hover:block transition-all duration-300">
+                        <a class="block px-4 py-2.5 rounded-xl hover:bg-primary/10 dark:hover:bg-cyan-500/10 text-sm font-medium text-on-surface-variant dark:text-slate-300 hover:text-primary dark:hover:text-cyan-400 transition-all" href="creacion-sitios.html">Creación de Sitios Web</a>
+                        <a class="block px-4 py-2.5 rounded-xl hover:bg-primary/10 dark:hover:bg-cyan-500/10 text-sm font-medium text-on-surface-variant dark:text-slate-300 hover:text-primary dark:hover:text-cyan-400 transition-all" href="por-que-sitio.html">Por qué un Sitio Web</a>
+                        <a class="block px-4 py-2.5 rounded-xl hover:bg-primary/10 dark:hover:bg-cyan-500/10 text-sm font-medium text-on-surface-variant dark:text-slate-300 hover:text-primary dark:hover:text-cyan-400 transition-all" href="informacion-necesaria.html">Información Necesaria</a>
+                    </div>
+                </div>
+
+                <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm" href="services.html">Servicios</a>
+                <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm" href="portfolio.html">Portafolio</a>
+                <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm" href="about.html">Sobre Nosotros</a>
+                <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm" href="contact.html">Contacto</a>
+            </div>
+
+            <!-- CTAs & Switcher -->
+            <div class="flex items-center gap-4">
+                <!-- Theme toggle button -->
+                <button id="theme-toggle" class="p-2.5 rounded-xl hover:bg-primary/10 dark:hover:bg-white/10 text-primary dark:text-cyan-400 transition-all" aria-label="Toggle Theme">
+                    <span id="theme-icon" class="material-symbols-outlined">dark_mode</span>
+                </button>
+                <a class="hidden sm:inline-flex bg-primary dark:bg-cyan-500 text-white dark:text-slate-950 px-6 py-2.5 rounded-xl font-semibold text-sm hover:shadow-lg hover:shadow-primary/20 dark:hover:shadow-cyan-400/20 active:scale-95 transition-all" href="solicitar-sitio.html">
+                    Empezar
+                </a>
+                <button id="mobile-menu-btn" class="lg:hidden p-2 text-on-surface dark:text-slate-100" aria-label="Open Mobile Menu">
+                    <span class="material-symbols-outlined text-2xl">menu</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobile-menu-collapse" class="fixed inset-0 z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl flex flex-col translate-x-full transition-transform duration-300 ease-out lg:hidden p-6">
+        <div class="flex justify-between items-center mb-10">
+            <a href="index.html" class="flex items-center gap-3">
+                <img alt="Tecnoemprende Logo" class="h-8 w-auto rounded-lg" src="assets/logo_web.png"/>
+                <span class="font-display font-extrabold text-xl text-primary dark:text-cyan-400">Tecnoemprende</span>
+            </a>
+            <button id="mobile-menu-close" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-on-surface dark:text-slate-100" aria-label="Close Mobile Menu">
+                <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-6 text-lg font-medium">
+            <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-2 border-b border-slate-100 dark:border-slate-800" href="index.html">Inicio</a>
+            <div class="flex flex-col gap-2 py-2 border-b border-slate-100 dark:border-slate-800">
+                <span class="text-xs font-semibold text-slate-400 uppercase tracking-widest">Sitios Web</span>
+                <a class="pl-4 text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-1" href="creacion-sitios.html">Creación de Sitios Web</a>
+                <a class="pl-4 text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-1" href="por-que-sitio.html">Por qué un Sitio Web</a>
+                <a class="pl-4 text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-1" href="informacion-necesaria.html">Información Necesaria</a>
+            </div>
+            <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-2 border-b border-slate-100 dark:border-slate-800" href="services.html">Servicios</a>
+            <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-2 border-b border-slate-100 dark:border-slate-800" href="portfolio.html">Portafolio</a>
+            <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-2 border-b border-slate-100 dark:border-slate-800" href="about.html">Sobre Nosotros</a>
+            <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-2 border-b border-slate-100 dark:border-slate-800" href="contact.html">Contacto</a>
+            <a class="bg-primary dark:bg-cyan-500 text-white dark:text-slate-950 text-center py-4 rounded-2xl font-bold mt-4" href="contact.html">Contáctanos Hoy</a>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="pt-20">
+
+        <!-- Hero Section with 3D Tech Ambience & Video Background -->
+        <section class="relative min-h-[90vh] flex items-center overflow-hidden py-20 md:py-28">
+            <!-- Background Video (Ultra-fast metadata preload, looping muted) -->
+            <video autoplay loop muted playsinline preload="metadata" class="absolute inset-0 w-full h-full object-cover opacity-20 dark:opacity-30 pointer-events-none z-0">
+                <source src="assets/hero_bg_video.mp4" type="video/mp4">
+            </video>
+
+            <!-- 3D Glow & Overlay Filters -->
+            <div class="absolute inset-0 bg-gradient-to-b from-background/90 via-background/60 to-background dark:from-slate-950/90 dark:via-slate-950/65 dark:to-slate-950 z-0 pointer-events-none"></div>
+            <div class="hero-glow top-0 right-0 z-0"></div>
+            <div class="hero-glow bottom-0 left-0 z-0"></div>
+
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+                <!-- Text block -->
+                <div class="lg:col-span-7 space-y-8">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 dark:bg-cyan-500/10 text-primary dark:text-cyan-400 border border-primary/20 dark:border-cyan-400/20 backdrop-blur-md">
+                        <span class="w-2.5 h-2.5 bg-cyan-400 rounded-full animate-ping mr-2.5"></span>
+                        <span class="font-semibold text-xs tracking-wider uppercase">Ingeniería Digital & IA de Frontera</span>
+                    </div>
+                    <h1 class="font-display font-extrabold text-5xl md:text-6xl xl:text-7xl leading-[1.05] tracking-tight">
+                        Construimos el futuro <span class="gradient-text">tecnológico</span> de tu empresa
+                    </h1>
+                    <p class="font-sans text-lg text-on-surface-variant dark:text-slate-300 max-w-xl leading-relaxed">
+                        Desarrollo de sistemas automatizados con IA, modelos y propuestas interactivas para inversores, diseño web de alto impacto y soporte continuo 24/7 en <strong>Dubái, Abu Dhabi y La Habana</strong>.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a class="px-8 py-4 bg-primary dark:bg-cyan-500 text-white dark:text-slate-950 rounded-xl font-bold hover:shadow-2xl hover:shadow-primary/30 dark:hover:shadow-cyan-400/30 active:scale-95 transition-all flex items-center gap-2 group" href="contact.html">
+                            Empezar Proyecto
+                            <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+                        </a>
+                        <a class="px-8 py-4 glass-card text-primary dark:text-cyan-400 hover:bg-white/60 dark:hover:bg-slate-900/60 rounded-xl font-semibold hover:shadow-xl active:scale-95 transition-all flex items-center gap-2" href="portfolio.html">
+                            <span class="material-symbols-outlined text-[20px]">view_in_ar</span>
+                            Explorar Portafolio 3D
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 3D Graphic & Holographic Showcase Column -->
+                <div class="lg:col-span-5 relative group mt-10 lg:mt-0" style="perspective: 1200px;">
+                    <div class="absolute -inset-4 bg-gradient-to-tr from-primary/30 via-tertiary/20 to-cyan-400/30 dark:from-cyan-500/25 dark:to-sky-500/25 rounded-3xl blur-3xl transition-all group-hover:scale-105 opacity-70"></div>
+                    <div class="relative glass-card rounded-3xl p-5 transform transition-all duration-700 hover:rotate-y-2 hover:-rotate-x-2 hover:-translate-y-3 shadow-2xl border border-white/20 dark:border-cyan-400/20" style="transform-style: preserve-3d;">
+                        <img alt="Tecnología Avanzada Tecnoemprende" class="rounded-2xl w-full h-[380px] md:h-[450px] object-cover shadow-2xl brightness-95 contrast-105" src="assets/tech_unsplash.jpg"/>
+                        
+                        <!-- Floating Badge 1: Sistemas Autónomos -->
+                        <div class="absolute -top-8 -left-4 md:-left-8 p-4 glass-card rounded-2xl max-w-[260px] shadow-2xl float-animation backdrop-blur-xl border border-cyan-400/30">
+                            <div class="flex items-start gap-3">
+                                <div class="w-9 h-9 rounded-xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 shrink-0">
+                                    <span class="material-symbols-outlined text-[20px]">smart_toy</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-display font-extrabold text-xs text-primary dark:text-cyan-400 leading-tight">Sistemas Autónomos & IA</h4>
+                                    <p class="text-[11px] font-medium text-on-surface-variant dark:text-slate-300 mt-1 leading-normal">
+                                        Bots de WhatsApp con Groq AI y pipelines en la nube activos 24/7.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating Badge 2: Presencia Internacional -->
+                        <div class="absolute -bottom-6 -right-4 md:-right-8 p-4 glass-card rounded-2xl max-w-[280px] shadow-2xl float-animation backdrop-blur-xl border border-primary/30 dark:border-cyan-400/30" style="animation-delay: -3s;">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-primary/20 dark:bg-cyan-500/20 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-primary dark:text-cyan-400">public</span>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-black text-primary dark:text-cyan-400 leading-none">Dubái · Abu Dhabi · La Habana</div>
+                                    <div class="text-[11px] font-semibold text-on-surface-variant dark:text-slate-300 mt-1">Soluciones para empresas e inversores</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Urgency Banner Row -->
+        <section class="py-6 bg-primary dark:bg-slate-900 border-y border-white/10 overflow-hidden relative">
+            <div class="flex whitespace-nowrap gap-20 animate-[shimmer-anim_30s_linear_infinite] uppercase font-display font-extrabold text-white text-sm tracking-wider opacity-90 select-none">
+                <span>⚡ ¡Lanza tu web en 15 días o sigue perdiendo clientes ante tu competencia!</span>
+                <span>🔥 Un sitio web lento cuesta hasta un 40% de tus ventas. ¡Optimízate hoy!</span>
+                <span>📊 Si no tienes un CRM, estás perdiendo el 50% de tus prospectos de marketing.</span>
+                <span>⚡ ¡Lanza tu web en 15 días o sigue perdiendo clientes ante tu competencia!</span>
+                <span>🔥 Un sitio web lento cuesta hasta un 40% de tus ventas. ¡Optimízate hoy!</span>
+            </div>
+        </section>
+
+        <!-- About Bento Section -->
+        <section class="py-24 md:py-32 bg-white dark:bg-slate-950">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+                <div class="flex flex-col md:flex-row justify-between items-end gap-8 mb-16 scroll-animate">
+                    <div class="max-w-2xl">
+                        <span class="text-xs font-bold text-primary dark:text-cyan-400 uppercase tracking-widest">Nuestro Liderazgo</span>
+                        <h2 class="font-display font-extrabold text-4xl md:text-5xl mt-2 leading-tight">Estrategia de Éxito & <span class="gradient-text">Ejecución Técnica</span></h2>
+                        <p class="font-sans text-lg text-on-surface-variant dark:text-slate-300 mt-4">
+                            Tecnoemprende es una agencia integrada por un equipo de 10 profesionales especializados en software, diseño digital y CRM de precisión, liderada por Aliet Rodríguez Viltres y David Alejandro Rodríguez.
+                        </p>
+                    </div>
+                    <a class="text-primary dark:text-cyan-400 font-bold flex items-center gap-2 hover:gap-3 transition-all duration-300 text-sm" href="about.html">
+                        Conoce nuestra historia 
+                        <span class="material-symbols-outlined">trending_flat</span>
+                    </a>
+                </div>
+
+                <!-- Bento Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+                    <!-- Core Strategy Card -->
+                    <div class="md:col-span-8 glass-card glass-card-hover rounded-3xl p-8 md:p-10 flex flex-col justify-between min-h-[380px] scroll-animate">
+                        <div class="flex justify-between items-start gap-4">
+                            <div class="space-y-4">
+                                <h3 class="font-display font-bold text-2xl md:text-3xl">Estrategia & Tecnología de Precisión</h3>
+                                <p class="text-on-surface-variant dark:text-slate-300 text-base max-w-lg">
+                                    No solo construimos sitios web; creamos ecosistemas digitales donde cada pixel y cada automatización de CRM están alineados con tus objetivos de crecimiento de negocio.
+                                </p>
+                            </div>
+                            <span class="material-symbols-outlined text-primary dark:text-cyan-400 text-5xl">precision_manufacturing</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 pt-10 border-t border-black/5 dark:border-white/5 mt-10">
+                            <div>
+                                <div class="text-3xl font-extrabold text-primary dark:text-cyan-400">10+</div>
+                                <div class="text-xs font-semibold text-slate-400 uppercase mt-1">Años de Trayectoria</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-extrabold text-primary dark:text-cyan-400">200+</div>
+                                <div class="text-xs font-semibold text-slate-400 uppercase mt-1">Sitios Entregados</div>
+                            </div>
+                            <div>
+                                <div class="text-3xl font-extrabold text-primary dark:text-cyan-400">50+</div>
+                                <div class="text-xs font-semibold text-slate-400 uppercase mt-1">Sistemas CRM</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Culture Card -->
+                    <div class="md:col-span-4 bg-gradient-to-br from-primary to-secondary dark:from-slate-900 dark:to-slate-800 rounded-3xl p-8 md:p-10 text-white flex flex-col justify-between min-h-[380px] scroll-animate">
+                        <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center">
+                            <span class="material-symbols-outlined text-3xl">groups</span>
+                        </div>
+                        <div class="space-y-4 mt-6">
+                            <h3 class="font-display font-bold text-2xl">Equipo & Talento</h3>
+                            <p class="opacity-90 text-sm">
+                                Contamos con un equipo de 10 ingenieros y diseñadores comprometidos en transformar tus procesos comerciales y optimizar tus embudos con máxima agilidad.
+                            </p>
+                        </div>
+                        <div class="pt-6">
+                            <span class="text-xs font-bold text-primary-fixed dark:text-cyan-300 uppercase tracking-widest">Compromiso de Éxito 🚀</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Grid Section -->
+        <section class="py-24 md:py-32 bg-slate-50 dark:bg-slate-900 border-y border-black/5 dark:border-white/5">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+                <div class="text-center max-w-2xl mx-auto mb-20 scroll-animate">
+                    <span class="text-xs font-bold text-primary dark:text-cyan-400 uppercase tracking-widest">Ecosistema 360°</span>
+                    <h2 class="font-display font-extrabold text-4xl mt-2 leading-tight">Soluciones integradas para acelerar tus ventas</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Service 1: Sistemas Automatizados -->
+                    <div class="glass-card glass-card-hover rounded-3xl p-7 scroll-animate flex flex-col justify-between border border-cyan-400/20 shadow-xl">
+                        <div class="space-y-5">
+                            <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 dark:bg-cyan-400/10 flex items-center justify-center text-primary dark:text-cyan-400">
+                                <span class="material-symbols-outlined text-3xl">smart_toy</span>
+                            </div>
+                            <h3 class="font-display font-bold text-xl text-on-surface dark:text-slate-100">Sistemas Automatizados para Empresas</h3>
+                            <p class="text-on-surface-variant dark:text-slate-300 text-xs leading-relaxed">
+                                Automatización inteligente de flujos comerciales, bots de WhatsApp conectados a Groq AI, scrapers de prospección B2B y sincronización CRM/ERP.
+                            </p>
+                            <ul class="space-y-2.5 text-xs font-semibold text-on-surface-variant dark:text-slate-300">
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-cyan-500 text-[16px]">check_circle</span> Bots de WhatsApp con Groq AI</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-cyan-500 text-[16px]">check_circle</span> Automatización de Procesos (RPA)</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-cyan-500 text-[16px]">check_circle</span> Scrapers B2B de Google Maps</li>
+                            </ul>
+                        </div>
+                        <a class="inline-flex items-center text-primary dark:text-cyan-400 font-bold text-xs mt-6 group" href="services.html">
+                            Ver detalles 
+                            <span class="material-symbols-outlined ml-1.5 transition-transform group-hover:translate-x-1 text-[16px]">chevron_right</span>
+                        </a>
+                    </div>
+
+                    <!-- Service 2: Propuestas & Modelos de Negocio -->
+                    <div class="glass-card glass-card-hover rounded-3xl p-7 scroll-animate flex flex-col justify-between border border-primary/20 shadow-xl">
+                        <div class="space-y-5">
+                            <div class="w-14 h-14 rounded-2xl bg-primary/10 dark:bg-sky-500/10 flex items-center justify-center text-secondary dark:text-sky-400">
+                                <span class="material-symbols-outlined text-3xl">query_stats</span>
+                            </div>
+                            <h3 class="font-display font-bold text-xl text-on-surface dark:text-slate-100">Propuestas & Modelos de Negocio</h3>
+                            <p class="text-on-surface-variant dark:text-slate-300 text-xs leading-relaxed">
+                                Creación de simuladores interactivos de ROI para inversores privados, pitch decks web interactivos en 3D y estructuración patrimonial a medida.
+                            </p>
+                            <ul class="space-y-2.5 text-xs font-semibold text-on-surface-variant dark:text-slate-300">
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sky-500 text-[16px]">check_circle</span> Simuladores Financieros & ROI</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sky-500 text-[16px]">check_circle</span> Pitch Decks Web 3D Interactivos</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-sky-500 text-[16px]">check_circle</span> Modelos para Inversores VIP</li>
+                            </ul>
+                        </div>
+                        <a class="inline-flex items-center text-secondary dark:text-sky-400 font-bold text-xs mt-6 group" href="services.html">
+                            Ver detalles 
+                            <span class="material-symbols-outlined ml-1.5 transition-transform group-hover:translate-x-1 text-[16px]">chevron_right</span>
+                        </a>
+                    </div>
+
+                    <!-- Service 3: Páginas Web de Alto Impacto -->
+                    <div class="glass-card glass-card-hover rounded-3xl p-7 scroll-animate flex flex-col justify-between border border-secondary/20 shadow-xl">
+                        <div class="space-y-5">
+                            <div class="w-14 h-14 rounded-2xl bg-secondary/10 dark:bg-teal-500/10 flex items-center justify-center text-tertiary dark:text-teal-400">
+                                <span class="material-symbols-outlined text-3xl">web</span>
+                            </div>
+                            <h3 class="font-display font-bold text-xl text-on-surface dark:text-slate-100">Creación de Páginas Web</h3>
+                            <p class="text-on-surface-variant dark:text-slate-300 text-xs leading-relaxed">
+                                Diseño y arquitectura web de lujo, interfaces Mobile-First con glassmorphism, tiendas e-commerce de alto rendimiento y portales autogestionables.
+                            </p>
+                            <ul class="space-y-2.5 text-xs font-semibold text-on-surface-variant dark:text-slate-300">
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-teal-500 text-[16px]">check_circle</span> Landing Pages de Alta Conversión</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-teal-500 text-[16px]">check_circle</span> Tiendas E-commerce Autogestionables</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-teal-500 text-[16px]">check_circle</span> Portales Corporativos de Lujo</li>
+                            </ul>
+                        </div>
+                        <a class="inline-flex items-center text-tertiary dark:text-teal-400 font-bold text-xs mt-6 group" href="creacion-sitios.html">
+                            Ver detalles 
+                            <span class="material-symbols-outlined ml-1.5 transition-transform group-hover:translate-x-1 text-[16px]">chevron_right</span>
+                        </a>
+                    </div>
+
+                    <!-- Service 4: Soporte Técnico Continuo -->
+                    <div class="glass-card glass-card-hover rounded-3xl p-7 scroll-animate flex flex-col justify-between border border-emerald-400/20 shadow-xl">
+                        <div class="space-y-5">
+                            <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 dark:bg-emerald-400/10 flex items-center justify-center text-emerald-600 dark:text-emerald-400">
+                                <span class="material-symbols-outlined text-3xl">support_agent</span>
+                            </div>
+                            <h3 class="font-display font-bold text-xl text-on-surface dark:text-slate-100">Soporte Continuo & Mantenimiento</h3>
+                            <p class="text-on-surface-variant dark:text-slate-300 text-xs leading-relaxed">
+                                Servicios de nube con latencia cero (wake-lock 24/7 en Render), copias de seguridad en un clic, optimización de velocidad y monitoreo continuo.
+                            </p>
+                            <ul class="space-y-2.5 text-xs font-semibold text-on-surface-variant dark:text-slate-300">
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-emerald-500 text-[16px]">check_circle</span> Servidores 24/7 Cero Latencia</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-emerald-500 text-[16px]">check_circle</span> Respaldos & Seguridad en la Nube</li>
+                                <li class="flex items-center gap-2"><span class="material-symbols-outlined text-emerald-500 text-[16px]">check_circle</span> Asistencia Técnica Prioritaria</li>
+                            </ul>
+                        </div>
+                        <a class="inline-flex items-center text-emerald-600 dark:text-emerald-400 font-bold text-xs mt-6 group" href="services.html">
+                            Ver detalles 
+                            <span class="material-symbols-outlined ml-1.5 transition-transform group-hover:translate-x-1 text-[16px]">chevron_right</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Teaser Section -->
+        <section class="py-24 md:py-32 bg-white dark:bg-slate-950">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-16 scroll-animate">
+                    <div>
+                        <span class="text-xs font-bold text-primary dark:text-cyan-400 uppercase tracking-widest">Nuestra Artesanía</span>
+                        <h2 class="font-display font-extrabold text-4xl mt-2">Casos de <span class="gradient-text">Éxito Destacados</span></h2>
+                    </div>
+                    <a class="mt-4 md:mt-0 px-6 py-3 border-2 border-primary dark:border-cyan-500 text-primary dark:text-cyan-400 rounded-xl font-bold hover:bg-primary dark:hover:bg-cyan-500 hover:text-white dark:hover:text-slate-950 text-sm transition-all duration-300" href="portfolio.html">
+                        Ver Portafolio Completo
+                    </a>
+                </div>
+
+                <!-- Teaser Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Case 1: Dubái -->
+                    <a href="https://aether-radar-nolb.onrender.com/preview/alsharq-saloon/" target="_blank" class="group relative rounded-3xl overflow-hidden shadow-2xl h-[360px] scroll-animate block cursor-pointer border border-white/10">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-85 z-10"></div>
+                        <img alt="Al Sharq Saloon Dubái" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="assets/project_alsharq.jpg"/>
+                        <div class="absolute top-4 left-4 z-20">
+                            <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 font-bold text-[10px] uppercase tracking-wider backdrop-blur-md border border-cyan-400/30">📍 Dubái (Deira)</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 p-6 z-20 transition-all group-hover:translate-y-[-4px]">
+                            <h3 class="text-white text-xl font-extrabold font-display">Al Sharq Saloon</h3>
+                            <p class="text-white/80 mt-1.5 text-xs">
+                                Salón de lujo 4.9⭐ en Deira con sistema de reservas móviles y panel privado.
+                            </p>
+                        </div>
+                    </a>
+
+                    <!-- Case 2: Abu Dhabi -->
+                    <a href="https://cubaloop.github.io/alqasor-gents-salon/" target="_blank" class="group relative rounded-3xl overflow-hidden shadow-2xl h-[360px] scroll-animate block cursor-pointer border border-white/10">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-85 z-10"></div>
+                        <img alt="Al Qasor Saloon Abu Dhabi" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="assets/project_alqasor.jpg"/>
+                        <div class="absolute top-4 left-4 z-20">
+                            <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 font-bold text-[10px] uppercase tracking-wider backdrop-blur-md border border-amber-400/30">📍 Abu Dhabi</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 p-6 z-20 transition-all group-hover:translate-y-[-4px]">
+                            <h3 class="text-white text-xl font-extrabold font-display">Al Qasor Salon</h3>
+                            <p class="text-white/80 mt-1.5 text-xs">
+                                Barbería de alta gama con soporte bilingüe en árabe (RTL) y agendamiento VIP.
+                            </p>
+                        </div>
+                    </a>
+
+                    <!-- Case 3: La Habana -->
+                    <a href="https://cubaloop.github.io/habana-fragrance/" target="_blank" class="group relative rounded-3xl overflow-hidden shadow-2xl h-[360px] scroll-animate block cursor-pointer border border-white/10">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-85 z-10"></div>
+                        <img alt="HabANA Fragrance" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="assets/project_habanafragrance.jpg"/>
+                        <div class="absolute top-4 left-4 z-20">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-bold text-[10px] uppercase tracking-wider backdrop-blur-md border border-emerald-400/30">📍 La Habana</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 p-6 z-20 transition-all group-hover:translate-y-[-4px]">
+                            <h3 class="text-white text-xl font-extrabold font-display">HabANA Fragrance</h3>
+                            <p class="text-white/80 mt-1.5 text-xs">
+                                Alta perfumería cubana artesanal con catálogo interactivo y pedidos por WhatsApp.
+                            </p>
+                        </div>
+                    </a>
+
+                    <!-- Case 4: Inversores VIP -->
+                    <a href="https://cubaloop.github.io/dubai-investor-tanmay/" target="_blank" class="group relative rounded-3xl overflow-hidden shadow-2xl h-[360px] scroll-animate block cursor-pointer border border-white/10">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-85 z-10"></div>
+                        <img alt="Dubai Investor Experience" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="assets/project_tanmay.jpg"/>
+                        <div class="absolute top-4 left-4 z-20">
+                            <span class="px-3 py-1 rounded-full bg-sky-500/20 text-sky-300 font-bold text-[10px] uppercase tracking-wider backdrop-blur-md border border-sky-400/30">💎 Inversor VIP</span>
+                        </div>
+                        <div class="absolute bottom-0 left-0 p-6 z-20 transition-all group-hover:translate-y-[-4px]">
+                            <h3 class="text-white text-xl font-extrabold font-display">Simulador ROI Inversores</h3>
+                            <p class="text-white/80 mt-1.5 text-xs">
+                                Simulador interactivo de plusvalía off-plan DAMAC & Emaar con cálculos fiscales al 0%.
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Conversion Section -->
+        <section class="py-24 md:py-32 bg-slate-50 dark:bg-slate-900 border-t border-black/5 dark:border-white/5">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+                <div class="relative bg-gradient-to-br from-primary to-secondary dark:from-slate-900 dark:to-slate-800 rounded-[48px] p-10 md:p-16 overflow-hidden flex flex-col items-center text-center shadow-3xl scroll-animate">
+                    <div class="absolute inset-0 bg-cover bg-center mix-blend-overlay opacity-10" style="background-image: url('assets/tech_unsplash.jpg')"></div>
+                    <div class="relative z-10 max-w-2xl space-y-8">
+                        <span class="inline-block text-xs font-bold bg-white/20 text-white px-4 py-1.5 rounded-full uppercase tracking-wider">¡El momento es ahora!</span>
+                        <h2 class="font-display font-extrabold text-4xl md:text-5xl text-white leading-tight">
+                            ¿Listo para llevar tu facturación al siguiente nivel?
+                        </h2>
+                        <p class="text-white/85 text-lg font-sans">
+                            Tu competencia directa ya se está digitalizando. Agenda una asesoría gratuita de 30 minutos y planifiquemos tu estrategia digital de precisión.
+                        </p>
+                        <div class="pt-4 flex flex-wrap justify-center gap-4">
+                            <a class="px-10 py-5 bg-white dark:bg-cyan-500 text-primary dark:text-slate-950 rounded-2xl font-bold hover:shadow-2xl active:scale-95 transition-all text-sm" href="contact.html">
+                                Agendar Asesoría Gratuita
+                            </a>
+                            <a class="px-10 py-5 border border-white/30 text-white rounded-2xl font-semibold hover:bg-white/10 active:scale-95 transition-all text-sm" href="tel:+971504497663">
+                                Llamar Directo 📞
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-white dark:bg-slate-950 py-16 border-t border-black/5 dark:border-white/5">
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-12">
+            
+            <!-- Branding Widget -->
+            <div class="space-y-6 md:col-span-2">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img alt="Tecnoemprende Logo" class="h-8 w-auto rounded-lg" src="assets/logo_web.png"/>
+                    <span class="font-display font-extrabold text-xl text-primary dark:text-cyan-400">Tecnoemprende</span>
+                </a>
+                <p class="text-sm text-on-surface-variant dark:text-slate-400 max-w-sm leading-relaxed">
+                    Precisión digital para empresas y emprendedores. Elevamos tu marca y tus ventas a través de software, web e integraciones avanzadas de CRM.
+                </p>
+                <div class="flex gap-4">
+                    <a class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-primary dark:text-cyan-400 hover:bg-primary hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-950 transition-all duration-300" href="https://wa.me/971504497663" target="_blank" aria-label="WhatsApp">
+                        <span class="material-symbols-outlined text-[20px]">chat</span>
+                    </a>
+                    <a class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-primary dark:text-cyan-400 hover:bg-primary hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-950 transition-all duration-300" href="mailto:contacto@tecnoemprende.net" aria-label="Email">
+                        <span class="material-symbols-outlined text-[20px]">mail</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Solutions Navigation -->
+            <div class="space-y-6">
+                <h4 class="font-display font-bold text-base text-on-surface dark:text-slate-100 uppercase tracking-widest text-xs text-slate-400">Soluciones</h4>
+                <ul class="space-y-3 text-sm font-medium text-on-surface-variant dark:text-slate-400">
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="creacion-sitios.html">Desarrollo Web</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="services.html">Integración de CRM</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="services.html">Estrategias de Marketing</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="services.html">Códigos QR & Facturación</a></li>
+                </ul>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="space-y-6">
+                <h4 class="font-display font-bold text-base text-on-surface dark:text-slate-100 uppercase tracking-widest text-xs text-slate-400">Navegación</h4>
+                <ul class="space-y-3 text-sm font-medium text-on-surface-variant dark:text-slate-400">
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="portfolio.html">Portafolio</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="about.html">Sobre Nosotros</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="contact.html">Contacto / Asesoría</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="informacion-necesaria.html">Guía de Cliente</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-16 pt-8 border-t border-black/5 dark:border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-slate-400">
+            <p>© 2026 Tecnoemprende. Todos los derechos reservados. Rediseño Digital de Precisión.</p>
+            <div class="flex gap-6">
+                <a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="#">Política de Privacidad</a>
+                <a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="#">Términos del Servicio</a>
+                <a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="login.html">Acceso Admin</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- App Logic Script -->
+    <script src="main.js"></script>
+</body>
+</html>

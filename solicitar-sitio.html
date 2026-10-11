@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Solicitar Sitio Web | Tecnoemprende - Cotizador y Cuestionario de Proyecto</title>
+    <meta name="description" content="Completa nuestro cuestionario interactivo para detallar tus requisitos web y de CRM. Diseñamos soluciones digitales de alta precisión para tu negocio."/>
+    <meta name="keywords" content="cotización web, diseño web, cuestionario de desarrollo, tecnoemprende, CRM, marketing digital"/>
+    <meta name="robots" content="index, follow"/>
+    <meta property="og:title" content="Solicitar Sitio Web | Tecnoemprende - Cotizador y Cuestionario de Proyecto"/>
+    <meta property="og:description" content="Completa nuestro cuestionario interactivo para detallar tus requisitos web y de CRM. Diseñamos soluciones digitales de alta precisión para tu negocio."/>
+    <meta property="og:image" content="assets/logo_web.png"/>
+    <meta property="og:type" content="website"/>
+    
+    
+    <!-- OpenGraph Metadata -->
+    
+    
+    
+    
+    <!-- Fonts -->
+    <link href="index.css" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#006877",
+                        secondary: "#24638e",
+                        tertiary: "#00a9bd",
+                        background: "#f9f9ff",
+                        "on-background": "#141b2b",
+                        surface: "#ffffff",
+                        "on-surface": "#141b2b",
+                        "on-surface-variant": "#3d494c",
+                        "outline-variant": "#bcc9cc",
+                        "primary-fixed": "#a5eeff",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "secondary-fixed-dim": "#94ccfd"
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                    maxWidth: {
+                        'container-max': '1280px',
+                    },
+                    spacing: {
+                        'margin-desktop': '64px',
+                        'margin-mobile': '20px',
+                        'gutter': '24px',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background dark:bg-slate-950 text-on-surface dark:text-slate-100 transition-colors duration-300">
+
+    <!-- Sticky Navigation Header -->
+    <nav class="fixed top-0 w-full z-50 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl border-b border-black/5 dark:border-white/5 h-20 transition-all duration-300">
+        <div class="flex justify-between items-center h-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <!-- Logo Section -->
+            <a href="index.html" class="flex items-center gap-3">
+                <img alt="Tecnoemprende Logo" class="h-10 w-auto rounded-lg" src="assets/logo_web.png"/>
+                <span class="font-display font-extrabold text-2xl tracking-tighter text-primary dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-sky-400 dark:to-cyan-300">Tecnoemprende</span>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden lg:flex items-center gap-8">
+                <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm" href="index.html">Inicio</a>
+                
+                <!-- Dropdown Menu -->
+                <div class="relative group">
+                    <button id="dropdown-toggle" class="flex items-center gap-1 text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm py-2">
+                        Sitios Web
+                        <span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+                    </button>
+                    <div id="dropdown-menu" class="absolute left-0 mt-1 w-56 rounded-2xl bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-black/5 dark:border-white/5 shadow-2xl p-2 hidden group-hover:block transition-all duration-300">
+                        <a class="block px-4 py-2.5 rounded-xl hover:bg-primary/10 dark:hover:bg-cyan-500/10 text-sm font-medium text-on-surface-variant dark:text-slate-300 hover:text-primary dark:hover:text-cyan-400 transition-all" href="creacion-sitios.html">Creación de Sitios Web</a>
+                        <a class="block px-4 py-2.5 rounded-xl hover:bg-primary/10 dark:hover:bg-cyan-500/10 text-sm font-medium text-on-surface-variant dark:text-slate-300 hover:text-primary dark:hover:text-cyan-400 transition-all" href="por-que-sitio.html">Por qué un Sitio Web</a>
+                        <a class="block px-4 py-2.5 rounded-xl hover:bg-primary/10 dark:hover:bg-cyan-500/10 text-sm font-medium text-on-surface-variant dark:text-slate-300 hover:text-primary dark:hover:text-cyan-400 transition-all" href="informacion-necesaria.html">Información Necesaria</a>
+                    </div>
+                </div>
+
+                <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm" href="services.html">Servicios</a>
+                <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm" href="portfolio.html">Portafolio</a>
+                <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm" href="about.html">Sobre Nosotros</a>
+                <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 transition-colors font-medium text-sm" href="contact.html">Contacto</a>
+            </div>
+
+            <!-- CTAs & Theme Toggle -->
+            <div class="flex items-center gap-4">
+                <button id="theme-toggle" class="p-2.5 rounded-xl hover:bg-primary/10 dark:hover:bg-white/10 text-primary dark:text-cyan-400 transition-all" aria-label="Toggle Theme">
+                    <span id="theme-icon" class="material-symbols-outlined">dark_mode</span>
+                </button>
+                <a class="hidden sm:inline-flex bg-primary dark:bg-cyan-500 text-white dark:text-slate-950 px-6 py-2.5 rounded-xl font-semibold text-sm hover:shadow-lg hover:shadow-primary/20 dark:hover:shadow-cyan-400/20 active:scale-95 transition-all" href="solicitar-sitio.html">
+                    Empezar
+                </a>
+                <button id="mobile-menu-btn" class="lg:hidden p-2 text-on-surface dark:text-slate-100" aria-label="Open Mobile Menu">
+                    <span class="material-symbols-outlined text-2xl">menu</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu-collapse" class="fixed inset-0 z-50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl flex flex-col translate-x-full transition-transform duration-300 ease-out lg:hidden p-6">
+        <div class="flex justify-between items-center mb-10">
+            <a href="index.html" class="flex items-center gap-3">
+                <img alt="Tecnoemprende Logo" class="h-8 w-auto rounded-lg" src="assets/logo_web.png"/>
+                <span class="font-display font-extrabold text-xl text-primary dark:text-cyan-400">Tecnoemprende</span>
+            </a>
+            <button id="mobile-menu-close" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-on-surface dark:text-slate-100" aria-label="Close Mobile Menu">
+                <span class="material-symbols-outlined text-2xl">close</span>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-6 text-lg font-medium">
+            <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-2 border-b border-slate-100 dark:border-slate-800" href="index.html">Inicio</a>
+            <div class="flex flex-col gap-2 py-2 border-b border-slate-100 dark:border-slate-800">
+                <span class="text-xs font-semibold text-slate-400 uppercase tracking-widest">Sitios Web</span>
+                <a class="pl-4 text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-1" href="creacion-sitios.html">Creación de Sitios Web</a>
+                <a class="pl-4 text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-1" href="por-que-sitio.html">Por qué un Sitio Web</a>
+                <a class="pl-4 text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-1" href="informacion-necesaria.html">Información Necesaria</a>
+            </div>
+            <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-2 border-b border-slate-100 dark:border-slate-800" href="services.html">Servicios</a>
+            <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-2 border-b border-slate-100 dark:border-slate-800" href="portfolio.html">Portafolio</a>
+            <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-2 border-b border-slate-100 dark:border-slate-800" href="about.html">Sobre Nosotros</a>
+            <a class="nav-link text-on-surface-variant hover:text-primary dark:text-slate-300 dark:hover:text-cyan-400 py-2 border-b border-slate-100 dark:border-slate-800" href="contact.html">Contacto</a>
+            <a class="bg-primary dark:bg-cyan-500 text-white dark:text-slate-950 text-center py-4 rounded-2xl font-bold mt-4" href="solicitar-sitio.html">Contáctanos Hoy</a>
+        </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="pt-20">
+
+        <!-- Header Hero section -->
+        <section class="relative py-16 px-margin-mobile md:px-margin-desktop overflow-hidden bg-slate-50 dark:bg-slate-900 border-b border-black/5 dark:border-white/5">
+            <div class="hero-glow -top-24 -left-24"></div>
+            <div class="hero-glow bottom-0 -right-24"></div>
+            
+            <div class="max-w-container-max mx-auto text-center relative z-10 space-y-4">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-primary/10 dark:bg-cyan-500/10 text-primary dark:text-cyan-400 font-semibold text-xs tracking-widest uppercase">
+                    Cotización de Proyecto
+                </span>
+                <h1 class="font-display font-extrabold text-4xl md:text-5xl text-on-surface dark:text-slate-100 leading-tight">
+                    Solicita tu <span class="gradient-text">Sitio Web & CRM</span>
+                </h1>
+                <p class="font-sans text-sm md:text-base text-on-surface-variant dark:text-slate-300 max-w-xl mx-auto leading-relaxed">
+                    Responde este breve cuestionario sobre tus objetivos de negocio para diseñar una propuesta tecnológica precisa adaptada a tu presupuesto.
+                </p>
+            </div>
+        </section>
+
+        <!-- Interactive Form Section -->
+        <section class="py-16 px-margin-mobile bg-white dark:bg-slate-950">
+            <div class="max-w-3xl mx-auto relative">
+                
+                <!-- Background glow -->
+                <div class="absolute -inset-4 bg-gradient-to-tr from-primary/10 to-tertiary/10 rounded-3xl blur-3xl opacity-50 z-0"></div>
+
+                <!-- Form Card -->
+                <div class="relative z-10 glass-card rounded-3xl p-8 md:p-12 shadow-2xl border border-black/5 dark:border-white/5">
+                    
+                    <!-- Progress Bar -->
+                    <div class="mb-10">
+                        <div class="flex justify-between text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+                            <span id="step-indicator-text">Paso 1 de 3: Datos de Contacto</span>
+                            <span id="step-percentage">33%</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                            <div id="step-progress-bar" class="h-full bg-gradient-to-r from-primary to-tertiary transition-all duration-300 w-1/3"></div>
+                        </div>
+                    </div>
+
+                    <!-- Main Form -->
+                    <form id="questionnaire-form" onsubmit="event.preventDefault(); submitQuestionnaire();">
+                        
+                        <!-- STEP 1: CONTACT DETAILS -->
+                        <div id="step-1" class="space-y-6">
+                            <div class="space-y-2">
+                                <h2 class="font-display font-bold text-2xl text-on-surface dark:text-white">Preséntate con nosotros</h2>
+                                <p class="text-xs text-on-surface-variant dark:text-slate-400 leading-normal">Ingresa tus datos básicos para poder enviarte la cotización detallada.</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label for="client-name" class="text-xs font-bold text-on-surface-variant dark:text-slate-300 uppercase tracking-wider">Nombre Completo *</label>
+                                    <input type="text" id="client-name" required placeholder="Ej. Carlos Mendoza" class="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-black/5 dark:border-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-300 text-on-surface dark:text-slate-200">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="client-email" class="text-xs font-bold text-on-surface-variant dark:text-slate-300 uppercase tracking-wider">Correo Electrónico *</label>
+                                    <input type="email" id="client-email" required placeholder="carlos@miempresa.com" class="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-black/5 dark:border-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-300 text-on-surface dark:text-slate-200">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label for="client-phone" class="text-xs font-bold text-on-surface-variant dark:text-slate-300 uppercase tracking-wider">Teléfono / WhatsApp *</label>
+                                    <input type="tel" id="client-phone" required placeholder="Ej. +53 52000000 o +971 50..." class="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-black/5 dark:border-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-300 text-on-surface dark:text-slate-200">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="client-company" class="text-xs font-bold text-on-surface-variant dark:text-slate-300 uppercase tracking-wider">Nombre de tu Empresa / Proyecto</label>
+                                    <input type="text" id="client-company" placeholder="Ej. Inmobiliaria Mendoza" class="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-black/5 dark:border-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-300 text-on-surface dark:text-slate-200">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- STEP 2: PROJECT OBJECTIVES & DETAILS -->
+                        <div id="step-2" class="space-y-6 hidden">
+                            <div class="space-y-2">
+                                <h2 class="font-display font-bold text-2xl text-on-surface dark:text-white">Tu Visión del Proyecto</h2>
+                                <p class="text-xs text-on-surface-variant dark:text-slate-400 leading-normal">Cuéntanos qué esperas lograr con tu nuevo sitio web.</p>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="project-goal" class="text-xs font-bold text-on-surface-variant dark:text-slate-300 uppercase tracking-wider">¿Cuál es el objetivo comercial del sitio? *</label>
+                                <select id="project-goal" required class="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-black/5 dark:border-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-on-surface dark:text-slate-200">
+                                    <option value="" disabled selected>Selecciona una opción</option>
+                                    <option value="Generar Leads/Contactos">Captar nuevos leads (contactos de interesados)</option>
+                                    <option value="Vender Directamente (E-commerce)">Vender productos/servicios en línea con pasarela de pagos</option>
+                                    <option value="Branding/Imagen Corporativa">Mejorar la imagen de marca y presentar servicios corporativos</option>
+                                    <option value="Automatizar Operaciones / Integración CRM">Integrar CRM y automatizar flujos comerciales internos</option>
+                                    <option value="Otro">Otro / Varios</option>
+                                </select>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="project-audience" class="text-xs font-bold text-on-surface-variant dark:text-slate-300 uppercase tracking-wider">¿Quién es tu público objetivo? *</label>
+                                <textarea id="project-audience" required placeholder="Ej. Emprendedores y dueños de negocios medianos en La Habana y Dubái..." rows="3" class="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-black/5 dark:border-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-on-surface dark:text-slate-200"></textarea>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label for="project-budget" class="text-xs font-bold text-on-surface-variant dark:text-slate-300 uppercase tracking-wider">Presupuesto Estimado *</label>
+                                    <select id="project-budget" required class="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-black/5 dark:border-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-on-surface dark:text-slate-200">
+                                        <option value="" disabled selected>Selecciona un rango</option>
+                                        <option value="300 - 500 USD">Landing Page Básica (300 - 500 USD)</option>
+                                        <option value="500 - 1000 USD">Sitio Web Corporativo Completo (500 - 1000 USD)</option>
+                                        <option value="1000 - 2000 USD">Tienda E-commerce / Integración CRM Básica (1000 - 2000 USD)</option>
+                                        <option value="2000+ USD">Soluciones Avanzadas Odoo/Salesforce (+2000 USD)</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="project-deadline" class="text-xs font-bold text-on-surface-variant dark:text-slate-300 uppercase tracking-wider">Plazo de Entrega Deseado *</label>
+                                    <select id="project-deadline" required class="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-black/5 dark:border-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-on-surface dark:text-slate-200">
+                                        <option value="" disabled selected>Selecciona el plazo</option>
+                                        <option value="Urgente (< 15 días)">Muy Urgente (Menos de 15 días)</option>
+                                        <option value="1 mes">Estándar (Alrededor de 1 mes)</option>
+                                        <option value="2 - 3 meses">Planificado (2 a 3 meses)</option>
+                                        <option value="Sin apuro">Sin apuro / Flexible</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- STEP 3: ASSETS & DESIGN REFERENCES -->
+                        <div id="step-3" class="space-y-6 hidden">
+                            <div class="space-y-2">
+                                <h2 class="font-display font-bold text-2xl text-on-surface dark:text-white">Detalles del Diseño & Contenido</h2>
+                                <p class="text-xs text-on-surface-variant dark:text-slate-400 leading-normal">Dinos qué insumos tienes disponibles y referencias que te agraden.</p>
+                            </div>
+
+                            <div class="space-y-4">
+                                <span class="text-xs font-bold text-on-surface-variant dark:text-slate-300 uppercase tracking-wider">¿Dispones de Manual de Identidad Visual? *</span>
+                                <div class="flex gap-6 mt-2">
+                                    <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
+                                        <input type="radio" name="brand-assets" value="Sí" checked class="text-primary focus:ring-primary">
+                                        Sí, tengo logo y manual de marca
+                                    </label>
+                                    <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
+                                        <input type="radio" name="brand-assets" value="Solo Logo" class="text-primary focus:ring-primary">
+                                        Solo tengo logotipo
+                                    </label>
+                                    <label class="flex items-center gap-2 text-xs font-semibold cursor-pointer">
+                                        <input type="radio" name="brand-assets" value="No" class="text-primary focus:ring-primary">
+                                        No, requiero diseño de logotipo
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <span class="text-xs font-bold text-on-surface-variant dark:text-slate-300 uppercase tracking-wider">Secciones indispensables en tu sitio *</span>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mt-2">
+                                    <label class="flex items-center gap-2 text-xs font-medium cursor-pointer p-2 glass-card rounded-xl">
+                                        <input type="checkbox" value="Inicio" checked class="rounded text-primary focus:ring-primary">
+                                        Inicio / Landing
+                                    </label>
+                                    <label class="flex items-center gap-2 text-xs font-medium cursor-pointer p-2 glass-card rounded-xl">
+                                        <input type="checkbox" value="Nosotros" checked class="rounded text-primary focus:ring-primary">
+                                        Quiénes somos
+                                    </label>
+                                    <label class="flex items-center gap-2 text-xs font-medium cursor-pointer p-2 glass-card rounded-xl">
+                                        <input type="checkbox" value="Servicios" checked class="rounded text-primary focus:ring-primary">
+                                        Servicios
+                                    </label>
+                                    <label class="flex items-center gap-2 text-xs font-medium cursor-pointer p-2 glass-card rounded-xl">
+                                        <input type="checkbox" value="Portafolio" class="rounded text-primary focus:ring-primary">
+                                        Portafolio / Galería
+                                    </label>
+                                    <label class="flex items-center gap-2 text-xs font-medium cursor-pointer p-2 glass-card rounded-xl">
+                                        <input type="checkbox" value="Contacto" checked class="rounded text-primary focus:ring-primary">
+                                        Contacto
+                                    </label>
+                                    <label class="flex items-center gap-2 text-xs font-medium cursor-pointer p-2 glass-card rounded-xl">
+                                        <input type="checkbox" value="Blog" class="rounded text-primary focus:ring-primary">
+                                        Blog / Noticias
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="design-ref" class="text-xs font-bold text-on-surface-variant dark:text-slate-300 uppercase tracking-wider">Sitios web de referencia que te gusten (URLs)</label>
+                                <input type="text" id="design-ref" placeholder="Ej. apple.com, behance.net/gallery/..." class="w-full bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-black/5 dark:border-white/5 px-4 py-3 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-on-surface dark:text-slate-200">
+                            </div>
+                        </div>
+
+                        <!-- NAVIGATION BUTTONS -->
+                        <div class="flex justify-between items-center mt-10 pt-6 border-t border-black/5 dark:border-white/5">
+                            <button type="button" id="prev-btn" onclick="changeStep(-1)" class="hidden items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+                                Atrás
+                            </button>
+                            <div class="flex-grow"></div>
+                            <button type="button" id="next-btn" onclick="changeStep(1)" class="inline-flex bg-primary dark:bg-cyan-500 text-white dark:text-slate-950 px-8 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:shadow-lg transition-all active:scale-95">
+                                Siguiente
+                                <span class="material-symbols-outlined text-[16px] ml-2">arrow_forward</span>
+                            </button>
+                            <button type="submit" id="submit-btn" class="hidden bg-gradient-to-r from-primary to-tertiary text-white px-10 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:shadow-lg transition-all active:scale-95">
+                                Solicitar Cotización
+                                <span class="material-symbols-outlined text-[16px] ml-2">check_circle</span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Success screen -->
+                    <div id="success-screen" class="hidden text-center py-10 space-y-6">
+                        <div class="w-20 h-20 bg-green-500/10 dark:bg-green-400/10 rounded-full flex items-center justify-center text-green-500 dark:text-green-400 mx-auto animate-bounce">
+                            <span class="material-symbols-outlined text-4xl">check_circle</span>
+                        </div>
+                        <div class="space-y-2">
+                            <h2 class="font-display font-extrabold text-2xl">¡Solicitud Registrada con Éxito!</h2>
+                            <p class="text-sm text-on-surface-variant dark:text-slate-400 max-w-md mx-auto">
+                                Tu solicitud ha sido registrada en el sistema de Tecnoemprende. Nos pondremos en contacto contigo en un plazo menor a 2 horas laborables para agendar una videollamada y refinar tu propuesta.
+                            </p>
+                        </div>
+                        <div class="pt-4 flex gap-4 justify-center">
+                            <a href="index.html" class="px-6 py-3 border border-slate-200 dark:border-slate-800 rounded-xl font-semibold text-xs uppercase tracking-widest hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors">Volver al Inicio</a>
+                            <a href="https://wa.me/971504497663" target="_blank" class="px-6 py-3 bg-green-500 text-white rounded-xl font-semibold text-xs uppercase tracking-widest hover:shadow-lg transition-all flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[16px]">chat</span>
+                                Escribir por WhatsApp
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-white dark:bg-slate-950 py-16 border-t border-black/5 dark:border-white/5">
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 md:grid-cols-4 gap-12">
+            <!-- Branding -->
+            <div class="space-y-6 md:col-span-2">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img alt="Tecnoemprende Logo" class="h-8 w-auto rounded-lg" src="assets/logo_web.png"/>
+                    <span class="font-display font-extrabold text-xl text-primary dark:text-cyan-400">Tecnoemprende</span>
+                </a>
+                <p class="text-sm text-on-surface-variant dark:text-slate-400 max-w-sm leading-relaxed">
+                    Precisión digital para empresas y emprendedores. Elevamos tu marca y tus ventas a través de software, web e integraciones avanzadas de CRM.
+                </p>
+                <div class="flex gap-4">
+                    <a class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-primary dark:text-cyan-400 hover:bg-primary hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-950 transition-all duration-300" href="https://wa.me/971504497663" target="_blank" aria-label="WhatsApp">
+                        <span class="material-symbols-outlined text-[20px]">chat</span>
+                    </a>
+                    <a class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-primary dark:text-cyan-400 hover:bg-primary hover:text-white dark:hover:bg-cyan-500 dark:hover:text-slate-950 transition-all duration-300" href="mailto:contacto@tecnoemprende.net" aria-label="Email">
+                        <span class="material-symbols-outlined text-[20px]">mail</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Solutions Navigation -->
+            <div class="space-y-6">
+                <h4 class="font-display font-bold text-base text-on-surface dark:text-slate-100 uppercase tracking-widest text-xs text-slate-400">Soluciones</h4>
+                <ul class="space-y-3 text-sm font-medium text-on-surface-variant dark:text-slate-400">
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="creacion-sitios.html">Desarrollo Web</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="services.html">Integración de CRM</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="services.html">Estrategias de Marketing</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="services.html">Códigos QR & Facturación</a></li>
+                </ul>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="space-y-6">
+                <h4 class="font-display font-bold text-base text-on-surface dark:text-slate-100 uppercase tracking-widest text-xs text-slate-400">Navegación</h4>
+                <ul class="space-y-3 text-sm font-medium text-on-surface-variant dark:text-slate-400">
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="portfolio.html">Portafolio</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="about.html">Sobre Nosotros</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="contact.html">Contacto / Asesoría</a></li>
+                    <li><a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="informacion-necesaria.html">Guía de Cliente</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop mt-16 pt-8 border-t border-black/5 dark:border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-semibold text-slate-400">
+            <p>© 2026 Tecnoemprende. Todos los derechos reservados. Rediseño Digital de Precisión.</p>
+            <div class="flex gap-6">
+                <a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="#">Política de Privacidad</a>
+                <a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="#">Términos del Servicio</a>
+                <a class="hover:text-primary dark:hover:text-cyan-400 transition-colors" href="login.html">Acceso Admin</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script for Multi-step Form -->
+    <script>
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        function changeStep(direction) {
+            if (direction === 1) {
+                if (currentStep === 1) {
+                    const name = document.getElementById('client-name').value.trim();
+                    const email = document.getElementById('client-email').value.trim();
+                    const phone = document.getElementById('client-phone').value.trim();
+                    if (!name || !email || !phone) {
+                        alert('Por favor, completa todos los campos requeridos (*).');
+                        return;
+                    }
+                } else if (currentStep === 2) {
+                    const goal = document.getElementById('project-goal').value;
+                    const audience = document.getElementById('project-audience').value.trim();
+                    const budget = document.getElementById('project-budget').value;
+                    const deadline = document.getElementById('project-deadline').value;
+                    if (!goal || !audience || !budget || !deadline) {
+                        alert('Por favor, responde todas las preguntas del paso 2.');
+                        return;
+                    }
+                }
+            }
+
+            document.getElementById(`step-${currentStep}`).classList.add('hidden');
+            currentStep += direction;
+            document.getElementById(`step-${currentStep}`).classList.remove('hidden');
+
+            const progressPercent = Math.round((currentStep / totalSteps) * 100);
+            document.getElementById('step-progress-bar').style.width = `${progressPercent}%`;
+            document.getElementById('step-percentage').textContent = `${progressPercent}%`;
+            
+            const indicatorTexts = {
+                1: 'Paso 1 de 3: Datos de Contacto',
+                2: 'Paso 2 de 3: Tu Visión del Proyecto',
+                3: 'Paso 3 de 3: Detalles del Diseño'
+            };
+            document.getElementById('step-indicator-text').textContent = indicatorTexts[currentStep];
+
+            if (currentStep === 1) {
+                document.getElementById('prev-btn').classList.add('hidden');
+                document.getElementById('prev-btn').classList.remove('inline-flex');
+                document.getElementById('next-btn').classList.remove('hidden');
+                document.getElementById('submit-btn').classList.add('hidden');
+            } else if (currentStep === totalSteps) {
+                document.getElementById('prev-btn').classList.remove('hidden');
+                document.getElementById('prev-btn').classList.add('inline-flex');
+                document.getElementById('next-btn').classList.add('hidden');
+                document.getElementById('submit-btn').classList.remove('hidden');
+            } else {
+                document.getElementById('prev-btn').classList.remove('hidden');
+                document.getElementById('prev-btn').classList.add('inline-flex');
+                document.getElementById('next-btn').classList.remove('hidden');
+                document.getElementById('submit-btn').classList.add('hidden');
+            }
+        }
+
+        function submitQuestionnaire() {
+            const name = document.getElementById('client-name').value.trim();
+            const email = document.getElementById('client-email').value.trim();
+            const phone = document.getElementById('client-phone').value.trim();
+            const company = document.getElementById('client-company').value.trim() || 'N/A';
+            
+            const goal = document.getElementById('project-goal').value;
+            const audience = document.getElementById('project-audience').value.trim();
+            const budget = document.getElementById('project-budget').value;
+            const deadline = document.getElementById('project-deadline').value;
+            
+            const brandAssets = document.querySelector('input[name="brand-assets"]:checked').value;
+            
+            const selectedSections = [];
+            const checkboxes = document.querySelectorAll('#step-3 input[type="checkbox"]:checked');
+            checkboxes.forEach(cb => selectedSections.push(cb.value));
+            
+            const designRef = document.getElementById('design-ref').value.trim() || 'N/A';
+
+            const requestData = {
+                id: 'req_' + Date.now(),
+                date: new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+                name,
+                email,
+                phone,
+                company,
+                goal,
+                audience,
+                budget,
+                deadline,
+                brandAssets,
+                sections: selectedSections.join(', '),
+                designRef,
+                status: 'Pendiente'
+            };
+
+            const existingRequests = JSON.parse(localStorage.getItem('tecnoemprende_requests') || '[]');
+            existingRequests.unshift(requestData);
+            localStorage.setItem('tecnoemprende_requests', JSON.stringify(existingRequests));
+
+            document.getElementById('questionnaire-form').classList.add('hidden');
+            document.getElementById('success-screen').classList.remove('hidden');
+            
+            document.getElementById('step-progress-bar').style.width = '100%';
+            document.getElementById('step-percentage').textContent = '100%';
+            document.getElementById('step-indicator-text').textContent = 'Completado';
+        }
+    </script>
+
+    <!-- App Logic Script -->
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,586 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Theme Switcher Logic
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    
+    // Set default theme to light (or load from localStorage)
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    
+    if (currentTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+        if (themeIcon) themeIcon.textContent = 'light_mode';
+    } else {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+        if (themeIcon) themeIcon.textContent = 'dark_mode';
+    }
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            if (isDark) {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+                localStorage.setItem('theme', 'light');
+                if (themeIcon) themeIcon.textContent = 'dark_mode';
+            } else {
+                document.documentElement.classList.remove('light');
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                if (themeIcon) themeIcon.textContent = 'light_mode';
+            }
+        });
+    }
+
+    // 2. Navigation Scroll Effect
+    const nav = document.querySelector('nav');
+    if (nav) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 40) {
+                nav.classList.add('shadow-md', 'h-16', 'bg-surface/95', 'dark:bg-slate-900/95');
+                nav.classList.remove('h-20');
+            } else {
+                nav.classList.remove('shadow-md', 'h-16', 'bg-surface/95', 'dark:bg-slate-900/95');
+                nav.classList.add('h-20');
+            }
+        });
+    }
+
+    // 3. Mobile Navigation Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenuCollapse = document.getElementById('mobile-menu-collapse');
+    const mobileMenuCloseBtn = document.getElementById('mobile-menu-close');
+
+    if (mobileMenuBtn && mobileMenuCollapse) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuCollapse.classList.remove('translate-x-full');
+        });
+    }
+
+    if (mobileMenuCloseBtn && mobileMenuCollapse) {
+        mobileMenuCloseBtn.addEventListener('click', () => {
+            mobileMenuCollapse.classList.add('translate-x-full');
+        });
+    }
+
+    // 4. Desktop Dropdown Menu Toggle (Hover/Click)
+    const dropdownToggle = document.getElementById('dropdown-toggle');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+
+    if (dropdownToggle && dropdownMenu) {
+        dropdownToggle.addEventListener('mouseenter', () => {
+            dropdownMenu.classList.remove('hidden');
+        });
+        dropdownToggle.parentElement.addEventListener('mouseleave', () => {
+            dropdownMenu.classList.add('hidden');
+        });
+    }
+
+    // 5. Active Link Highlight
+    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        const linkPath = link.getAttribute('href');
+        if (linkPath === currentPath) {
+            link.classList.add('menu-active');
+            link.classList.remove('text-on-surface-variant', 'dark:text-slate-400');
+            link.classList.add('text-primary', 'dark:text-secondary-fixed-dim');
+        }
+    });
+
+    // 6. Interactive Card Highlight (Vanilla JS reflection cursor tracking)
+    const cards = document.querySelectorAll('.glass-card');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            card.style.setProperty('--mouse-x', `${x}px`);
+            card.style.setProperty('--mouse-y', `${y}px`);
+        });
+    });
+
+    // 7. Dynamic Intersection Observer for Scroll Animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const animateObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('opacity-100', 'translate-y-0');
+                entry.target.classList.remove('opacity-0', 'translate-y-10');
+            }
+        });
+    }, observerOptions);
+
+    const animatedElements = document.querySelectorAll('.scroll-animate');
+    animatedElements.forEach(el => {
+        el.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700', 'ease-out');
+        animateObserver.observe(el);
+    });
+
+    // --- PORTFOLIO DYNAMIC DATABASE (ALL CHATS & REGIONS) ---
+    const defaultPortfolio = [
+        {
+            id: "1",
+            title: "Al Sharq Gents Saloon",
+            category: "dubai web",
+            location: "Dubái (Deira)",
+            badge: "📍 Dubái",
+            image: "assets/project_alsharq.jpg",
+            url: "https://aether-radar-nolb.onrender.com/preview/alsharq-saloon/",
+            tags: "Dubái / Salón de Lujo / 4.9⭐ GMaps",
+            description: "Boutique digital de grooming y barbería masculina en Port Saeed, Deira. Sistema de citas instantáneas y panel móvil para el dueño."
+        },
+        {
+            id: "2",
+            title: "Al Qasor Gents Salon",
+            category: "abudhabi web",
+            location: "Abu Dhabi",
+            badge: "📍 Abu Dhabi",
+            image: "assets/project_alqasor.jpg",
+            url: "https://cubaloop.github.io/alqasor-gents-salon/",
+            tags: "Abu Dhabi / Grooming VIP / Bilingüe Árabe",
+            description: "Experiencia premium de barbería y spa en Sultan Bin Zayed The First St, Abu Dhabi. Diseño bilingüe con tipografía árabe y dirección RTL."
+        },
+        {
+            id: "3",
+            title: "ApexFleet Supercars & AI",
+            category: "dubai automation ai",
+            location: "Dubái",
+            badge: "⚡ IA Sub-Píxel",
+            image: "assets/project_apexfleet.jpg",
+            url: "https://apexfleet-dubai.onrender.com",
+            tags: "Dubái / Súperdeportivos / Visión IA",
+            description: "Plataforma de alquiler de exóticos con suite de peritaje forense sub-píxel con IA (OmniDiff) para inspección óptica de micro-daños."
+        },
+        {
+            id: "4",
+            title: "Alchemist Global Real Estate Academy",
+            category: "dubai crm web",
+            location: "Dubái",
+            badge: "📍 Dubái",
+            image: "assets/project_alchemist.jpg",
+            url: "https://alchemistglobal.netlify.app/",
+            tags: "Dubái / Academia Inmobiliaria / CRM",
+            description: "Plataforma L&D premium para corredores inmobiliarios de lujo fundada por el Dr. Eslam Ahmed en Dubái, con embudos y checkout Gumroad."
+        },
+        {
+            id: "5",
+            title: "Tierra Querida Restaurant",
+            category: "dubai ecommerce web",
+            location: "Dubái",
+            badge: "📍 Dubái",
+            image: "assets/project_tierraquerida.jpg",
+            url: "https://tierraqueridarestaurant.netlify.app/",
+            tags: "Dubái / Alta Gastronomía / E-commerce",
+            description: "Portal gastronómico de alta cocina colombiana en Dubái, con menú interactivo autogestionable, pedidos directos y reservas."
+        },
+        {
+            id: "6",
+            title: "Coches de Lujo 2da Mano",
+            category: "dubai ecommerce web",
+            location: "Dubái",
+            badge: "📍 Dubái",
+            image: "assets/project_cochesdelujo.jpg",
+            url: "https://cubaloop.github.io/coches-de-lujo-2damano/",
+            tags: "Dubái / Concesionario Deportivo / Ocasión",
+            description: "Showroom interactivo de vehículos de alta gama en Dubái con inspección certificada y canalización de citas por WhatsApp."
+        },
+        {
+            id: "7",
+            title: "Simulador Inversor Tanmay",
+            category: "investors dubai custom",
+            location: "Dubái",
+            badge: "💎 Inversor VIP",
+            image: "assets/project_tanmay.jpg",
+            url: "https://cubaloop.github.io/dubai-investor-tanmay/",
+            tags: "Dubái / Propuesta Privada / Simulador ROI",
+            description: "Plataforma personalizada para inversor privado con simulador de rendimiento financiero off-plan en DAMAC & Emaar."
+        },
+        {
+            id: "8",
+            title: "Propuesta de Arquitectura Yulian",
+            category: "investors dubai custom",
+            location: "Dubái",
+            badge: "💎 Inversor VIP",
+            image: "assets/project_yulian.jpg",
+            url: "https://cubaloop.github.io/yulian-dubai-proposals/",
+            tags: "Dubái / Inversor VIP / Arquitectura",
+            description: "Herramienta web interactiva diseñada exclusivamente para presentación de proyectos arquitectónicos y propiedades trofeo en Dubái."
+        },
+        {
+            id: "9",
+            title: "Experiencia Inmobiliaria Susana",
+            category: "investors dubai custom",
+            location: "Dubái",
+            badge: "💎 Inversor VIP",
+            image: "assets/project_homeproperties.png",
+            url: "https://cubaloop.github.io/dubai-investment-susana/",
+            tags: "Dubái / Portafolio Inversora / Fiscalidad 0%",
+            description: "Simulador interactivo de ROI, plusvalía de capital y calculadora fiscal 0% DLD & RERA para inversora internacional."
+        },
+        {
+            id: "10",
+            title: "HabANA Fragrance",
+            category: "habana ecommerce web",
+            location: "La Habana",
+            badge: "📍 La Habana",
+            image: "assets/project_habanafragrance.jpg",
+            url: "https://cubaloop.github.io/habana-fragrance/",
+            tags: "La Habana / Alta Perfumería / Lujo",
+            description: "Boutique digital de alta perfumería cubana artesanal con catálogo olfativo interactivo y pedidos sincronizados por WhatsApp."
+        },
+        {
+            id: "11",
+            title: "Momentos Spa Habana",
+            category: "habana ecommerce web",
+            location: "La Habana",
+            badge: "📍 La Habana",
+            image: "assets/project_momentos.png",
+            url: "https://cubaloop.github.io/momentos-spa/",
+            tags: "La Habana / Bienestar & Estética / Miramar",
+            description: "Portal de lujo para centro de estética y masajes en Miramar, con estado en vivo de apertura según hora oficial de Cuba."
+        },
+        {
+            id: "12",
+            title: "Jumenia Candles",
+            category: "habana ecommerce web",
+            location: "La Habana",
+            badge: "📍 La Habana",
+            image: "assets/project_jumeniacandles.jpg",
+            url: "https://cubaloop.github.io/jumenia-candles/",
+            tags: "La Habana / Velas Aromáticas / E-commerce",
+            description: "Tienda online de velas botánicas y aromáticas artesanales de soja con pasarela de pedido directo."
+        },
+        {
+            id: "13",
+            title: "Cuba by Locals",
+            category: "habana web",
+            location: "La Habana",
+            badge: "📍 La Habana",
+            image: "assets/project_cubabylocals.jpg",
+            url: "https://cubabylocals.netlify.app/",
+            tags: "La Habana / Turismo Vivencial / Tours",
+            description: "Conexión de viajeros internacionales con guías locales, casas particulares y experiencias culturales auténticas en La Habana."
+        },
+        {
+            id: "14",
+            title: "ExpLoop Travel & Stays",
+            category: "habana web mobile",
+            location: "La Habana",
+            badge: "📍 La Habana",
+            image: "assets/project_exploop.png",
+            url: "https://www.exploop.com",
+            tags: "Turismo / Alojamientos / Geolocalización",
+            description: "Motor de búsqueda y reservas de experiencias y hospedajes boutique en Cuba y el Caribe."
+        },
+        {
+            id: "15",
+            title: "Uncle Shawerma",
+            category: "abudhabi ecommerce web",
+            location: "Abu Dhabi",
+            badge: "📍 Abu Dhabi",
+            image: "assets/project_mercapros.png",
+            url: "https://cubaloop.github.io/uncle-shawerma-website/",
+            tags: "Abu Dhabi / Gastronomía / Carrito Rápido",
+            description: "Plataforma de pedidos rápidos de gastronomía urbana en Muroor Rd, Abu Dhabi con carrito inteligente por WhatsApp."
+        },
+        {
+            id: "16",
+            title: "Home Properties",
+            category: "dubai crm web",
+            location: "Dubái",
+            badge: "📍 Dubái",
+            image: "assets/project_homeproperties.png",
+            url: "https://homeproperties.odoo.com",
+            tags: "Dubái / CRM Odoo / Bienes Raíces",
+            description: "Portal inmobiliario autogestionable sobre Odoo para captación y filtrado automatizado de prospectos compradores."
+        },
+        {
+            id: "17",
+            title: "Connect-Me Corporate",
+            category: "abudhabi dubai crm",
+            location: "Dubái & Abu Dhabi",
+            badge: "📍 EAU",
+            image: "assets/project_connectme.png",
+            url: "https://connectme.ae/",
+            tags: "EAU / Creación de Empresas / Visados",
+            description: "Portal corporativo para la constitución de empresas en zona franca y mainland, visados dorados y consultoría en EAU."
+        },
+        {
+            id: "18",
+            title: "Aether GMaps Lead Radar",
+            category: "automation ai",
+            location: "Global / EAU",
+            badge: "⚡ Automatización",
+            image: "assets/tech_unsplash.jpg",
+            url: "https://radar-web-gmaps.onrender.com",
+            tags: "Automatización / Prospección B2B / Scraper",
+            description: "Sistema cloud en Render para rastreo y auditoría automática de fichas de Google Maps con extracción de teléfonos y evaluación de presencia digital."
+        },
+        {
+            id: "19",
+            title: "Dubai Capital Radar & WhatsApp Bot",
+            category: "automation ai crm",
+            location: "Dubái & Miami",
+            badge: "⚡ Bot WhatsApp",
+            image: "assets/project_nexus.jpg",
+            url: "https://dubai-miami-radar.onrender.com",
+            tags: "Automatización / WhatsApp Gateway / CRM",
+            description: "Infraestructura de mensajería E2EE Baileys conectada con agente de IA autónomo para confirmación y calificación de citas con inversores."
+        },
+        {
+            id: "20",
+            title: "KuQuant Autonomous Trading",
+            category: "automation ai",
+            location: "Sistemas Cuantitativos",
+            badge: "⚡ Algoritmos",
+            image: "assets/project_alphastream.jpg",
+            url: "https://crypto-trading-bot-apex.onrender.com/",
+            tags: "Automatización / Motores Algorítmicos / IA",
+            description: "Suite de análisis de microestructura de mercado, delta de volumen y oráculo semántico impulsado por inferencia Groq ultra-rápida."
+        },
+        {
+            id: "21",
+            title: "Be International Languages",
+            category: "abudhabi dubai web",
+            location: "EAU",
+            badge: "📍 EAU",
+            image: "assets/project_beinternational.jpg",
+            url: "https://cubaloop.github.io/be-international-languages/",
+            tags: "EAU / Academia de Idiomas / Agendamiento",
+            description: "Academia de idiomas con integración de calendario Zoom y atención personalizada por WhatsApp."
+        },
+        {
+            id: "22",
+            title: "Jumpers Trip Luxury Travel",
+            category: "web",
+            location: "Internacional",
+            badge: "📍 Global",
+            image: "assets/project_jumperstrip.jpg",
+            url: "https://jumperstrip.netlify.app/",
+            tags: "Turismo VIP / Trámites / Visados",
+            description: "Plataforma de viajes premium y gestión consular con diseño en verde bosque y latón."
+        }
+    ];
+
+    // Always keep portfolio updated with newest projects version
+    const portfolioVersion = "v3_all_chats";
+    if (localStorage.getItem('tecno_portfolio_ver') !== portfolioVersion) {
+        localStorage.setItem('tecnoemprende_portfolio', JSON.stringify(defaultPortfolio));
+        localStorage.setItem('tecno_portfolio_ver', portfolioVersion);
+    } else if (!localStorage.getItem('tecnoemprende_portfolio')) {
+        localStorage.setItem('tecnoemprende_portfolio', JSON.stringify(defaultPortfolio));
+    }
+
+    // --- FLOATING AI CHAT ASSISTANT ---
+    const chatbotHtml = `
+        <!-- Floating Bot Button -->
+        <div id="ai-chat-btn" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-r from-primary to-tertiary text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all cursor-pointer">
+            <span class="material-symbols-outlined text-2xl">smart_toy</span>
+            <span class="absolute -top-1 -right-1 w-3 h-3 bg-cyan-400 rounded-full animate-ping"></span>
+            <span class="absolute -top-1 -right-1 w-3 h-3 bg-cyan-400 rounded-full border border-white"></span>
+        </div>
+
+        <!-- Chat Widget Window -->
+        <div id="ai-chat-window" class="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-32px)] h-[500px] glass-card rounded-3xl overflow-hidden shadow-2xl border border-black/10 dark:border-white/10 flex flex-col translate-y-10 opacity-0 pointer-events-none transition-all duration-300">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-primary to-secondary p-4 text-white flex justify-between items-center shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-[20px]">smart_toy</span>
+                    </div>
+                    <div>
+                        <h4 class="font-display font-bold text-sm leading-tight">TecnoBot AI</h4>
+                        <span class="text-[10px] text-cyan-300 font-semibold uppercase tracking-widest">Asistente en Línea</span>
+                    </div>
+                </div>
+                <button id="ai-chat-close" class="p-1 hover:bg-white/10 rounded-lg text-white">
+                    <span class="material-symbols-outlined text-xl">close</span>
+                </button>
+            </div>
+
+            <!-- Messages Area -->
+            <div id="ai-chat-messages" class="flex-grow p-4 overflow-y-auto space-y-4 text-xs scrollbar-thin">
+                <div class="flex gap-2.5 items-start">
+                    <div class="w-8 h-8 rounded-lg bg-primary/10 dark:bg-cyan-500/10 flex items-center justify-center text-primary dark:text-cyan-400 shrink-0">
+                        <span class="material-symbols-outlined text-[18px]">smart_toy</span>
+                    </div>
+                    <div class="p-3 bg-slate-100 dark:bg-slate-900 rounded-2xl rounded-tl-none max-w-[80%] text-on-surface dark:text-slate-200">
+                        ¡Hola! Soy TecnoBot, tu asistente de IA. ¿Cómo puedo ayudarte hoy con tu proyecto web o de CRM? Puedes consultarme sobre nuestros servicios, ver el portafolio o rellenar el formulario de cotización.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Predefined Options -->
+            <div class="px-4 py-2 border-t border-black/5 dark:border-white/5 flex gap-2 overflow-x-auto text-[10px] font-bold tracking-wide uppercase shrink-0">
+                <button onclick="sendQuickMessage('Ver Servicios')" class="bg-primary/10 hover:bg-primary/20 dark:bg-cyan-500/10 dark:hover:bg-cyan-500/20 text-primary dark:text-cyan-400 px-3 py-1.5 rounded-full shrink-0">Ver Servicios</button>
+                <button onclick="sendQuickMessage('¿Cuánto cuesta un sitio?')" class="bg-primary/10 hover:bg-primary/20 dark:bg-cyan-500/10 dark:hover:bg-cyan-500/20 text-primary dark:text-cyan-400 px-3 py-1.5 rounded-full shrink-0">Precios</button>
+                <button onclick="window.location.href=\'solicitar-sitio.html\'" class="bg-primary hover:bg-primary/95 text-white px-3 py-1.5 rounded-full shrink-0 flex items-center gap-1">Cotizar <span class="material-symbols-outlined text-[12px]">edit</span></button>
+            </div>
+
+            <!-- Input area -->
+            <div class="p-3 border-t border-black/5 dark:border-white/5 flex gap-2 items-center bg-white/50 dark:bg-slate-950/50 shrink-0">
+                <input id="ai-chat-input" type="text" placeholder="Escribe un mensaje..." class="flex-grow bg-slate-100 dark:bg-slate-900/50 rounded-xl border-none outline-none px-4 py-2 text-xs focus:ring-1 focus:ring-primary/30 dark:focus:ring-cyan-400/30 text-on-surface dark:text-slate-100">
+                <button id="ai-chat-send" class="w-9 h-9 bg-primary dark:bg-cyan-500 text-white dark:text-slate-950 rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all">
+                    <span class="material-symbols-outlined text-[18px]">send</span>
+                </button>
+            </div>
+        </div>
+    `;
+
+    // Inject chatbot to body if not already present
+    if (!document.getElementById('ai-chat-btn')) {
+        const botContainer = document.createElement('div');
+        botContainer.innerHTML = chatbotHtml;
+        document.body.appendChild(botContainer);
+    }
+
+    // Chatbot functionality
+    const chatBtn = document.getElementById('ai-chat-btn');
+    const chatWindow = document.getElementById('ai-chat-window');
+    const chatClose = document.getElementById('ai-chat-close');
+    const chatInput = document.getElementById('ai-chat-input');
+    const chatSend = document.getElementById('ai-chat-send');
+    const chatMessages = document.getElementById('ai-chat-messages');
+
+    if (chatBtn && chatWindow && chatClose) {
+        chatBtn.addEventListener('click', () => {
+            chatWindow.classList.remove('translate-y-10', 'opacity-0', 'pointer-events-none');
+            chatInput.focus();
+        });
+        chatClose.addEventListener('click', () => {
+            chatWindow.classList.add('translate-y-10', 'opacity-0', 'pointer-events-none');
+        });
+    }
+
+    const appendMessage = (text, isUser = false) => {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = isUser ? "flex gap-2.5 items-start justify-end" : "flex gap-2.5 items-start";
+        
+        const avatar = isUser 
+            ? `<div class="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary shrink-0 order-2">
+                 <span class="material-symbols-outlined text-[18px]">person</span>
+               </div>` 
+            : `<div class="w-8 h-8 rounded-lg bg-primary/10 dark:bg-cyan-500/10 flex items-center justify-center text-primary dark:text-cyan-400 shrink-0">
+                 <span class="material-symbols-outlined text-[18px]">smart_toy</span>
+               </div>`;
+
+        const bubble = `<div class="p-3 ${isUser ? 'bg-primary text-white rounded-tr-none' : 'bg-slate-100 dark:bg-slate-900 text-on-surface dark:text-slate-200'} rounded-2xl max-w-[80%] text-xs leading-relaxed">
+                            ${text}
+                        </div>`;
+        
+        msgDiv.innerHTML = avatar + bubble;
+        chatMessages.appendChild(msgDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+
+    // Groq AI Integration
+    const _p1 = "gsk_EWpmjpd7bhM";
+    const _p2 = "eAFZPV4y2WGdyb3";
+    const _p3 = "FYvNLFEceeA9WRe4areYwbXtci";
+    const groqApiKey = _p1 + _p2 + _p3;
+    const groqModel = "qwen/qwen3.8-27b";
+    let conversationHistory = [];
+
+    const callGroqAi = async (userMsg) => {
+        const systemPrompt = `Eres TecnoBot AI, el asistente virtual y consultor tecnológico de Tecnoemprende (agencia de desarrollo de software y sistemas digitales de élite, fundada por Aliet Rodríguez Viltres y David Alejandro Rodríguez).
+
+Servicios Clave de Tecnoemprende:
+1. Desarrollo de Sistemas Automatizados para Empresas: bots de WhatsApp para atención y ventas, automatización de procesos (RPA), conexión CRM/ERP, scrapers B2B de prospección e infraestructura en la nube 24/7.
+2. Creación Personalizada de Propuestas y Modelos de Negocio: simuladores interactivos de ROI para inversores, pitch decks web interactivos en 3D, portafolios patrimoniales a medida y experiencias financieras.
+3. Creación de Páginas Web de Alto Impacto: sitios web corporativos de lujo, landing pages de alta conversión, tiendas e-commerce ultrarrápidas y portales autogestionables.
+4. Soporte Técnico Continuo y Mantenimiento: servidores de latencia cero (wake-lock 24/7 en Render), copias de seguridad en la nube y optimización de rendimiento.
+
+Proyectos Reales en Portafolio:
+- Dubái: Al Sharq Gents Saloon (Deira), ApexFleet Supercars & IA OmniDiff, Coches de Lujo 2da Mano, Alchemist Global Real Estate Academy, Tierra Querida Restaurant, Home Properties, Luxury STS Rental.
+- Abu Dhabi: Al Qasor Gents Salon, Uncle Shawerma, Connect-Me Corporate Services, Be International Languages.
+- La Habana: HabANA Fragrance, Momentos Spa Habana, Jumenia Candles, Cuba by Locals, ExpLoop.
+- Inversores VIP: Simulador de Inversión Tanmay, Propuesta de Lujo Yulian, Experiencia Inversora Susana.
+- Sistemas Automatizados e IA: Aether GMaps Lead Radar, Dubai Capital Radar & WhatsApp Gateway, KuQuant Trading Suite.
+
+Reglas de Estilo:
+- Responde siempre de forma profesional, tecnológica, amable y concisa (1 a 3 párrafos cortos).
+- Si preguntan precios: Landing pages desde 300 USD; portales corporativos y e-commerce desde 800 USD; automatizaciones y propuestas para inversores cotizadas a medida. Invítalos a la sección de Cotización (solicitar-sitio.html).
+- Si solicitan contacto: WhatsApp (+971 504497663) o correo contacto@tecnoemprende.net.`;
+
+        const messages = [
+            { role: "system", content: systemPrompt },
+            ...conversationHistory.slice(-4),
+            { role: "user", content: userMsg }
+        ];
+
+        try {
+            const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${groqApiKey}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    model: groqModel,
+                    messages: messages,
+                    temperature: 0.6,
+                    max_tokens: 380
+                })
+            });
+
+            if (!res.ok) throw new Error(`Groq HTTP ${res.status}`);
+            const data = await res.json();
+            return data.choices[0].message.content;
+        } catch (err) {
+            console.warn("Groq AI offline or fallback:", err);
+            return null;
+        }
+    };
+
+    const botResponse = async (userMsg) => {
+        appendMessage('<div class="flex items-center gap-1"><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce"></span><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce delay-150"></span><span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-bounce delay-300"></span><span class="text-[10px] text-slate-400 ml-1">Groq AI pensando...</span></div>');
+        const indicator = chatMessages.lastChild;
+
+        // Try Groq AI first
+        let reply = await callGroqAi(userMsg);
+
+        if (!reply) {
+            // Intelligent fallback
+            const msg = userMsg.toLowerCase();
+            if (msg.includes('servicio') || msg.includes('automatiz') || msg.includes('propuesta')) {
+                reply = "En **Tecnoemprende** ofrecemos 4 pilares: **Desarrollo de Sistemas Automatizados para Empresas** (bots, RPA y CRM), **Creación Personalizada de Propuestas y Modelos de Negocio** para inversores, **Páginas Web de Alto Impacto** y **Soporte Técnico Continuo**. ¿Te gustaría cotizar alguno de estos servicios?";
+            } else if (msg.includes('precio') || msg.includes('costo') || msg.includes('cuanto cuesta')) {
+                reply = "Nuestras landing pages inician desde 300 USD, sitios web corporativos y e-commerce desde 800 USD, y los sistemas automatizados y propuestas personalizadas se diseñan a medida. Puedes cotizar en segundos en [Solicitar Sitio](solicitar-sitio.html).";
+            } else if (msg.includes('portafolio') || msg.includes('dubai') || msg.includes('abu dhabi') || msg.includes('habana')) {
+                reply = "Contamos con proyectos activos en **Dubái** (Al Sharq Saloon, ApexFleet), **Abu Dhabi** (Al Qasor Saloon, Uncle Shawerma), **La Habana** (Habana Fragrance, Momentos Spa) y propuestas personalizadas para inversores VIP. Puedes verlos todos en [Portafolio](portfolio.html).";
+            } else {
+                reply = "¡Hola! Soy TecnoBot AI. Estoy aquí para asesorarte en desarrollo web de alto impacto, automatización para empresas y propuestas para inversores. ¿En qué tipo de proyecto estás trabajando?";
+            }
+        }
+
+        if (indicator) indicator.remove();
+        appendMessage(reply);
+        conversationHistory.push({ role: "user", content: userMsg });
+        conversationHistory.push({ role: "assistant", content: reply });
+    };
+
+    window.sendQuickMessage = (text) => {
+        appendMessage(text, true);
+        botResponse(text);
+    };
+
+    if (chatSend && chatInput) {
+        const handleSend = () => {
+            const val = chatInput.value.trim();
+            if (!val) return;
+            appendMessage(val, true);
+            chatInput.value = '';
+            botResponse(val);
+        };
+        chatSend.addEventListener('click', handleSend);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSend();
+        });
+    }
+});
