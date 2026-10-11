@@ -136,35 +136,33 @@
 
         <!-- Hero Section with 3D Tech Ambience & Video Background -->
         <section class="relative min-h-[90vh] flex items-center overflow-hidden py-20 md:py-28">
-            <!-- Background Video (Ultra-fast metadata preload, looping muted, enhanced visibility) -->
-            <video autoplay loop muted playsinline preload="metadata" class="absolute inset-0 w-full h-full object-cover opacity-50 dark:opacity-65 pointer-events-none z-0">
+            <!-- Background Video: High Definition Cinematic (Max Visibility) -->
+            <video autoplay loop muted playsinline preload="auto" class="absolute inset-0 w-full h-full object-cover opacity-85 dark:opacity-90 pointer-events-none z-0">
                 <source src="assets/hero_bg_video.mp4" type="video/mp4">
             </video>
 
-            <!-- 3D Glow & Overlay Filters (Balanced for high video visibility + text readability) -->
-            <div class="absolute inset-0 bg-gradient-to-b from-background/75 via-background/45 to-background/90 dark:from-slate-950/75 dark:via-slate-950/45 dark:to-slate-950/90 z-0 pointer-events-none"></div>
-            <div class="hero-glow top-0 right-0 z-0"></div>
-            <div class="hero-glow bottom-0 left-0 z-0"></div>
+            <!-- Ultra-subtle vignette at edges to preserve contrast while keeping video completely clear -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 dark:from-slate-950/50 dark:via-transparent dark:to-slate-950/80 z-0 pointer-events-none"></div>
 
             <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-                <!-- Text block -->
-                <div class="lg:col-span-7 space-y-8">
-                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 dark:bg-cyan-500/10 text-primary dark:text-cyan-400 border border-primary/20 dark:border-cyan-400/20 backdrop-blur-md">
+                <!-- Text block with modern frosted backdrop for crystal-clear readability -->
+                <div class="lg:col-span-7 space-y-8 bg-slate-950/40 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-white/10 shadow-2xl">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 backdrop-blur-md shadow-lg">
                         <span class="w-2.5 h-2.5 bg-cyan-400 rounded-full animate-ping mr-2.5"></span>
                         <span class="font-semibold text-xs tracking-wider uppercase">Ingeniería Digital & IA de Frontera</span>
                     </div>
-                    <h1 class="font-display font-extrabold text-5xl md:text-6xl xl:text-7xl leading-[1.05] tracking-tight">
+                    <h1 class="font-display font-extrabold text-5xl md:text-6xl xl:text-7xl leading-[1.05] tracking-tight text-white drop-shadow-md">
                         Construimos el futuro <span class="gradient-text">tecnológico</span> de tu empresa
                     </h1>
-                    <p class="font-sans text-lg text-on-surface-variant dark:text-slate-300 max-w-xl leading-relaxed">
+                    <p class="font-sans text-lg text-slate-200 max-w-xl leading-relaxed drop-shadow">
                         Desarrollo de sistemas automatizados con IA, modelos y propuestas interactivas para inversores, diseño web de alto impacto y soporte continuo 24/7 en <strong>Dubái, Abu Dhabi y La Habana</strong>.
                     </p>
                     <div class="flex flex-wrap gap-4 pt-2">
-                        <a class="px-8 py-4 bg-primary dark:bg-cyan-500 text-white dark:text-slate-950 rounded-xl font-bold hover:shadow-2xl hover:shadow-primary/30 dark:hover:shadow-cyan-400/30 active:scale-95 transition-all flex items-center gap-2 group" href="contact.html">
+                        <a class="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-xl font-bold hover:shadow-2xl hover:shadow-cyan-400/40 active:scale-95 transition-all flex items-center gap-2 group" href="contact.html">
                             Empezar Proyecto
                             <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
                         </a>
-                        <a class="px-8 py-4 glass-card text-primary dark:text-cyan-400 hover:bg-white/60 dark:hover:bg-slate-900/60 rounded-xl font-semibold hover:shadow-xl active:scale-95 transition-all flex items-center gap-2" href="portfolio.html">
+                        <a class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl font-semibold hover:shadow-xl active:scale-95 transition-all flex items-center gap-2 backdrop-blur-md" href="portfolio.html">
                             <span class="material-symbols-outlined text-[20px]">view_in_ar</span>
                             Explorar Portafolio 3D
                         </a>
