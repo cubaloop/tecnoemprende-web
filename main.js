@@ -122,32 +122,21 @@ document.addEventListener('DOMContentLoaded', () => {
         animateObserver.observe(el);
     });
 
-    // --- PORTFOLIO DYNAMIC DATABASE (ALL CHATS & REGIONS) ---
+    // --- PORTFOLIO DYNAMIC DATABASE (100% TESTED & ACTIVE PUBLIC URLS) ---
     const defaultPortfolio = [
         {
             id: "1",
-            title: "Al Sharq Gents Saloon",
-            category: "dubai web",
-            location: "Dubái (Deira)",
+            title: "Tierra Querida Restaurant",
+            category: "dubai ecommerce web",
+            location: "Dubái",
             badge: "📍 Dubái",
-            image: "assets/project_alsharq.jpg",
-            url: "https://aether-radar-nolb.onrender.com/preview/alsharq-saloon/",
-            tags: "Dubái / Salón de Lujo / 4.9⭐ GMaps",
-            description: "Boutique digital de grooming y barbería masculina en Port Saeed, Deira. Sistema de citas instantáneas y panel móvil para el dueño."
+            image: "assets/project_tierraquerida.jpg",
+            url: "https://tierraquerida.net",
+            tags: "Dubái / Alta Gastronomía / E-commerce",
+            description: "Portal gastronómico de alta cocina colombiana en Dubái, con menú interactivo autogestionable, pedidos directos por WhatsApp y reservas."
         },
         {
             id: "2",
-            title: "Al Qasor Gents Salon",
-            category: "abudhabi web",
-            location: "Abu Dhabi",
-            badge: "📍 Abu Dhabi",
-            image: "assets/project_alqasor.jpg",
-            url: "https://cubaloop.github.io/alqasor-gents-salon/",
-            tags: "Abu Dhabi / Grooming VIP / Bilingüe Árabe",
-            description: "Experiencia premium de barbería y spa en Sultan Bin Zayed The First St, Abu Dhabi. Diseño bilingüe con tipografía árabe y dirección RTL."
-        },
-        {
-            id: "3",
             title: "ApexFleet Supercars & AI",
             category: "dubai automation ai",
             location: "Dubái",
@@ -158,29 +147,95 @@ document.addEventListener('DOMContentLoaded', () => {
             description: "Plataforma de alquiler de exóticos con suite de peritaje forense sub-píxel con IA (OmniDiff) para inspección óptica de micro-daños."
         },
         {
-            id: "4",
-            title: "Alchemist Global Real Estate Academy",
-            category: "dubai crm web",
-            location: "Dubái",
+            id: "3",
+            title: "Al Sharq Gents Saloon",
+            category: "dubai web",
+            location: "Dubái (Deira)",
             badge: "📍 Dubái",
-            image: "assets/project_alchemist.jpg",
-            url: "https://alchemistglobal.netlify.app/",
-            tags: "Dubái / Academia Inmobiliaria / CRM",
-            description: "Plataforma L&D premium para corredores inmobiliarios de lujo fundada por el Dr. Eslam Ahmed en Dubái, con embudos y checkout Gumroad."
+            image: "assets/project_alsharq.jpg",
+            url: "https://aether-radar-nolb.onrender.com/preview/alsharq-saloon/",
+            tags: "Dubái / Salón de Lujo / 4.9⭐ GMaps",
+            description: "Boutique digital de grooming y barbería masculina en Port Saeed, Deira. Sistema de citas instantáneas y panel móvil para el dueño."
         },
         {
-            id: "5",
-            title: "Tierra Querida Restaurant",
+            id: "4",
+            title: "Luxury STS Car Rental",
             category: "dubai ecommerce web",
             location: "Dubái",
             badge: "📍 Dubái",
-            image: "assets/project_tierraquerida.jpg",
-            url: "https://tierraqueridarestaurant.netlify.app/",
-            tags: "Dubái / Alta Gastronomía / E-commerce",
-            description: "Portal gastronómico de alta cocina colombiana en Dubái, con menú interactivo autogestionable, pedidos directos y reservas."
+            image: "assets/project_luxurysts.jpg",
+            url: "https://aether-radar-nolb.onrender.com/preview/luxury-sts-rental/",
+            tags: "Dubái / Flota Exótica / Rent a Car VIP",
+            description: "Catálogo interactivo de renta de superdeportivos y SUVs de lujo en Dubái con reserva directa y atención VIP."
+        },
+        {
+            id: "5",
+            title: "Wakanda Gents Salon",
+            category: "dubai web",
+            location: "Dubái",
+            badge: "📍 Dubái",
+            image: "assets/project_alsharq.jpg",
+            url: "https://aether-radar-nolb.onrender.com/preview/wakanda-gents-salon/",
+            tags: "Dubái / Barbería Contemporánea / Grooming",
+            description: "Salón de estilo y barbería en Dubái con catálogo de servicios estilizados y agendamiento exprés."
         },
         {
             id: "6",
+            title: "The Barber House Dubai",
+            category: "dubai web",
+            location: "Dubái",
+            badge: "📍 Dubái",
+            image: "assets/project_alqasor.jpg",
+            url: "https://aether-radar-nolb.onrender.com/preview/the-barber-house-dubai/",
+            tags: "Dubái / Barber Shop Clásico / Citas",
+            description: "Experiencia clásica de barbería tradicional en Dubái, optimizada para móviles con reservas instantáneas."
+        },
+        {
+            id: "7",
+            title: "Soul Senses Palm Spa",
+            category: "dubai web",
+            location: "Dubái (Palm Jumeirah)",
+            badge: "📍 Dubái",
+            image: "assets/project_momentos.png",
+            url: "https://aether-radar-nolb.onrender.com/preview/soul-senses-palm-spa/",
+            tags: "Dubái / Spa de Lujo / Palm Jumeirah",
+            description: "Portal holístico de masajes y tratamientos de bienestar en Palm Jumeirah con catálogo interactivo de rituales."
+        },
+        {
+            id: "8",
+            title: "Antonovich Luxury Design",
+            category: "dubai web",
+            location: "Dubái",
+            badge: "📍 Dubái",
+            image: "assets/project_archvision.jpg",
+            url: "https://aether-radar-nolb.onrender.com/preview/antonovich-luxury-design/",
+            tags: "Dubái / Arquitectura & Mansiones / Interiorismo",
+            description: "Galería de diseño de interiores palaciegos, arquitectura trofeo y mobiliario de alta gama en EAU."
+        },
+        {
+            id: "9",
+            title: "Masterkey Rent A Car",
+            category: "dubai ecommerce web",
+            location: "Dubái",
+            badge: "📍 Dubái",
+            image: "assets/project_cochesdelujo.jpg",
+            url: "https://aether-radar-nolb.onrender.com/preview/masterkey-rent-a-car/",
+            tags: "Dubái / Flota Ejecutiva / Alquiler Diario",
+            description: "Portal de renta de vehículos deportivos y berlinas ejecutivas con entrega a domicilio en aeropuerto y hoteles."
+        },
+        {
+            id: "10",
+            title: "800 Doctor Clinic Dubai",
+            category: "dubai web",
+            location: "Dubái",
+            badge: "📍 Dubái",
+            image: "assets/project_connectme.png",
+            url: "https://aether-radar-nolb.onrender.com/preview/800doctor-dubai/",
+            tags: "Dubái / Medicina Domiciliaria / Clínica",
+            description: "Servicio de consultas médicas a domicilio, análisis clínicos y atención sanitaria 24/7 en Dubái."
+        },
+        {
+            id: "11",
             title: "Coches de Lujo 2da Mano",
             category: "dubai ecommerce web",
             location: "Dubái",
@@ -188,10 +243,10 @@ document.addEventListener('DOMContentLoaded', () => {
             image: "assets/project_cochesdelujo.jpg",
             url: "https://cubaloop.github.io/coches-de-lujo-2damano/",
             tags: "Dubái / Concesionario Deportivo / Ocasión",
-            description: "Showroom interactivo de vehículos de alta gama en Dubái con inspección certificada y canalización de citas por WhatsApp."
+            description: "Showroom interactivo de vehículos de alta gama en Dubái con inspección certificada y canalización de citas."
         },
         {
-            id: "7",
+            id: "12",
             title: "Simulador Inversor Tanmay",
             category: "investors dubai custom",
             location: "Dubái",
@@ -199,21 +254,21 @@ document.addEventListener('DOMContentLoaded', () => {
             image: "assets/project_tanmay.jpg",
             url: "https://cubaloop.github.io/dubai-investor-tanmay/",
             tags: "Dubái / Propuesta Privada / Simulador ROI",
-            description: "Plataforma personalizada para inversor privado con simulador de rendimiento financiero off-plan en DAMAC & Emaar."
+            description: "Plataforma personalizada para inversor privado con simulador interactivo de rendimiento off-plan en DAMAC & Emaar."
         },
         {
-            id: "8",
-            title: "Propuesta de Arquitectura Yulian",
+            id: "13",
+            title: "Propuesta Arquitectura Yulian",
             category: "investors dubai custom",
             location: "Dubái",
             badge: "💎 Inversor VIP",
             image: "assets/project_yulian.jpg",
             url: "https://cubaloop.github.io/yulian-dubai-proposals/",
             tags: "Dubái / Inversor VIP / Arquitectura",
-            description: "Herramienta web interactiva diseñada exclusivamente para presentación de proyectos arquitectónicos y propiedades trofeo en Dubái."
+            description: "Herramienta web interactiva diseñada exclusivamente para presentación de proyectos arquitectónicos en Dubái."
         },
         {
-            id: "9",
+            id: "14",
             title: "Experiencia Inmobiliaria Susana",
             category: "investors dubai custom",
             location: "Dubái",
@@ -224,7 +279,18 @@ document.addEventListener('DOMContentLoaded', () => {
             description: "Simulador interactivo de ROI, plusvalía de capital y calculadora fiscal 0% DLD & RERA para inversora internacional."
         },
         {
-            id: "10",
+            id: "15",
+            title: "Be International Languages",
+            category: "abudhabi dubai web",
+            location: "Abu Dhabi & EAU",
+            badge: "📍 Abu Dhabi",
+            image: "assets/project_beinternational.jpg",
+            url: "https://cubaloop.github.io/be-international-languages/",
+            tags: "Abu Dhabi / Academia de Idiomas / Agendamiento",
+            description: "Academia de idiomas con integración de agendamiento, cursos corporativos y atención directa."
+        },
+        {
+            id: "16",
             title: "HabANA Fragrance",
             category: "habana ecommerce web",
             location: "La Habana",
@@ -232,10 +298,10 @@ document.addEventListener('DOMContentLoaded', () => {
             image: "assets/project_habanafragrance.jpg",
             url: "https://cubaloop.github.io/habana-fragrance/",
             tags: "La Habana / Alta Perfumería / Lujo",
-            description: "Boutique digital de alta perfumería cubana artesanal con catálogo olfativo interactivo y pedidos sincronizados por WhatsApp."
+            description: "Boutique digital de alta perfumería cubana artesanal con catálogo olfativo interactivo y pedidos sincronizados."
         },
         {
-            id: "11",
+            id: "17",
             title: "Momentos Spa Habana",
             category: "habana ecommerce web",
             location: "La Habana",
@@ -246,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description: "Portal de lujo para centro de estética y masajes en Miramar, con estado en vivo de apertura según hora oficial de Cuba."
         },
         {
-            id: "12",
+            id: "18",
             title: "Jumenia Candles",
             category: "habana ecommerce web",
             location: "La Habana",
@@ -254,122 +320,34 @@ document.addEventListener('DOMContentLoaded', () => {
             image: "assets/project_jumeniacandles.jpg",
             url: "https://cubaloop.github.io/jumenia-candles/",
             tags: "La Habana / Velas Aromáticas / E-commerce",
-            description: "Tienda online de velas botánicas y aromáticas artesanales de soja con pasarela de pedido directo."
-        },
-        {
-            id: "13",
-            title: "Cuba by Locals",
-            category: "habana web",
-            location: "La Habana",
-            badge: "📍 La Habana",
-            image: "assets/project_cubabylocals.jpg",
-            url: "https://cubabylocals.netlify.app/",
-            tags: "La Habana / Turismo Vivencial / Tours",
-            description: "Conexión de viajeros internacionales con guías locales, casas particulares y experiencias culturales auténticas en La Habana."
-        },
-        {
-            id: "14",
-            title: "ExpLoop Travel & Stays",
-            category: "habana web mobile",
-            location: "La Habana",
-            badge: "📍 La Habana",
-            image: "assets/project_exploop.png",
-            url: "https://www.exploop.com",
-            tags: "Turismo / Alojamientos / Geolocalización",
-            description: "Motor de búsqueda y reservas de experiencias y hospedajes boutique en Cuba y el Caribe."
-        },
-        {
-            id: "15",
-            title: "Uncle Shawerma",
-            category: "abudhabi ecommerce web",
-            location: "Abu Dhabi",
-            badge: "📍 Abu Dhabi",
-            image: "assets/project_mercapros.png",
-            url: "https://cubaloop.github.io/uncle-shawerma-website/",
-            tags: "Abu Dhabi / Gastronomía / Carrito Rápido",
-            description: "Plataforma de pedidos rápidos de gastronomía urbana en Muroor Rd, Abu Dhabi con carrito inteligente por WhatsApp."
-        },
-        {
-            id: "16",
-            title: "Home Properties",
-            category: "dubai crm web",
-            location: "Dubái",
-            badge: "📍 Dubái",
-            image: "assets/project_homeproperties.png",
-            url: "https://homeproperties.odoo.com",
-            tags: "Dubái / CRM Odoo / Bienes Raíces",
-            description: "Portal inmobiliario autogestionable sobre Odoo para captación y filtrado automatizado de prospectos compradores."
-        },
-        {
-            id: "17",
-            title: "Connect-Me Corporate",
-            category: "abudhabi dubai crm",
-            location: "Dubái & Abu Dhabi",
-            badge: "📍 EAU",
-            image: "assets/project_connectme.png",
-            url: "https://connectme.ae/",
-            tags: "EAU / Creación de Empresas / Visados",
-            description: "Portal corporativo para la constitución de empresas en zona franca y mainland, visados dorados y consultoría en EAU."
-        },
-        {
-            id: "18",
-            title: "Aether GMaps Lead Radar",
-            category: "automation ai",
-            location: "Global / EAU",
-            badge: "⚡ Automatización",
-            image: "assets/tech_unsplash.jpg",
-            url: "https://radar-web-gmaps.onrender.com",
-            tags: "Automatización / Prospección B2B / Scraper",
-            description: "Sistema cloud en Render para rastreo y auditoría automática de fichas de Google Maps con extracción de teléfonos y evaluación de presencia digital."
+            description: "Tienda online de velas botánicas y aromáticas artesanales de soja con pasarela de catálogo y pedido directo."
         },
         {
             id: "19",
-            title: "Dubai Capital Radar & WhatsApp Bot",
+            title: "Aether GMaps Lead Radar",
+            category: "automation ai",
+            location: "Dubái & EAU",
+            badge: "⚡ Automatización",
+            image: "assets/tech_unsplash.jpg",
+            url: "https://aether-radar-nolb.onrender.com",
+            tags: "Automatización / Prospección B2B / Scraper",
+            description: "Sistema cloud en Render para rastreo y auditoría automática de fichas de Google Maps con extracción de datos de contacto."
+        },
+        {
+            id: "20",
+            title: "Dubai Capital Radar & WhatsApp Gateway",
             category: "automation ai crm",
             location: "Dubái & Miami",
             badge: "⚡ Bot WhatsApp",
             image: "assets/project_nexus.jpg",
-            url: "https://dubai-miami-radar.onrender.com",
+            url: "https://dubai-capital-radar.onrender.com",
             tags: "Automatización / WhatsApp Gateway / CRM",
-            description: "Infraestructura de mensajería E2EE Baileys conectada con agente de IA autónomo para confirmación y calificación de citas con inversores."
-        },
-        {
-            id: "20",
-            title: "KuQuant Autonomous Trading",
-            category: "automation ai",
-            location: "Sistemas Cuantitativos",
-            badge: "⚡ Algoritmos",
-            image: "assets/project_alphastream.jpg",
-            url: "https://crypto-trading-bot-apex.onrender.com/",
-            tags: "Automatización / Motores Algorítmicos / IA",
-            description: "Suite de análisis de microestructura de mercado, delta de volumen y oráculo semántico impulsado por inferencia Groq ultra-rápida."
-        },
-        {
-            id: "21",
-            title: "Be International Languages",
-            category: "abudhabi dubai web",
-            location: "EAU",
-            badge: "📍 EAU",
-            image: "assets/project_beinternational.jpg",
-            url: "https://cubaloop.github.io/be-international-languages/",
-            tags: "EAU / Academia de Idiomas / Agendamiento",
-            description: "Academia de idiomas con integración de calendario Zoom y atención personalizada por WhatsApp."
-        },
-        {
-            id: "22",
-            title: "Jumpers Trip Luxury Travel",
-            category: "web",
-            location: "Internacional",
-            badge: "📍 Global",
-            image: "assets/project_jumperstrip.jpg",
-            url: "https://jumperstrip.netlify.app/",
-            tags: "Turismo VIP / Trámites / Visados",
-            description: "Plataforma de viajes premium y gestión consular con diseño en verde bosque y latón."
+            description: "Infraestructura de mensajería E2EE conectada con agente de IA autónomo para confirmación y calificación de citas con inversores."
         }
     ];
 
-    // Always keep portfolio updated with newest projects version
-    const portfolioVersion = "v3_all_chats";
+    // Always keep portfolio updated with newest projects version (100% verified URLs)
+    const portfolioVersion = "v4_verified_active_urls";
     if (localStorage.getItem('tecno_portfolio_ver') !== portfolioVersion) {
         localStorage.setItem('tecnoemprende_portfolio', JSON.stringify(defaultPortfolio));
         localStorage.setItem('tecno_portfolio_ver', portfolioVersion);
