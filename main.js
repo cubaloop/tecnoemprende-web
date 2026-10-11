@@ -373,9 +373,9 @@ document.addEventListener('DOMContentLoaded', () => {
             location: "Salud Digital",
             badge: "Sistemas CRM",
             image: "assets/project_800doctor.jpg",
-            url: "https://tadh-crm.netlify.app",
+            url: "https://cubaloop.github.io/tdah-crm/",
             tags: "CRM Sanitario / Pacientes / Agendamiento",
-            description: "Software clínico de gestión de pacientes, seguimiento terapéutico y control de sesiones especializadas."
+            description: "Software clínico privado con puerta de autenticación segura, aislamiento de datos de pacientes y control de sesiones."
         },
         {
             id: "24",
@@ -435,7 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     // Always keep portfolio updated with newest projects version (100% verified URLs & accurate assets)
-    const portfolioVersion = "v5_complete_all_platforms_accurate_images";
+    const portfolioVersion = "v6_secure_auth_gates";
     if (localStorage.getItem('tecno_portfolio_ver') !== portfolioVersion) {
         localStorage.setItem('tecnoemprende_portfolio', JSON.stringify(defaultPortfolio));
         localStorage.setItem('tecno_portfolio_ver', portfolioVersion);
