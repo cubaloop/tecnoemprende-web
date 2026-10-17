@@ -545,60 +545,28 @@ document.addEventListener('DOMContentLoaded', () => {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     };
 
-    // Groq AI Integration
-    const _p1 = "gsk_EWpmjpd7bhM";
-    const _p2 = "eAFZPV4y2WGdyb3";
-    const _p3 = "FYvNLFEceeA9WRe4areYwbXtci";
-    const groqApiKey = _p1 + _p2 + _p3;
-    const groqModel = "qwen/qwen3.8-27b";
+    // Secure AI Integration (Zero API Keys on Frontend)
+    // All secrets are guarded on the backend server; frontend only talks to the proxy
+    const AI_PROXY_URL = "https://dubai-miami-radar.onrender.com/api/tecno-chat";
     let conversationHistory = [];
 
     const callGroqAi = async (userMsg) => {
-        const systemPrompt = `Eres TecnoBot AI, asistente de Tecnoemprende (agencia tecnológica de élite de Aliet Rodríguez Viltres y David Alejandro Rodríguez).
-
-Servicios Clave:
-1. Sistemas Automatizados para Empresas (bots de WhatsApp, RPA, scrapers B2B, cloud 24/7).
-2. Propuestas y Modelos de Negocio para Inversores (simuladores ROI 3D interactivos).
-3. Páginas Web de Alto Impacto (sitios corporativos de lujo, e-commerce, landing pages).
-4. Soporte Técnico Continuo (wake-lock 24/7 en Render y copias en la nube).
-
-Proyectos Destacados: Tierra Querida Restaurant (tierraquerida.net), ApexFleet Supercars, Al Sharq Saloon, Coches de Lujo Dubái, Simulador Inversor Tanmay, HabANA Fragrance, Momentos Spa Habana, Be International Languages.
-
-REGLAS ESTRICTAS DE ESTILO:
-- MENSAJES CORTOS: Responde de forma muy breve y directa, de 1 a 2 oraciones concisas (máximo 45 palabras).
-- PROHIBICIÓN TOTAL DE ASTERISCOS: Jamás uses asteriscos (*) en tus respuestas, ni para negritas ni para viñetas ni para énfasis. Cero asteriscos.
-- Usa texto limpio, profesional y directo.
-- Si preguntan precio: Landing desde 300 USD y sitios desde 800 USD. Cotiza en solicitar-sitio.html.
-- Contacto directo: WhatsApp +971 504497663.`;
-
-        const messages = [
-            { role: "system", content: systemPrompt },
-            ...conversationHistory.slice(-4),
-            { role: "user", content: userMsg }
-        ];
-
         try {
-            const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 6000); // 6s max before seamless fallback
+            const res = await fetch(AI_PROXY_URL, {
                 method: "POST",
-                headers: {
-                    "Authorization": `Bearer ${groqApiKey}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    model: groqModel,
-                    messages: messages,
-                    temperature: 0.5,
-                    max_tokens: 120
-                })
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: userMsg, history: conversationHistory.slice(-4) }),
+                signal: controller.signal
             });
-
-            if (!res.ok) throw new Error(`Groq HTTP ${res.status}`);
+            clearTimeout(timeoutId);
+            if (!res.ok) throw new Error(`Proxy HTTP ${res.status}`);
             const data = await res.json();
-            let content = data.choices[0].message.content || "";
-            // Sanitize: strip any asterisks completely
+            let content = data.reply || "";
             return content.replace(/\*/g, '').trim();
         } catch (err) {
-            console.warn("Groq AI offline or fallback:", err);
+            console.warn("AI Proxy offline, using instant business fallback:", err);
             return null;
         }
     };
