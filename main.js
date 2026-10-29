@@ -125,6 +125,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- PORTFOLIO DYNAMIC DATABASE (100% VERIFIED ACTIVE URLS & ACCURATE ASSETS) ---
     const defaultPortfolio = [
         {
+            id: "hhp_cuba",
+            title: "Havana Home Pros — Portal Inmobiliario",
+            category: "habana investors ecommerce web",
+            location: "La Habana, Cuba",
+            badge: "📍 La Habana / Real Estate",
+            image: "assets/project_havanahomepros.jpg",
+            url: "https://cubaloop.github.io/havana-home-pros/",
+            tags: "La Habana / Property Finder Cuba / Mapa Interactivo",
+            description: "Portal inmobiliario estilo Property Finder para compra-venta de residencias y mansiones en La Habana con geolocalización en mapa, filtros avanzados y conexión directa por WhatsApp."
+        },
+        {
+            id: "mercapros_cuba",
+            title: "Mercapros Cuba — Marketplace B2B & Contenedores",
+            category: "habana ecommerce web",
+            location: "La Habana & ZEDM Mariel",
+            badge: "📍 La Habana / Mayorista B2B",
+            image: "assets/project_nexus.jpg",
+            url: "https://cubaloop.github.io/Mercapros/",
+            tags: "La Habana / Importación Contenedores / Catálogo Mayorista",
+            description: "Plataforma mayorista B2B de contenedores CIF Mariel y distribución para MIPYMES en Cuba con cotizador automático y panel de administración móvil."
+        },
+        {
             id: "1",
             title: "13th Avenue Luxury Brand",
             category: "dubai ecommerce web",
@@ -435,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     // Always keep portfolio updated with newest projects version (100% verified URLs & accurate assets)
-    const portfolioVersion = "v6_secure_auth_gates";
+    const portfolioVersion = "v7_cuba_flagship_spy";
     if (localStorage.getItem('tecno_portfolio_ver') !== portfolioVersion) {
         localStorage.setItem('tecnoemprende_portfolio', JSON.stringify(defaultPortfolio));
         localStorage.setItem('tecno_portfolio_ver', portfolioVersion);
