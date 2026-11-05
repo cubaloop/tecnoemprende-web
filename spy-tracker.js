@@ -1,88 +1,103 @@
 /**
- * Tecnoemprende & Jota Beta — Universal Spy Visitor, Unique User & Conversion Telemetry Engine v2
- * Tracks:
- *  - Auto-Registration in public.web_spy_sites (Library of all created & future pages)
- *  - Different Unique Users (visitor_id fingerprint + IP + device)
- *  - Total Visits / Sessions per Page
- *  - Real-time Duration (15s Heartbeat + Keepalive Exit)
- *  - Purchases / Bookings / Conversions (clicks on wa.me, tel:, Book/Buy/Comprar/Reservar buttons, form submits)
- *  - Secret Spy Dashboard (?admin=david | ?view=spy | Alt+S)
+ * Tecnoemprende & Jota Beta — Universal Headless Spy Telemetry Engine v5
+ * (Deep Passive Visitor Intelligence + Anti-Bot + Zero On-Site UI)
+ *
+ * STRICT PRIVACY & VISIBILITY INVARIANTS:
+ *  1. 100% INVISIBLE ON WEBSITES: Never renders any panel, badge, modal, or overlay on any webpage
+ *     (not even with ?admin=david, ?view=spy, or Alt+S). All telemetry is visible EXCLUSIVELY inside Jota Beta (/#/espia).
+ *  2. ZERO BROWSER ALERTS / ZERO PERMISSION POPUPS: Uses only 100% passive standard APIs
+ *     (IntersectionObserver, Scroll, Selection/Copy on page, WebGL renderer, Intl TimeZone, Navigator Languages/Hardware, Passive IP/ISP).
+ *  3. Automatic Exclusion of David's IPs (IPv4 & IPv6) and Admin Browser IDs.
+ *  4. Mandatory Real Human Proof-of-Interaction + 4-Second Dwell Gate.
  */
 (function () {
   const CONFIG = {
     supabaseUrl: 'https://jyrqzjctkmzdvmraqrcv.supabase.co',
     supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5cnF6amN0a216ZHZtcmFxcmN2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4NjI4MTU3NCwiZXhwIjoyMTAxODU3NTc0fQ.jpzy38i_JqhKiLZwNFXESJo62kk4vWvwCVPLpFIyLjc',
-    heartbeatIntervalMs: 15000
+    heartbeatIntervalMs: 15000,
+    minHumanDwellMs: 4000,
+    excludedIps: [
+      '94.59.222.46',
+      '92.99.182.224',
+      '2001:8f8:2d49:ae62::ba15:f701',
+      '74.179.67.173',
+      '80.82.77.202',
+      '93.174.93.34',
+      '45.132.195.24',
+      '45.86.18.148'
+    ],
+    excludedIpPrefixes: [
+      '94.59.222.',
+      '92.99.182.',
+      '2001:8f8:2d49:ae62',
+      '66.249.',
+      '34.203.',
+      '3.239.',
+      '52.207.',
+      '104.154.',
+      '2a03:2880:'
+    ],
+    excludedVisitorIds: [
+      'usr_0ed586a2-f30',
+      'usr_7e22d322-49a',
+      'usr_a58ff49e-37f'
+    ],
+    datacenterKeywords: [
+      'amazon', 'aws', 'google cloud', 'google llc', 'microsoft', 'azure',
+      'digitalocean', 'hetzner', 'ovh', 'choopa', 'vultr', 'linode', 'akamai',
+      'censys', 'shodan', 'leaseweb', 'm247', 'datacamp', 'cloudflare', 'fastly',
+      'facebook', 'meta platforms', 'quasi networks', 'frantech', 'contabo',
+      'tzulo', 'performive', 'multacom', 'scaleway', 'upcloud',
+      'alibaba', 'tencent', 'oracle cloud', 'ibm cloud', 'hosting', 'datacenter',
+      'server', 'colocation', 'vpn', 'proxy'
+    ]
   };
+
+  // Remove any legacy on-page panel immediately and permanently
+  function purgeAnyOnSiteUi() {
+    const ids = ['tecno-universal-spy-panel', 'spy-floating-panel', 'jota-spy-overlay'];
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    });
+  }
+
+  function isAutomatedBotEnv() {
+    const ua = (navigator.userAgent || '').toLowerCase();
+    if (!ua) return true;
+    if (navigator.webdriver === true) return true;
+    if (/bot|crawl|spider|slurp|headless|phantom|puppeteer|playwright|selenium|lighthouse|pagespeed|gtmetrix|pingdom|uptimerobot|whatsapp|telegram|facebookexternalhit|twitterbot|linkedinbot|embedly|quora|pinterest|slackbot|discordbot|vkshare|W3C_Validator|curl|wget|python|axios|node-fetch|go-http-client|java|okhttp/i.test(ua)) {
+      return true;
+    }
+    if (window.outerWidth === 0 && window.outerHeight === 0) return true;
+    if (!navigator.languages || navigator.languages.length === 0) return true;
+    return false;
+  }
 
   function detectSiteMetadata() {
     if (window.SPY_SITE_ID && window.SPY_SITE_NAME) {
       return {
         siteId: window.SPY_SITE_ID,
         siteName: window.SPY_SITE_NAME,
-        category: window.SPY_SITE_CATEGORY || 'general'
+        category: window.SPY_SITE_CATEGORY || 'dubai'
       };
     }
-    const host = (window.location.hostname || 'local').toLowerCase();
-    const path = (window.location.pathname || '/').toLowerCase();
-    const full = host + path;
-
-    if (full.includes('rockefeller')) {
-      return { siteId: 'rockefeller-dubai-investor-portal', siteName: 'Rockefeller Dubai Investor Portal', category: 'investors' };
-    }
-    if (full.includes('mercapros')) {
-      return { siteId: 'mercapros-cuba', siteName: 'Mercapros Cuba (B2B & Mayoristas)', category: 'cuba' };
-    }
-    if (full.includes('havana-home-pros') && path.includes('sniper')) {
-      return { siteId: 'havana-home-pros-sniper', siteName: 'Radar Sniper Privado (Gangas Revolico)', category: 'cuba' };
-    }
-    if (full.includes('havana-home-pros')) {
-      return { siteId: 'havana-home-pros', siteName: 'Havana Home Pros (Portal Inmobiliario)', category: 'cuba' };
-    }
-    if (full.includes('tecnoemprende') && path.includes('portfolio')) {
-      return { siteId: 'tecnoemprende-portfolio', siteName: 'Portafolio Oficial Tecnoemprende', category: 'cuba' };
-    }
-    if (full.includes('tecnoemprende')) {
-      return { siteId: 'tecnoemprende-web', siteName: 'Tecnoemprende Sitio Oficial', category: 'cuba' };
-    }
-    if (full.includes('dubai-investor-arshad')) {
-      return { siteId: 'dubai-investor-arshad', siteName: 'Portal Inversor VIP Arshad (Dubái)', category: 'investors' };
-    }
-    if (full.includes('dubai-investor-tanmay')) {
-      return { siteId: 'dubai-investor-tanmay', siteName: 'Simulador Inversor VIP Tanmay (Dubái)', category: 'investors' };
-    }
-    if (full.includes('dubai-investment-susana')) {
-      return { siteId: 'dubai-investment-susana', siteName: 'Experiencia Inmobiliaria Susana (Dubái)', category: 'investors' };
-    }
-    if (full.includes('yulian-dubai-proposals')) {
-      return { siteId: 'yulian-dubai-proposals', siteName: 'Propuesta Arquitectura Yulian (Dubái)', category: 'investors' };
-    }
-    if (full.includes('13th-avenue') || full.includes('13thavenue')) {
-      return { siteId: '13th-avenue', siteName: '13th Avenue Luxury Brand (Dubái)', category: 'dubai' };
-    }
-    if (full.includes('rich-world-real-estate')) {
-      return { siteId: 'rich-world-real-estate-dubai', siteName: 'Rich World Real Estate Dubai', category: 'dubai' };
-    }
-    if (full.includes('jota-cloud')) {
-      return { siteId: 'jota-cloud-saas', siteName: 'Jota Cloud Online SaaS', category: 'saas' };
-    }
-    const cleanSlug = path.replace(/^\/+|\/+$/g, '').replace(/\/index\.html$/i, '').replace(/\//g, '-') || host.replace(/\./g, '-');
+    const hostPath = (window.location.pathname || '/').replace(/^\/+|\/+$/g, '').split('/')[0];
+    const cleanTitle = (document.title || hostPath || 'sitio-web').trim();
     return {
-      siteId: cleanSlug.slice(0, 64),
-      siteName: document.title ? document.title.slice(0, 65) : ('Sitio Web (' + cleanSlug + ')'),
-      category: path.includes('preview') ? 'jota_preview' : 'general'
+      siteId: hostPath || 'sitio-general',
+      siteName: cleanTitle.slice(0, 90),
+      category: 'dubai'
     };
   }
 
   const { siteId, siteName, category } = detectSiteMetadata();
   const urlParams = new URLSearchParams(window.location.search);
-  const isSpyParam = urlParams.get('admin') === 'david' || urlParams.get('view') === 'spy' || urlParams.get('spy') === '1';
 
-  if (isSpyParam) {
+  // Silent Admin Exclusion (never shows any UI on the page)
+  if (urlParams.get('admin') === 'david' || urlParams.get('view') === 'spy') {
     localStorage.setItem('tecno_spy_admin_excluded', 'true');
   }
-
-  const isExcludedAdmin = localStorage.getItem('tecno_spy_admin_excluded') === 'true';
 
   function getOrCreateVisitorId() {
     let vid = localStorage.getItem('tecno_spy_visitor_id');
@@ -93,6 +108,24 @@
     return vid;
   }
 
+  const visitorId = getOrCreateVisitorId();
+  if (CONFIG.excludedVisitorIds.includes(visitorId)) {
+    localStorage.setItem('tecno_spy_admin_excluded', 'true');
+  }
+
+  function isIpOrIspExcluded(ipStr, ispStr) {
+    if (ipStr) {
+      const norm = String(ipStr).trim().toLowerCase();
+      if (CONFIG.excludedIps.some(ip => ip.toLowerCase() === norm)) return true;
+      if (CONFIG.excludedIpPrefixes.some(prefix => norm.startsWith(prefix.toLowerCase()))) return true;
+    }
+    if (ispStr) {
+      const normIsp = String(ispStr).trim().toLowerCase();
+      if (CONFIG.datacenterKeywords.some(kw => normIsp.includes(kw.toLowerCase()))) return true;
+    }
+    return false;
+  }
+
   function incrementSiteVisitCount(sId) {
     const key = 'tecno_spy_vcount_' + sId;
     const prev = parseInt(localStorage.getItem(key) || '0', 10);
@@ -101,26 +134,93 @@
     return next;
   }
 
+  // Passive Hardware, Screen & GPU Fingerprinting (Zero Permission Prompts)
+  function getGpuShortName() {
+    try {
+      const canvas = document.createElement('canvas');
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (!gl) return '';
+      const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+      if (!dbg) return '';
+      const raw = String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) || '');
+      return raw
+        .replace(/ANGLE \((.+)\)/i, '$1')
+        .replace(/Direct3D11.*$/i, '')
+        .replace(/Mesa /i, '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .slice(0, 38);
+    } catch (e) {
+      return '';
+    }
+  }
+
   function getDeviceInfo() {
     const ua = navigator.userAgent || '';
-    if (/iPhone/i.test(ua)) return 'Apple iPhone';
-    if (/iPad/i.test(ua)) return 'Apple iPad';
-    if (/Android/i.test(ua)) return 'Android Smartphone';
-    if (/Macintosh/i.test(ua)) return 'Apple Mac';
-    if (/Windows/i.test(ua)) return 'Windows PC';
-    if (/Linux/i.test(ua)) return 'Linux PC';
-    return 'Dispositivo Web';
+    let base = 'Dispositivo Web';
+    if (/iPhone/i.test(ua)) base = 'Apple iPhone';
+    else if (/iPad/i.test(ua)) base = 'Apple iPad';
+    else if (/Android/i.test(ua)) {
+      const m = ua.match(/Android\s+[\d.]+;\s*([^;)]+)/i);
+      const model = m && m[1] ? m[1].trim() : '';
+      base = model && model !== 'K' ? `Android (${model.slice(0, 22)})` : 'Android Smartphone';
+    } else if (/Macintosh/i.test(ua)) base = 'Apple Mac';
+    else if (/Windows/i.test(ua)) base = 'Windows PC';
+    else if (/Linux/i.test(ua)) base = 'Linux PC';
+
+    const dpr = window.devicePixelRatio ? `${Math.round(window.devicePixelRatio * 10) / 10}x` : '';
+    const scr = window.screen ? `${window.screen.width}x${window.screen.height}` : '';
+    const cores = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency}c` : '';
+    const ram = navigator.deviceMemory ? `${navigator.deviceMemory}GB` : '';
+    const hwParts = [scr, dpr, cores, ram].filter(Boolean).join(' • ');
+    return hwParts ? `${base} (${hwParts})` : base;
   }
 
-  function formatDuration(seconds) {
-    const s = Math.max(0, Math.round(Number(seconds) || 0));
-    const m = Math.floor(s / 60);
-    const rem = s % 60;
-    if (m === 0) return `${rem}s`;
-    return `${m}m ${rem}s`;
+  function getOriginAndProspectAttribution() {
+    const ua = navigator.userAgent || '';
+    const ref = document.referrer || '';
+    const prospectParam =
+      urlParams.get('v') ||
+      urlParams.get('lead') ||
+      urlParams.get('prospect') ||
+      urlParams.get('client') ||
+      urlParams.get('nombre') ||
+      urlParams.get('name') ||
+      '';
+    const utmSource = urlParams.get('utm_source') || '';
+    const utmCampaign = urlParams.get('utm_campaign') || '';
+
+    let channel = 'Directo / Enlace';
+    if (utmSource) {
+      channel = utmSource + (utmCampaign ? ` (${utmCampaign})` : '');
+    } else if (urlParams.get('fbclid') || /FBAN|FBAV/i.test(ua) || /facebook\.com/i.test(ref)) {
+      channel = 'Facebook';
+    } else if (/Instagram/i.test(ua) || /instagram\.com/i.test(ref)) {
+      channel = 'Instagram';
+    } else if (/WhatsApp/i.test(ua) || /whatsapp\.com|wa\.me/i.test(ref)) {
+      channel = 'WhatsApp';
+    } else if (urlParams.get('gclid') || /google\./i.test(ref)) {
+      channel = 'Google Search / Maps';
+    } else if (/t\.co|twitter\.com|x\.com/i.test(ref)) {
+      channel = 'X / Twitter';
+    } else if (/linkedin\.com|LinkedInApp/i.test(ua + ' ' + ref)) {
+      channel = 'LinkedIn';
+    } else if (/tiktok/i.test(ua + ' ' + ref) || urlParams.get('ttclid')) {
+      channel = 'TikTok';
+    } else if (ref) {
+      try {
+        channel = 'Ref: ' + new URL(ref).hostname.replace(/^www\./, '');
+      } catch (e) {
+        channel = ref.slice(0, 60);
+      }
+    }
+
+    if (prospectParam) {
+      return `🎯 Prospecto: ${prospectParam.slice(0, 40)} | ${channel}`;
+    }
+    return channel;
   }
 
-  const visitorId = getOrCreateVisitorId();
   const sessionKey = 'tecno_spy_sess_' + siteId;
   const startKey = 'tecno_spy_start_' + siteId;
   const vnumKey = 'tecno_spy_vnum_' + siteId;
@@ -137,8 +237,180 @@
   } catch (e) {
     conversionEvents = [];
   }
-  let clientGeo = { ip: 'direct', city: 'Visitante', country: 'Externo' };
+
+  let clientGeo = { ip: 'direct', city: 'Visitante', country: 'Externo', isp: '' };
   let isTrackingActive = false;
+  let hasHumanInteracted = false;
+  let hasPassedDwellGate = false;
+  let geoReady = false;
+  let isBlockedSource = false;
+
+  // Deep Passive Telemetry State
+  let maxScrollPct = 0;
+  let activeVisibleSec = 0;
+  let currentVisibleSections = new Set();
+  const sectionDwellSeconds = {};
+  let batteryStatusText = '';
+  const gpuName = getGpuShortName();
+  const systemTimeZone = (() => {
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    } catch (e) {
+      return '';
+    }
+  })();
+  const deviceLanguages = (() => {
+    try {
+      return (navigator.languages || [navigator.language]).filter(Boolean).slice(0, 3).join(', ');
+    } catch (e) {
+      return '';
+    }
+  })();
+  const networkConnectionText = (() => {
+    try {
+      const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (!c) return '';
+      const parts = [];
+      if (c.effectiveType) parts.push(String(c.effectiveType).toUpperCase());
+      if (typeof c.downlink === 'number' && c.downlink > 0) parts.push(`${c.downlink} Mbps`);
+      return parts.join(' • ');
+    } catch (e) {
+      return '';
+    }
+  })();
+
+  if (navigator.getBattery) {
+    try {
+      navigator.getBattery().then((bat) => {
+        if (bat && typeof bat.level === 'number') {
+          const pct = Math.round(bat.level * 100);
+          batteryStatusText = `${pct}%${bat.charging ? ' ⚡' : ''}`;
+        }
+      }).catch(() => {});
+    } catch (e) {}
+  }
+
+  function updateScrollDepth() {
+    try {
+      const docEl = document.documentElement;
+      const body = document.body;
+      const scrollTop = window.scrollY || docEl.scrollTop || body.scrollTop || 0;
+      const winH = window.innerHeight || docEl.clientHeight || 1;
+      const fullH = Math.max(
+        body.scrollHeight || 0,
+        docEl.scrollHeight || 0,
+        body.offsetHeight || 0,
+        docEl.offsetHeight || 0,
+        1
+      );
+      if (fullH <= winH) {
+        maxScrollPct = Math.max(maxScrollPct, 100);
+      } else {
+        const pct = Math.min(100, Math.round(((scrollTop + winH) / fullH) * 100));
+        if (pct > maxScrollPct) maxScrollPct = pct;
+      }
+    } catch (e) {}
+  }
+
+  function resolveSectionLabel(el, idx) {
+    if (!el) return `Sección ${idx + 1}`;
+    const dataLabel = el.getAttribute('data-section') || el.getAttribute('aria-label');
+    if (dataLabel) return dataLabel.trim().slice(0, 36);
+    const heading = el.querySelector('h1, h2, h3');
+    if (heading && heading.innerText) {
+      const clean = heading.innerText.replace(/\s+/g, ' ').trim();
+      if (clean.length > 2) return clean.slice(0, 36);
+    }
+    if (el.id) {
+      return el.id.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()).slice(0, 36);
+    }
+    if (el.tagName === 'HEADER') return 'Portada / Hero';
+    if (el.tagName === 'FOOTER') return 'Pie de Página / Contacto';
+    return `Sección ${idx + 1}`;
+  }
+
+  function setupSectionAndScrollObservers() {
+    updateScrollDepth();
+    window.addEventListener('scroll', updateScrollDepth, { passive: true });
+
+    try {
+      const candidates = Array.from(
+        document.querySelectorAll('header, section, [id*="roi"], [id*="calc"], [id*="map"], [id*="price"], [id*="portfolio"], [id*="service"], [id*="contact"], footer')
+      ).slice(0, 20);
+
+      if ('IntersectionObserver' in window && candidates.length > 0) {
+        const labelMap = new Map();
+        candidates.forEach((el, idx) => {
+          labelMap.set(el, resolveSectionLabel(el, idx));
+        });
+
+        const obs = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const name = labelMap.get(entry.target);
+              if (!name) return;
+              if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+                currentVisibleSections.add(name);
+              } else {
+                currentVisibleSections.delete(name);
+              }
+            });
+          },
+          { threshold: [0.25, 0.6] }
+        );
+
+        candidates.forEach((el) => obs.observe(el));
+      }
+    } catch (e) {}
+
+    // 1-second ticker for active reading time & per-section dwell time
+    setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        activeVisibleSec += 1;
+        currentVisibleSections.forEach((secName) => {
+          sectionDwellSeconds[secName] = (sectionDwellSeconds[secName] || 0) + 1;
+        });
+      }
+    }, 1000);
+  }
+
+  function buildSectionsViewedTelemetryArray() {
+    const items = [];
+    updateScrollDepth();
+    items.push(`📊 Scroll leído: ${maxScrollPct || 15}%`);
+    if (activeVisibleSec > 0) {
+      items.push(`👁️ Pantalla activa: ${activeVisibleSec}s`);
+    }
+    if (systemTimeZone) {
+      items.push(`🌍 Zona: ${systemTimeZone}`);
+    }
+    if (deviceLanguages) {
+      items.push(`🗣️ Idioma: ${deviceLanguages}`);
+    }
+    if (clientGeo.isp) {
+      items.push(`🏢 ISP/Red: ${clientGeo.isp.slice(0, 42)}`);
+    }
+    if (networkConnectionText) {
+      items.push(`📡 Conexión: ${networkConnectionText}`);
+    }
+    if (gpuName) {
+      items.push(`💎 GPU: ${gpuName}`);
+    }
+    if (batteryStatusText) {
+      items.push(`🔋 Batería: ${batteryStatusText}`);
+    }
+
+    const topSections = Object.entries(sectionDwellSeconds)
+      .filter(([, sec]) => sec >= 2)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 6);
+
+    topSections.forEach(([name, sec]) => {
+      items.push(`📌 ${name}: ${sec}s`);
+    });
+
+    return items;
+  }
 
   async function ensureSiteRegistered() {
     const cleanUrl = window.location.href.split('?')[0];
@@ -157,7 +429,7 @@
           site_name: siteName,
           site_url: cleanUrl,
           category: category,
-          platform: 'Auto-Discovered'
+          platform: 'GitHub Pages / Oficial'
         })
       });
     } catch (e) {}
@@ -169,10 +441,15 @@
       if (r1.ok) {
         const d1 = await r1.json();
         if (d1 && d1.ip) {
+          const ispInfo = [
+            d1.connection && d1.connection.isp,
+            d1.connection && d1.connection.org
+          ].filter(Boolean).join(' / ');
           return {
             ip: d1.ip,
             city: d1.city || 'Ciudad',
-            country: d1.country || 'País'
+            country: d1.country || 'País',
+            isp: ispInfo
           };
         }
       }
@@ -185,92 +462,192 @@
           return {
             ip: d2.ip,
             city: d2.city || 'Ciudad',
-            country: d2.country_name || d2.country || 'País'
+            country: d2.country_name || d2.country || 'País',
+            isp: d2.org || ''
           };
         }
       }
     } catch (e2) {}
-    return { ip: 'direct_' + visitorId.slice(-6), city: 'Acceso Directo', country: 'Web / Móvil' };
+    return { ip: 'direct_' + visitorId.slice(-6), city: 'Acceso Directo', country: 'Web / Móvil', isp: '' };
   }
 
-  function setupConversionListeners() {
+  function setupConversionAndIntentListeners() {
+    // 1. Click conversions & high-intent buttons
     document.addEventListener('click', (e) => {
       const target = e.target ? e.target.closest('a, button, [role="button"], input[type="submit"]') : null;
       if (!target) return;
       const href = (target.getAttribute('href') || '').toLowerCase();
-      const text = (target.innerText || target.value || target.getAttribute('aria-label') || '').trim().toLowerCase();
+      const text = (target.innerText || target.value || target.getAttribute('aria-label') || '').trim().replace(/\s+/g, ' ');
+      const lowerText = text.toLowerCase();
 
       let actionLabel = null;
+      let isHardConversion = false;
+
       if (href.includes('wa.me') || href.includes('whatsapp.com')) {
-        actionLabel = 'Clic Reserva/Contacto WhatsApp';
+        actionLabel = '💬 Clic Contacto WhatsApp';
+        isHardConversion = true;
       } else if (href.startsWith('tel:')) {
-        actionLabel = 'Llamada Directa';
+        actionLabel = '📞 Llamada Telefónica Directa';
+        isHardConversion = true;
+      } else if (href.startsWith('mailto:')) {
+        actionLabel = '✉️ Clic en Correo Electrónico';
+        isHardConversion = true;
+      } else if (href.endsWith('.pdf') || lowerText.includes('pdf') || lowerText.includes('brochure') || lowerText.includes('dossier')) {
+        actionLabel = '📄 Descarga Brochure / PDF: ' + text.slice(0, 28);
+        isHardConversion = true;
       } else if (
-        /comprar|reservar|book|appointment|cita|cotizar|ordenar|pedido|checkout|pagar|claim|solicitar|oferta|inquire/i.test(text)
+        /comprar|reservar|book|appointment|cita|cotizar|ordenar|pedido|checkout|pagar|claim|solicitar|oferta|inquire|buy/i.test(lowerText)
       ) {
-        actionLabel = 'Acción: ' + (target.innerText || 'Reserva/Compra').trim().slice(0, 32);
+        actionLabel = '🛒 Acción: ' + (text || 'Reserva/Compra').slice(0, 32);
+        isHardConversion = true;
       }
 
       if (actionLabel) {
-        recordConversion(actionLabel);
+        recordConversion(actionLabel, isHardConversion);
       }
     }, true);
 
+    // 2. Form Submissions
     document.addEventListener('submit', (e) => {
       const form = e.target;
       if (form && form.id !== 'project-form') {
-        recordConversion('Formulario Enviado / Reserva');
+        recordConversion('📝 Formulario Enviado / Solicitud', true);
       }
+    }, true);
+
+    // 3. Silent Copy Detection (100% passive via window.getSelection, zero browser alerts)
+    document.addEventListener('copy', () => {
+      try {
+        const selected = (window.getSelection && window.getSelection().toString() || '').trim().replace(/\s+/g, ' ');
+        if (selected && selected.length >= 3) {
+          recordConversion('📋 Copió texto: "' + selected.slice(0, 36) + '"', false);
+        }
+      } catch (e) {}
+    }, true);
+
+    // 4. Calculator / Simulator / Filter Interaction Detection
+    document.addEventListener('change', (e) => {
+      try {
+        const el = e.target;
+        if (!el || !el.tagName) return;
+        const type = (el.getAttribute('type') || '').toLowerCase();
+        if (el.tagName === 'SELECT' || type === 'range' || type === 'number' || el.classList.contains('simulator-input')) {
+          const val = String(el.value || '').trim();
+          const name = (el.getAttribute('name') || el.getAttribute('id') || el.getAttribute('aria-label') || 'Filtro/Simulador').slice(0, 22);
+          if (val) {
+            recordConversion(`🎛️ Simuló ${name}: ${val.slice(0, 24)}`, false);
+          }
+        }
+      } catch (err) {}
+    }, true);
+
+    // 5. Video Play Detection
+    document.addEventListener('play', (e) => {
+      try {
+        const el = e.target;
+        if (el && el.tagName === 'VIDEO') {
+          recordConversion('🎬 Reprodujo Video en Página', false);
+        }
+      } catch (err) {}
     }, true);
   }
 
-  function recordConversion(label) {
-    conversionsCount += 1;
+  async function tryActivateHumanSession(forceByConversion = false) {
+    if (isTrackingActive || isBlockedSource) return;
+    if (!geoReady) return;
+    if (!forceByConversion && (!hasHumanInteracted || !hasPassedDwellGate)) return;
+
+    if (!sessionId) {
+      sessionId = 'spy_' + siteId.slice(0, 18) + '_' + (crypto.randomUUID ? crypto.randomUUID().slice(0, 10) : Math.random().toString(36).substring(2, 10) + Date.now().toString(36));
+      visitNumber = incrementSiteVisitCount(siteId);
+      sessionStorage.setItem(sessionKey, sessionId);
+      sessionStorage.setItem(startKey, String(sessionStartTime));
+      sessionStorage.setItem(vnumKey, String(visitNumber));
+    } else if (!visitNumber) {
+      visitNumber = parseInt(localStorage.getItem('tecno_spy_vcount_' + siteId) || '1', 10);
+    }
+
+    isTrackingActive = true;
+    await registerInitialVisit();
+    setInterval(() => sendHeartbeat(false), CONFIG.heartbeatIntervalMs);
+    window.addEventListener('beforeunload', () => sendHeartbeat(true));
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') sendHeartbeat(true);
+    });
+  }
+
+  function recordConversion(label, countAsConversion = true) {
+    if (isBlockedSource) return;
+    if (countAsConversion) {
+      conversionsCount += 1;
+      sessionStorage.setItem(convKey, String(conversionsCount));
+    }
     conversionEvents.push({
       label: label,
       at: new Date().toISOString()
     });
-    sessionStorage.setItem(convKey, String(conversionsCount));
-    sessionStorage.setItem(convEventsKey, JSON.stringify(conversionEvents.slice(-20)));
-    sendHeartbeat(false);
+    conversionEvents = conversionEvents.slice(-30);
+    sessionStorage.setItem(convEventsKey, JSON.stringify(conversionEvents));
+    if (!isTrackingActive) {
+      hasHumanInteracted = true;
+      hasPassedDwellGate = true;
+      tryActivateHumanSession(true);
+    } else {
+      sendHeartbeat(false);
+    }
   }
 
-  window.recordTecnoSpyConversion = recordConversion;
+  window.recordTecnoSpyConversion = (label) => recordConversion(label, true);
+
+  function listenForHumanProof() {
+    const onHumanEvent = (e) => {
+      if (e && e.isTrusted === false) return;
+      hasHumanInteracted = true;
+      tryActivateHumanSession(false);
+    };
+    window.addEventListener('scroll', onHumanEvent, { passive: true, once: true });
+    window.addEventListener('touchstart', onHumanEvent, { passive: true, once: true });
+    window.addEventListener('pointerdown', onHumanEvent, { passive: true, once: true });
+    window.addEventListener('mousemove', onHumanEvent, { passive: true, once: true });
+    window.addEventListener('keydown', onHumanEvent, { passive: true, once: true });
+  }
 
   async function initTelemetry() {
+    purgeAnyOnSiteUi();
     ensureSiteRegistered();
-    if (isExcludedAdmin) {
+
+    if (localStorage.getItem('tecno_spy_admin_excluded') === 'true' || isAutomatedBotEnv()) {
+      isBlockedSource = true;
       return;
     }
 
+    sessionStartTime = parseInt(sessionStorage.getItem(startKey) || String(Date.now()), 10);
+    sessionStorage.setItem(startKey, String(sessionStartTime));
+
+    setupSectionAndScrollObservers();
+    listenForHumanProof();
+    setupConversionAndIntentListeners();
+
+    setTimeout(() => {
+      if (document.visibilityState !== 'hidden') {
+        hasPassedDwellGate = true;
+        tryActivateHumanSession(false);
+      }
+    }, CONFIG.minHumanDwellMs);
+
     try {
       clientGeo = await resolveGeo();
-
-      if (!sessionId) {
-        sessionId = 'spy_' + siteId.slice(0, 18) + '_' + (crypto.randomUUID ? crypto.randomUUID().slice(0, 10) : Math.random().toString(36).substring(2, 10) + Date.now().toString(36));
-        sessionStartTime = Date.now();
-        visitNumber = incrementSiteVisitCount(siteId);
-        sessionStorage.setItem(sessionKey, sessionId);
-        sessionStorage.setItem(startKey, String(sessionStartTime));
-        sessionStorage.setItem(vnumKey, String(visitNumber));
-      } else if (!visitNumber) {
-        visitNumber = parseInt(localStorage.getItem('tecno_spy_vcount_' + siteId) || '1', 10);
+      if (isIpOrIspExcluded(clientGeo.ip, clientGeo.isp)) {
+        isBlockedSource = true;
+        return;
       }
-
-      isTrackingActive = true;
-      await registerInitialVisit();
-      setupConversionListeners();
-
-      setInterval(() => sendHeartbeat(false), CONFIG.heartbeatIntervalMs);
-      window.addEventListener('beforeunload', () => sendHeartbeat(true));
-      document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'hidden') sendHeartbeat(true);
-      });
+      geoReady = true;
+      tryActivateHumanSession(false);
     } catch (err) {}
   }
 
   async function registerInitialVisit() {
-    const durationSec = Math.max(1, Math.round((Date.now() - sessionStartTime) / 1000));
+    const durationSec = Math.max(4, Math.round((Date.now() - sessionStartTime) / 1000));
     const payload = {
       id: sessionId,
       site_id: siteId,
@@ -283,8 +660,9 @@
       country: clientGeo.country,
       device: getDeviceInfo(),
       user_agent: (navigator.userAgent || '').slice(0, 250),
-      referrer: (document.referrer || 'Directo').slice(0, 200),
+      referrer: getOriginAndProspectAttribution().slice(0, 200),
       duration_seconds: durationSec,
+      sections_viewed: buildSectionsViewedTelemetryArray(),
       conversions_count: conversionsCount,
       conversion_events: conversionEvents,
       is_active: true,
@@ -307,10 +685,11 @@
   }
 
   async function sendHeartbeat(isClosing = false) {
-    if (!isTrackingActive || !sessionId) return;
-    const durationSec = Math.max(1, Math.round((Date.now() - sessionStartTime) / 1000));
+    if (!isTrackingActive || !sessionId || isBlockedSource) return;
+    const durationSec = Math.max(4, Math.round((Date.now() - sessionStartTime) / 1000));
     const payload = {
       duration_seconds: durationSec,
+      sections_viewed: buildSectionsViewedTelemetryArray(),
       conversions_count: conversionsCount,
       conversion_events: conversionEvents,
       is_active: !isClosing,
@@ -329,262 +708,6 @@
         keepalive: Boolean(isClosing)
       });
     } catch (e) {}
-  }
-
-  // --- SPY TELEMETRY PANEL FOR DAVID (?admin=david | ?view=spy | Alt+S) ---
-  let spyActiveTab = 'current';
-
-  function mountSpyPanel() {
-    if (document.getElementById('tecno-universal-spy-panel')) {
-      document.getElementById('tecno-universal-spy-panel').style.display = 'block';
-      refreshSpyMetrics();
-      return;
-    }
-
-    const panel = document.createElement('div');
-    panel.id = 'tecno-universal-spy-panel';
-    panel.style.cssText = 'position:fixed;bottom:16px;right:16px;width:430px;max-width:calc(100vw - 24px);z-index:2147483647;background:rgba(10,15,24,0.98);border:1px solid rgba(217,183,111,0.45);border-radius:20px;box-shadow:0 25px 60px rgba(0,0,0,0.75);padding:18px;color:#F8FAFC;font-family:system-ui,-apple-system,sans-serif;font-size:12px;backdrop-filter:blur(16px);';
-
-    panel.innerHTML = `
-      <div style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid rgba(255,255,255,0.1);">
-        <div style="display:flex;align-items:center;gap:8px;">
-          <span style="width:9px;height:9px;border-radius:999px;background:#10B981;box-shadow:0 0 10px #10B981;display:inline-block;"></span>
-          <div>
-            <div style="font-weight:800;color:#FBBF24;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;">Sistema Espía • Tecnoemprende & Jota</div>
-            <div style="font-size:10px;color:#94A3B8;margin-top:1px;">${siteName}</div>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <button id="spy-btn-refresh" style="background:rgba(251,191,36,0.14);border:1px solid rgba(251,191,36,0.35);color:#FBBF24;padding:4px 8px;border-radius:8px;font-size:10px;font-weight:700;cursor:pointer;">Actualizar</button>
-          <button id="spy-btn-close" style="background:transparent;border:none;color:#94A3B8;font-size:18px;line-height:1;cursor:pointer;padding:2px 6px;">&times;</button>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:6px;margin-top:10px;">
-        <button id="spy-tab-current" style="flex:1;padding:7px 10px;border-radius:10px;font-size:11px;font-weight:800;cursor:pointer;border:1px solid rgba(251,191,36,0.4);background:rgba(251,191,36,0.18);color:#FDE68A;">📊 Esta Página</button>
-        <button id="spy-tab-global" style="flex:1;padding:7px 10px;border-radius:10px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#94A3B8;">🌐 Todas las Páginas</button>
-      </div>
-
-      <div id="spy-kpi-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px;">
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:7px 6px;text-align:center;">
-          <div style="font-size:8px;color:#94A3B8;text-transform:uppercase;font-weight:700;">Únicos</div>
-          <div id="spy-kpi-unique" style="font-size:16px;font-weight:900;color:#34D399;margin-top:2px;">-</div>
-          <div style="font-size:8px;color:#64748B;">Usuarios</div>
-        </div>
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:7px 6px;text-align:center;">
-          <div style="font-size:8px;color:#94A3B8;text-transform:uppercase;font-weight:700;">Visitas</div>
-          <div id="spy-kpi-total" style="font-size:16px;font-weight:900;color:#FBBF24;margin-top:2px;">-</div>
-          <div style="font-size:8px;color:#64748B;">Sesiones</div>
-        </div>
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:7px 6px;text-align:center;">
-          <div style="font-size:8px;color:#94A3B8;text-transform:uppercase;font-weight:700;">Reservas</div>
-          <div id="spy-kpi-conv" style="font-size:16px;font-weight:900;color:#F472B6;margin-top:2px;">-</div>
-          <div style="font-size:8px;color:#64748B;">Compras/WA</div>
-        </div>
-        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:7px 6px;text-align:center;">
-          <div style="font-size:8px;color:#94A3B8;text-transform:uppercase;font-weight:700;">En Línea</div>
-          <div id="spy-kpi-online" style="font-size:16px;font-weight:900;color:#38BDF8;margin-top:2px;">-</div>
-          <div style="font-size:8px;color:#64748B;">Activos</div>
-        </div>
-      </div>
-
-      <div id="spy-body-container" style="margin-top:12px;max-height:270px;overflow-y:auto;padding-right:2px;">
-        <div style="text-align:center;padding:18px;color:#64748B;">Cargando telemetría en vivo...</div>
-      </div>
-
-      <div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#64748B;">
-        <span>Tu navegador admin está excluido del conteo.</span>
-        <a href="https://jota-cloud.onrender.com/#/espia" target="_blank" style="color:#FBBF24;font-weight:700;text-decoration:none;">Abrir Biblioteca Espía en Jota ↗</a>
-      </div>
-    `;
-
-    document.body.appendChild(panel);
-
-    document.getElementById('spy-btn-close').onclick = () => {
-      panel.style.display = 'none';
-    };
-    document.getElementById('spy-btn-refresh').onclick = () => refreshSpyMetrics();
-    document.getElementById('spy-tab-current').onclick = () => {
-      spyActiveTab = 'current';
-      updateTabStyles();
-      refreshSpyMetrics();
-    };
-    document.getElementById('spy-tab-global').onclick = () => {
-      spyActiveTab = 'global';
-      updateTabStyles();
-      refreshSpyMetrics();
-    };
-
-    refreshSpyMetrics();
-  }
-
-  function updateTabStyles() {
-    const tCur = document.getElementById('spy-tab-current');
-    const tGlo = document.getElementById('spy-tab-global');
-    if (!tCur || !tGlo) return;
-    if (spyActiveTab === 'current') {
-      tCur.style.background = 'rgba(251,191,36,0.18)';
-      tCur.style.borderColor = 'rgba(251,191,36,0.4)';
-      tCur.style.color = '#FDE68A';
-      tGlo.style.background = 'rgba(255,255,255,0.04)';
-      tGlo.style.borderColor = 'rgba(255,255,255,0.1)';
-      tGlo.style.color = '#94A3B8';
-    } else {
-      tGlo.style.background = 'rgba(251,191,36,0.18)';
-      tGlo.style.borderColor = 'rgba(251,191,36,0.4)';
-      tGlo.style.color = '#FDE68A';
-      tCur.style.background = 'rgba(255,255,255,0.04)';
-      tCur.style.borderColor = 'rgba(255,255,255,0.1)';
-      tCur.style.color = '#94A3B8';
-    }
-  }
-
-  async function refreshSpyMetrics() {
-    const container = document.getElementById('spy-body-container');
-    if (!container) return;
-    container.innerHTML = '<div style="text-align:center;padding:16px;color:#94A3B8;">Consultando registros en Supabase...</div>';
-
-    try {
-      const queryUrl = spyActiveTab === 'current'
-        ? `${CONFIG.supabaseUrl}/rest/v1/web_spy_visits?site_id=eq.${encodeURIComponent(siteId)}&order=created_at.desc&limit=200`
-        : `${CONFIG.supabaseUrl}/rest/v1/web_spy_visits?order=created_at.desc&limit=500`;
-
-      const res = await fetch(queryUrl, {
-        headers: {
-          'apikey': CONFIG.supabaseKey,
-          'Authorization': `Bearer ${CONFIG.supabaseKey}`
-        }
-      });
-      if (!res.ok) throw new Error('Error HTTP ' + res.status);
-      const rows = await res.json();
-
-      const uniqueSet = new Set();
-      let onlineNow = 0;
-      let totalConv = 0;
-      const nowMs = Date.now();
-
-      rows.forEach(r => {
-        const uKey = r.visitor_id || ((r.ip || '') + '|' + (r.device || ''));
-        uniqueSet.add(uKey);
-        totalConv += Number(r.conversions_count || 0);
-        const pingMs = new Date(r.last_ping_at || r.created_at).getTime();
-        if (r.is_active && (nowMs - pingMs) < 65000) {
-          onlineNow++;
-        }
-      });
-
-      const elUnique = document.getElementById('spy-kpi-unique');
-      const elTotal = document.getElementById('spy-kpi-total');
-      const elConv = document.getElementById('spy-kpi-conv');
-      const elOnline = document.getElementById('spy-kpi-online');
-      if (elUnique) elUnique.textContent = String(uniqueSet.size);
-      if (elTotal) elTotal.textContent = String(rows.length);
-      if (elConv) elConv.textContent = String(totalConv);
-      if (elOnline) elOnline.textContent = String(onlineNow);
-
-      if (spyActiveTab === 'global') {
-        const bySite = {};
-        rows.forEach(r => {
-          const sid = r.site_id || 'unknown';
-          if (!bySite[sid]) {
-            bySite[sid] = {
-              siteId: sid,
-              siteName: r.site_name || sid,
-              totalVisits: 0,
-              uniqueVisitors: new Set(),
-              conversions: 0,
-              onlineCount: 0
-            };
-          }
-          bySite[sid].totalVisits++;
-          bySite[sid].uniqueVisitors.add(r.visitor_id || ((r.ip || '') + '|' + (r.device || '')));
-          bySite[sid].conversions += Number(r.conversions_count || 0);
-          const pingMs = new Date(r.last_ping_at || r.created_at).getTime();
-          if (r.is_active && (nowMs - pingMs) < 65000) {
-            bySite[sid].onlineCount++;
-          }
-        });
-
-        const siteList = Object.values(bySite).sort((a, b) => b.totalVisits - a.totalVisits);
-        if (siteList.length === 0) {
-          container.innerHTML = `<div style="padding:14px;border-radius:12px;background:rgba(255,255,255,0.03);text-align:center;color:#94A3B8;">Aún no hay visitas externas registradas en la red global.</div>`;
-          return;
-        }
-
-        container.innerHTML = siteList.map(s => `
-          <div style="padding:10px 12px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);margin-bottom:8px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <span style="font-weight:800;color:#F8FAFC;font-size:11px;">${s.siteName}</span>
-              <span style="font-size:10px;color:#34D399;font-weight:800;">${s.uniqueVisitors.size} únicos</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:5px;font-size:10px;color:#94A3B8;">
-              <span>Visitas: <strong style="color:#FBBF24;">${s.totalVisits}</strong></span>
-              <span>Reservas/Compras: <strong style="color:#F472B6;">${s.conversions}</strong></span>
-              <span>En línea: <strong style="color:#38BDF8;">${s.onlineCount}</strong></span>
-            </div>
-          </div>
-        `).join('');
-        return;
-      }
-
-      if (rows.length === 0) {
-        container.innerHTML = `
-          <div style="padding:16px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);text-align:center;color:#94A3B8;">
-            <div style="color:#FBBF24;font-weight:800;margin-bottom:4px;">0 Visitas Externas Aún</div>
-            <div style="font-size:10px;">El sistema espía está activo en <strong>${siteName}</strong>. Cada visitante externo se registrará con dispositivo, ubicación, duración y compras/reservas.</div>
-          </div>
-        `;
-        return;
-      }
-
-      container.innerHTML = rows.slice(0, 40).map(r => {
-        const pingMs = new Date(r.last_ping_at || r.created_at).getTime();
-        const isOnline = r.is_active && (nowMs - pingMs) < 65000;
-        const dateStr = new Date(r.created_at).toLocaleString('es-ES', { dateStyle: 'short', timeStyle: 'short' });
-        const shortUser = (r.visitor_id || 'usr').slice(-6).toUpperCase();
-        const conv = Number(r.conversions_count || 0);
-        return `
-          <div style="padding:10px 12px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);margin-bottom:8px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <span style="font-weight:800;color:#FFFFFF;font-size:11px;">${r.device || 'Dispositivo'} <span style="color:#FBBF24;font-size:10px;">#${shortUser}</span></span>
-              <span style="padding:2px 7px;border-radius:6px;font-size:9px;font-weight:800;${isOnline ? 'background:rgba(16,185,129,0.2);color:#34D399;border:1px solid rgba(16,185,129,0.35);' : 'background:rgba(255,255,255,0.06);color:#94A3B8;'}">
-                ${isOnline ? '🟢 En línea ahora' : 'Visita #' + (r.visit_count || 1)}
-              </span>
-            </div>
-            <div style="display:flex;justify-content:space-between;margin-top:5px;font-size:10px;color:#CBD5E1;">
-              <span>📍 ${r.city || 'Ciudad'}, ${r.country || 'País'}</span>
-              <span>⏱️ <strong style="color:#FBBF24;">${formatDuration(r.duration_seconds)}</strong> ${conv > 0 ? `• <strong style="color:#F472B6;">🛒 ${conv} acción(es)</strong>` : ''}</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;margin-top:4px;padding-top:4px;border-top:1px solid rgba(255,255,255,0.06);font-size:9px;color:#64748B;">
-              <span>Fecha: ${dateStr}</span>
-              <span>IP: ${r.ip || 'Directo'}</span>
-            </div>
-          </div>
-        `;
-      }).join('');
-    } catch (err) {
-      container.innerHTML = `<div style="text-align:center;padding:12px;color:#F87171;font-size:11px;">Error al consultar telemetría: ${err.message}</div>`;
-    }
-  }
-
-  window.openTecnoSpyPanel = function () {
-    localStorage.setItem('tecno_spy_admin_excluded', 'true');
-    mountSpyPanel();
-  };
-
-  window.addEventListener('keydown', (e) => {
-    if (e.altKey && (e.key === 's' || e.key === 'S')) {
-      e.preventDefault();
-      window.openTecnoSpyPanel();
-    }
-  });
-
-  if (isSpyParam) {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', mountSpyPanel);
-    } else {
-      mountSpyPanel();
-    }
   }
 
   initTelemetry();
